@@ -1,0 +1,13 @@
+1 1 ..\images\wall3.png
+1 1 ..\images\food2.png
+1 1 ..\images\vitamins.png 
+4 14 ..\images\characters1.png
+1 10 ..\images\digits.png
+1 1 ..\images\background.jpg
+1 1 ..\images\heart.png
+1 1 ..\images\battery.png
+1 1 ..\images\youwin.png
+1 1 ..\images\game_over.png
+1 1 ..\images\menubg.png
+6 2 ..\images\buttons.png
+1 1 ..\images\pauseMenu.png

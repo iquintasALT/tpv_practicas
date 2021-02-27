@@ -1,0 +1,2 @@
+- Opcionales añadidas:
+* Premios: Cada cierto tiempo, si se come a un fantasma aparecerá un premio en la casilla trasera al fantasma. Hay dos tipos: añadir vida extra, avanzar de nivel (sin aumentar la puntuacion actual).
