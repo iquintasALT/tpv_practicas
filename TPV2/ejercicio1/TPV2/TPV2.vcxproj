@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ecs\Entity.cpp" />
+    <ClCompile Include="ecs\Manager.cpp" />
+    <ClCompile Include="game\Game.cpp" />
     <ClCompile Include="json\somplejson_demo.cpp" />
     <ClCompile Include="json\JSON.cpp" />
     <ClCompile Include="json\JSONValue.cpp" />
@@ -31,6 +34,18 @@
     <ClCompile Include="utils\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="components\Bounce.h" />
+    <ClInclude Include="components\KeyBoardCtrl.h" />
+    <ClInclude Include="components\Rectangle.h" />
+    <ClInclude Include="components\Transform.h" />
+    <ClInclude Include="ecs\Component.h" />
+    <ClInclude Include="ecs\ecs.h" />
+    <ClInclude Include="ecs\ecs_defs_example.h" />
+    <ClInclude Include="ecs\Entity.h" />
+    <ClInclude Include="ecs\Manager.h" />
+    <ClInclude Include="ecs\mpl.h" />
+    <ClInclude Include="game\ecs_defs.h" />
+    <ClInclude Include="game\Game.h" />
     <ClInclude Include="json\simplejson_demo.h" />
     <ClInclude Include="json\JSON.h" />
     <ClInclude Include="json\JSONValue.h" />
