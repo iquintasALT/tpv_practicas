@@ -176,5 +176,8 @@
     <ClInclude Include="components\Transform.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
+    <ClInclude Include="components\Image.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
