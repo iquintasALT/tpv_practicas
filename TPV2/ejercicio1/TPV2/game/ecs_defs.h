@@ -8,13 +8,15 @@ class Rectangle;
 class KeyBoardCtrl;
 class Bounce;
 class Image;
+class Rotate;
 
 #define _CMPS_LIST_  \
 	Transform,\
 	Rectangle,\
 	KeyBoardCtrl,\
 	Bounce,\
-	Image
+	Image,\
+	Rotate
 
 // groups
 

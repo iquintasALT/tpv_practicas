@@ -179,5 +179,8 @@
     <ClInclude Include="components\Image.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
+    <ClInclude Include="components\Rotate.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@
 #include "Game.h"
 
 #include "../components/Bounce.h"
-#include "../components/KeyBoardCtrl.h"
+#include "../components/Rotate.h"
 #include "../components/Image.h"
 #include "../components/Transform.h"
 #include "../ecs/ecs.h"
@@ -31,7 +31,7 @@ void Game::init() {
 			Vector2D(sdlutils().width() / 2.0f, sdlutils().height() / 2.0f),
 			Vector2D(), 10.0f, 10.0f, 0.0f);
 	ball->addComponent<Image>(&sdlutils().images().at("tennis_ball"));
-	ball->addComponent<KeyBoardCtrl>();
+	ball->addComponent<Rotate>();
 	ball->addComponent<Bounce>();
 
 
