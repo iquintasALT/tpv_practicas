@@ -28,11 +28,10 @@ void Game::init() {
 
 	auto *fighter = mngr_->addEntity();
 	fighter->addComponent<Transform>(
-			Vector2D(sdlutils().width() / 2.0f, sdlutils().height() / 2.0f),
-			Vector2D(), 10.0f, 10.0f, 0.0f);
+		Vector2D(sdlutils().width() / 2.0f - 50.0f, sdlutils().height() / 2.0f - 50.0f),
+			Vector2D(), 200.0f, 200.0f, 0.0f);
 	fighter->addComponent<Image>(&sdlutils().images().at("fighter"));
 	fighter->addComponent<Rotate>();
-	fighter->addComponent<Bounce>();
 
 
 }

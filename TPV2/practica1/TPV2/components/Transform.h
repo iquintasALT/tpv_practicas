@@ -13,7 +13,7 @@ public:
 
 	Transform(Vector2D pos, Vector2D vel, float width, float height,
 			float rotation) :
-			pos_(pos), //
+			pos_(pos), // se puede restar la mitad del ancho y el alto para centrarlo bien?
 			vel_(vel), //
 			width_(width), //
 			height_(height), //
@@ -30,6 +30,10 @@ public:
 
 	Vector2D& getVel() {
 		return vel_;
+	}
+
+	void setVel(Vector2D vel) {
+		vel_ = vel;
 	}
 
 	float getH() const {
