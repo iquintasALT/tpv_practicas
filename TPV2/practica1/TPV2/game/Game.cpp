@@ -24,7 +24,7 @@ Game::~Game() {
 void Game::init() {
 
 	SDLUtils::init("Ping Pong", 800, 600,
-			"resources/config/pingpong.resources.json");
+			"resources/config/resources.json");
 
 	auto *ball = mngr_->addEntity();
 	ball->addComponent<Transform>(
