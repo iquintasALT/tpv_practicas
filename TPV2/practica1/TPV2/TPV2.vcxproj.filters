@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -179,14 +179,17 @@
     <ClInclude Include="components\Rotate.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
-<<<<<<< HEAD:TPV2/ejercicio1/TPV2/TPV2.vcxproj.filters
-=======
     <ClInclude Include="components\DeAcceleration.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
     <ClInclude Include="components\FighterCtrl.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
->>>>>>> aaf6020 (fighterCtrl):practica1/TPV2/TPV2.vcxproj.filters
+    <ClInclude Include="components\Heart.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
+    <ClInclude Include="components\ShowAtOppositeSide.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

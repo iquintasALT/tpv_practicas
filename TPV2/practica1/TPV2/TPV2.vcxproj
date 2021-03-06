@@ -36,6 +36,7 @@
   <ItemGroup>
     <ClInclude Include="components\Bounce.h" />
     <ClInclude Include="components\DeAcceleration.h" />
+    <ClInclude Include="components\Heart.h" />
     <ClInclude Include="components\Image.h" />
     <ClInclude Include="components\FighterCtrl.h" />
     <ClInclude Include="components\Rectangle.h" />

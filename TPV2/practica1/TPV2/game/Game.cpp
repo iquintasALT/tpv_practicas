@@ -8,6 +8,7 @@
 #include "../components/Transform.h"
 #include "../components/FighterCtrl.h"
 #include "../components/DeAcceleration.h"
+#include "../components/Heart.h"
 #include "../ecs/ecs.h"
 #include "../ecs/Entity.h"
 #include "../sdlutils/InputHandler.h"
@@ -33,8 +34,10 @@ void Game::init() {
 		Vector2D(sdlutils().width() / 2.0f - 25.0f, sdlutils().height() / 2.0f - 25.0f),
 			Vector2D(), 50.0f, 50.0f, 0.0f);
 	fighter->addComponent<Image>(&sdlutils().images().at("fighter"));
+	//fighter->addComponent<Image>(&sdlutils().images().at("heart"));
 	fighter->addComponent<FighterCtrl>();
 	fighter->addComponent<DeAcceleration>();
+	fighter->addComponent<Heart>(&sdlutils().images().at("heart"), Vector2D(0,0));
 
 
 }

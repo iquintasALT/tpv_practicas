@@ -31,7 +31,10 @@ public:
 			
 			if (ih().isKeyDown(SDL_SCANCODE_UP)) {
 				auto& vel = tr_->getVel();
-				vel.set(vel + (Vector2D(0, -1).rotate(tr_->getRot()) * thrust));
+				auto newVel = vel + (Vector2D(0, -1).rotate(tr_->getRot()) * thrust).normalize();
+				vel.set((newVel.magnitude() > speedLimit) ? 
+					(Vector2D(0, -1).rotate(tr_->getRot()) * thrust).normalize()
+					: newVel);
 			} else if (ih().isKeyDown(SDL_SCANCODE_LEFT)) {
 				tr_->setRot(tr_->getRot() - 5.0f);
 			} else if (ih().isKeyDown(SDL_SCANCODE_RIGHT)) {
@@ -43,7 +46,7 @@ public:
 private:
 	Transform *tr_;
 	float speed_;
-	const float thrust = .2f;
+	const float thrust = .2f, speedLimit = 3.0f;
 }
 ;
 

@@ -10,6 +10,7 @@ class Bounce;
 class Image;
 class Rotate;
 class DeAcceleration;
+class Heart;
 
 #define _CMPS_LIST_  \
 	Transform,\
@@ -18,7 +19,8 @@ class DeAcceleration;
 	Bounce,\
 	Image,\
 	Rotate,\
-	DeAcceleration
+	DeAcceleration, \
+	Heart	
 
 // groups
 
