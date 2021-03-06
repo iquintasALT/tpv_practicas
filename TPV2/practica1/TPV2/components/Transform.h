@@ -32,10 +32,6 @@ public:
 		return vel_;
 	}
 
-	void setVel(Vector2D vel) {
-		vel_ = vel;
-	}
-
 	float getH() const {
 		return height_;
 	}

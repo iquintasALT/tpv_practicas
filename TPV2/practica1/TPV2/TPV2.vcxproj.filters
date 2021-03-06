@@ -167,9 +167,6 @@
     <ClInclude Include="components\Bounce.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
-    <ClInclude Include="components\KeyBoardCtrl.h">
-      <Filter>Header Files\components</Filter>
-    </ClInclude>
     <ClInclude Include="components\Rectangle.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
@@ -182,8 +179,14 @@
     <ClInclude Include="components\Rotate.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
+<<<<<<< HEAD:TPV2/ejercicio1/TPV2/TPV2.vcxproj.filters
+=======
     <ClInclude Include="components\DeAcceleration.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
+    <ClInclude Include="components\FighterCtrl.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
+>>>>>>> aaf6020 (fighterCtrl):practica1/TPV2/TPV2.vcxproj.filters
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@
 #include "../ecs/Component.h"
 #include "../ecs/Entity.h"
 #include "Transform.h"
+#include "../utils/Vector2D.h"
 
 class DeAcceleration : public Component
 {
@@ -19,7 +20,8 @@ public:
 	}
 
 	void update() override {
-		tr_->setVel(tr_->getVel() * 0.955f);
+		auto& vel = tr_->getVel();
+		vel.set((vel * 0.995f));
 	}
 
 private:

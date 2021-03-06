@@ -1,5 +1,3 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
-
 #pragma once
 
 #include <SDL.h>
@@ -10,12 +8,12 @@
 #include "../ecs/Entity.h"
 #include "Transform.h"
 
-class KeyBoardCtrl: public Component {
+class FighterCtrl: public Component {
 public:
-	KeyBoardCtrl() :
-			tr_(nullptr), speed_(10.0) {
+	FighterCtrl() :
+			tr_(nullptr), speed_(1.0) {
 	}
-	virtual ~KeyBoardCtrl() {
+	virtual ~FighterCtrl() {
 	}
 
 
@@ -30,17 +28,14 @@ public:
 
 	void update() override {
 		if (ih().keyDownEvent()) {
-			auto &vel = tr_->getVel();
+			
 			if (ih().isKeyDown(SDL_SCANCODE_UP)) {
-				vel.setY(-speed_);
-			} else if (ih().isKeyDown(SDL_SCANCODE_DOWN)) {
-				vel.setY(speed_);
+				auto& vel = tr_->getVel();
+				vel.set(vel + (Vector2D(0, -1).rotate(tr_->getRot()) * thrust));
 			} else if (ih().isKeyDown(SDL_SCANCODE_LEFT)) {
-				vel.setX(-speed_);
+				tr_->setRot(tr_->getRot() - 5.0f);
 			} else if (ih().isKeyDown(SDL_SCANCODE_RIGHT)) {
-				vel.setX(speed_);
-			} else if (ih().isKeyDown(SDL_SCANCODE_STOP)) {
-				vel.setY(0.0f);
+				tr_->setRot(tr_->getRot() + 5.0f);
 			}
 		}
 	}
@@ -48,6 +43,7 @@ public:
 private:
 	Transform *tr_;
 	float speed_;
+	const float thrust = .2f;
 }
 ;
 

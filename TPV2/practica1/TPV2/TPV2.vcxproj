@@ -35,12 +35,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="components\Bounce.h" />
+    <ClInclude Include="components\DeAcceleration.h" />
     <ClInclude Include="components\Image.h" />
-    <ClInclude Include="components\KeyBoardCtrl.h" />
+    <ClInclude Include="components\FighterCtrl.h" />
     <ClInclude Include="components\Rectangle.h" />
     <ClInclude Include="components\Rotate.h" />
     <ClInclude Include="components\Transform.h" />
-    <ClInclude Include="components\DeAcceleration.h" />
     <ClInclude Include="ecs\Component.h" />
     <ClInclude Include="ecs\ecs.h" />
     <ClInclude Include="ecs\ecs_defs_example.h" />
