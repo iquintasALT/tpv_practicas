@@ -22,9 +22,9 @@
     <ClCompile Include="ecs\Entity.cpp" />
     <ClCompile Include="ecs\Manager.cpp" />
     <ClCompile Include="game\Game.cpp" />
-    <ClCompile Include="json\somplejson_demo.cpp" />
     <ClCompile Include="json\JSON.cpp" />
     <ClCompile Include="json\JSONValue.cpp" />
+    <ClCompile Include="json\simplejson_demo.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sdlutils\sdlutils_demo.cpp" />
     <ClCompile Include="sdlutils\SDLUtils.cpp" />

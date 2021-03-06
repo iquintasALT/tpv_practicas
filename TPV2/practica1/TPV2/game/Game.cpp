@@ -23,16 +23,16 @@ Game::~Game() {
 
 void Game::init() {
 
-	SDLUtils::init("Ping Pong", 800, 600,
+	SDLUtils::init("Asteroid", 800, 600,
 			"resources/config/resources.json");
 
-	auto *ball = mngr_->addEntity();
-	ball->addComponent<Transform>(
+	auto *fighter = mngr_->addEntity();
+	fighter->addComponent<Transform>(
 			Vector2D(sdlutils().width() / 2.0f, sdlutils().height() / 2.0f),
 			Vector2D(), 10.0f, 10.0f, 0.0f);
-	ball->addComponent<Image>(&sdlutils().images().at("tennis_ball"));
-	ball->addComponent<Rotate>();
-	ball->addComponent<Bounce>();
+	fighter->addComponent<Image>(&sdlutils().images().at("fighter"));
+	fighter->addComponent<Rotate>();
+	fighter->addComponent<Bounce>();
 
 
 }

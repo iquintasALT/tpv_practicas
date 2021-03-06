@@ -75,9 +75,6 @@
     <ClCompile Include="sdlutils\Texture.cpp">
       <Filter>Source Files\sdlutils</Filter>
     </ClCompile>
-    <ClCompile Include="json\somplejson_demo.cpp">
-      <Filter>Source Files\json</Filter>
-    </ClCompile>
     <ClCompile Include="ecs\Entity.cpp">
       <Filter>Source Files\ecs</Filter>
     </ClCompile>
@@ -89,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="json\simplejson_demo.cpp">
+      <Filter>Source Files\json</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
