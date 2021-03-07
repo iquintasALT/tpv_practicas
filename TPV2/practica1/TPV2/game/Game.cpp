@@ -9,6 +9,7 @@
 #include "../components/FighterCtrl.h"
 #include "../components/DeAcceleration.h"
 #include "../components/Heart.h"
+#include "../components/ShowAtOppositeSide.h"
 #include "../ecs/ecs.h"
 #include "../ecs/Entity.h"
 #include "../sdlutils/InputHandler.h"
@@ -37,7 +38,8 @@ void Game::init() {
 	//fighter->addComponent<Image>(&sdlutils().images().at("heart"));
 	fighter->addComponent<FighterCtrl>();
 	fighter->addComponent<DeAcceleration>();
-	fighter->addComponent<Heart>(&sdlutils().images().at("heart"), Vector2D(0,0));
+	fighter->addComponent<Heart>(&sdlutils().images().at("heart"), Vector2D(0, 0));
+	fighter->addComponent<ShowAtOppositeSide>(sdlutils().width(), sdlutils().height());
 
 
 }

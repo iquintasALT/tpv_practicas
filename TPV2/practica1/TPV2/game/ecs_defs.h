@@ -11,6 +11,7 @@ class Image;
 class Rotate;
 class DeAcceleration;
 class Heart;
+class ShowAtOppositeSide;
 
 #define _CMPS_LIST_  \
 	Transform,\
@@ -20,12 +21,15 @@ class Heart;
 	Image,\
 	Rotate,\
 	DeAcceleration, \
-	Heart	
+	Heart, \
+	ShowAtOppositeSide
 
 // groups
 
-struct Group_1;
-#define _GRPS_LIST_  Group_1
+struct Asteroid_grp;
+struct Bullet_grp;
+#define _GRPS_LIST_  Asteroid_grp, \
+	Bullet_grp
 
 // handlers
 struct Hdlr_1;

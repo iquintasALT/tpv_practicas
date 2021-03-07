@@ -41,6 +41,7 @@
     <ClInclude Include="components\FighterCtrl.h" />
     <ClInclude Include="components\Rectangle.h" />
     <ClInclude Include="components\Rotate.h" />
+    <ClInclude Include="components\ShowAtOppositeSide.h" />
     <ClInclude Include="components\Transform.h" />
     <ClInclude Include="ecs\Component.h" />
     <ClInclude Include="ecs\ecs.h" />

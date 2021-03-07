@@ -10,12 +10,9 @@
 
 class FighterCtrl: public Component {
 public:
-	FighterCtrl() :
-			tr_(nullptr), speed_(1.0) {
-	}
-	virtual ~FighterCtrl() {
-	}
+	FighterCtrl() : tr_(nullptr), speed_(1.0) {}
 
+	virtual ~FighterCtrl() {}
 
 	inline void setSpeed(float speed) {
 		speed_ = speed;
