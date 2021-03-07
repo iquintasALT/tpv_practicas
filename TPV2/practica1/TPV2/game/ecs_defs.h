@@ -13,6 +13,7 @@ class DeAcceleration;
 class Heart;
 class ShowAtOppositeSide;
 class DisableOnExit;
+class Gun;
 
 #define _CMPS_LIST_  \
 	Transform,\
@@ -24,7 +25,8 @@ class DisableOnExit;
 	DeAcceleration, \
 	Heart, \
 	ShowAtOppositeSide, \
-	DisableOnExit
+	DisableOnExit, \
+	Gun
 
 // groups
 
