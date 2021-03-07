@@ -14,6 +14,7 @@
 #include "../ecs/Entity.h"
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
+#include "../components/Gun.h"
 
 #include "../ecs/Manager.h"
 #include "../utils/Vector2D.h"
@@ -40,6 +41,7 @@ void Game::init() {
 	fighter->addComponent<DeAcceleration>();
 	fighter->addComponent<Heart>(&sdlutils().images().at("heart"), Vector2D(0, 0));
 	fighter->addComponent<ShowAtOppositeSide>(sdlutils().width(), sdlutils().height());
+	fighter->addComponent<Gun>(mngr_.get());
 
 
 }

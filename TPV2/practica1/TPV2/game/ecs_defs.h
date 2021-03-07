@@ -13,6 +13,7 @@ class DeAcceleration;
 class Heart;
 class ShowAtOppositeSide;
 class DisableOnExit;
+class Gun;
 class FramedImage;
 
 #define _CMPS_LIST_  \
@@ -26,6 +27,7 @@ class FramedImage;
 	Heart, \
 	ShowAtOppositeSide, \
 	DisableOnExit, \
+	Gun, \
 	FramedImage
 
 // groups
