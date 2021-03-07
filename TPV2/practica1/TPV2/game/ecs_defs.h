@@ -12,6 +12,7 @@ class Rotate;
 class DeAcceleration;
 class Heart;
 class ShowAtOppositeSide;
+class DisableOnExit;
 
 #define _CMPS_LIST_  \
 	Transform,\
@@ -22,7 +23,8 @@ class ShowAtOppositeSide;
 	Rotate,\
 	DeAcceleration, \
 	Heart, \
-	ShowAtOppositeSide
+	ShowAtOppositeSide, \
+	DisableOnExit
 
 // groups
 
