@@ -1,0 +1,50 @@
+#pragma once
+
+#include <SDL.h>
+#include <cassert>
+
+#include "../ecs/Component.h"
+#include "../sdlutils/InputHandler.h"
+#include "../ecs/Entity.h"
+#include "Transform.h"
+#include "Image.h"
+#include "../ecs/Manager.h"
+#include "../sdlutils/SDLUtils.h"
+
+class Gun : public Component
+{
+public:
+	Gun(Manager* mngr) :
+		tr_(nullptr), mngr_(mngr) {};
+	
+	virtual ~Gun() {
+	}
+
+	void init() override {
+		tr_ = entity_->getComponent<Transform>();
+		assert(tr_ != nullptr);
+	}
+
+	void update() override {
+		if (ih().isKeyDown(SDL_SCANCODE_S)) {
+			auto bullet = mngr_->addEntity();
+			
+			Vector2D bPos = tr_->getPos() + Vector2D(bulletW / 2.0f, bulletH / 2.0f) - 
+				Vector2D(0.0f, bulletH / 2.0f + 5.0f + 12.0f).rotate(tr_->getRot()) - Vector2D(2.0f, 10.0f);
+
+			Vector2D bVel = Vector2D(0.0f, -1.0f).rotate(tr_->getRot()) * (tr_->getVel().magnitude() + 5.0f);
+
+			bullet->addComponent<Transform>(bPos, bVel, bulletW, bulletH, tr_->getRot());
+			bullet->addComponent<Image>(&sdlutils().images().at("fire"));
+
+
+		}
+	}
+
+private:
+	Transform* tr_;
+	Manager* mngr_;
+	const int bulletH = 20.0f;
+	const int bulletW = 5.0f;
+};
+
