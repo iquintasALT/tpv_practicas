@@ -38,11 +38,11 @@ void Game::init() {
 		Vector2D(sdlutils().width() / 2.0f - 25.0f, sdlutils().height() / 2.0f - 25.0f),
 			Vector2D(), 50.0f, 50.0f, 0.0f);
 	fighter->addComponent<Image>(&sdlutils().images().at("fighter"));
-	fighter->addComponent<FighterCtrl>();
+	fighter->addComponent<FighterCtrl>(&sdlutils().soundEffects().at("thrust"));
 	fighter->addComponent<DeAcceleration>();
 	fighter->addComponent<Heart>(&sdlutils().images().at("heart"), Vector2D(0, 0));
 	fighter->addComponent<ShowAtOppositeSide>(sdlutils().width(), sdlutils().height());
-	fighter->addComponent<Gun>(mngr_.get());
+	fighter->addComponent<Gun>(&sdlutils().soundEffects().at("fire"));
 
 	auto* asteroids = mngr_->addEntity();
 	asteroids->addComponent<Transform>(Vector2D(30.0f, 200.0f), Vector2D(1.0f, 0.0f), 50.0f, 50.0f, 0.0f);

@@ -8,9 +8,9 @@
 #include "../ecs/Entity.h"
 #include "Transform.h"
 
-class FighterCtrl: public Component {
+class FighterCtrl : public Component {
 public:
-	FighterCtrl() : tr_(nullptr), speed_(1.0) {}
+	FighterCtrl(SoundEffect* sfx) : tr_(nullptr), speed_(1.0), sfx_(sfx) {}
 
 	virtual ~FighterCtrl() {}
 
@@ -25,23 +25,27 @@ public:
 
 	void update() override {
 		if (ih().keyDownEvent()) {
-			
+
 			if (ih().isKeyDown(SDL_SCANCODE_UP)) {
 				auto& vel = tr_->getVel();
 				auto newVel = vel + (Vector2D(0, -1).rotate(tr_->getRot()) * thrust).normalize();
-				vel.set((newVel.magnitude() > speedLimit) ? 
+				vel.set((newVel.magnitude() > speedLimit) ?
 					(Vector2D(0, -1).rotate(tr_->getRot()) * thrust).normalize()
 					: newVel);
-			} else if (ih().isKeyDown(SDL_SCANCODE_LEFT)) {
+				sfx_->play();
+			}
+			else if (ih().isKeyDown(SDL_SCANCODE_LEFT)) {
 				tr_->setRot(tr_->getRot() - 5.0f);
-			} else if (ih().isKeyDown(SDL_SCANCODE_RIGHT)) {
+			}
+			else if (ih().isKeyDown(SDL_SCANCODE_RIGHT)) {
 				tr_->setRot(tr_->getRot() + 5.0f);
 			}
 		}
 	}
 
 private:
-	Transform *tr_;
+	Transform* tr_;
+	SoundEffect* sfx_;
 	float speed_;
 	const float thrust = .2f, speedLimit = 3.0f;
 }

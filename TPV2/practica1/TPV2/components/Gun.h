@@ -15,8 +15,8 @@
 class Gun : public Component
 {
 public:
-	Gun(Manager* mngr) :
-		tr_(nullptr) {};
+	Gun(SoundEffect* sfx) :
+		tr_(nullptr), sfx_(sfx) {};
 
 	virtual ~Gun() {
 	}
@@ -31,6 +31,7 @@ public:
 		if (sdlutils().currRealTime() - msToNextBullet > 250) {
 			if (ih().isKeyDown(SDL_SCANCODE_S)) {
 				createBullet();
+				sfx_->play();
 				msToNextBullet = sdlutils().currRealTime();
 			}
 		}
@@ -51,6 +52,7 @@ public:
 
 private:
 	Transform* tr_;
+	SoundEffect* sfx_;
 	const int bulletH = 20.0f;
 	const int bulletW = 5.0f;
 	int msToNextBullet = 0;
