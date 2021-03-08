@@ -10,10 +10,12 @@
 
 class FramedImage : public Component {
 public:
-	FramedImage(Texture* tex) :
-		tr_(nullptr), //
-		tex_(tex) //
-	{}
+	FramedImage(Texture* tex, int rows, int cols) : tr_(nullptr), tex_(tex), rows_(rows),
+		cols_(cols), actRow_(0), actCol_(0)  {
+		auto w = tex->width() / cols;
+		auto h = tex->height() / rows;
+		src_ = { w * actCol_, h * actRow_, w, h };
+	}
 
 	virtual ~FramedImage() {}
 
@@ -22,12 +24,36 @@ public:
 		assert(tr_ != nullptr);
 	}
 
+	void update() override {
+		if (sdlutils().currRealTime() - lastUpdate > ms) {
+			if (rows_ == actRow_ + 1) {
+				if (cols_ == actCol_ + 1)
+					actCol_ = 0;
+				else
+					actCol_++;
+				actRow_ = 0;
+			}
+			else
+				actRow_++;
+
+			lastUpdate = sdlutils().currRealTime();
+		}
+	}
+
 	void render() override {
+		src_.x = src_.w * actCol_;
+		src_.y = src_.h * actRow_;
+
 		SDL_Rect dest = build_sdlrect(tr_->getPos(), tr_->getW(), tr_->getH());
-		tex_->render(dest, tr_->getRot());
+		tex_->render(src_, dest, tr_->getRot());
 	}
 
 private:
 	Transform* tr_;
 	Texture* tex_;
+	SDL_Rect src_;
+	int rows_, cols_;
+	int actRow_, actCol_;
+	const int ms = 50;
+	int lastUpdate = 0;
 };
