@@ -16,6 +16,7 @@
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../components/Gun.h"
+#include "../components/Follow.h"
 
 #include "../ecs/Manager.h"
 #include "../utils/Vector2D.h"
@@ -44,8 +45,9 @@ void Game::init() {
 	fighter->addComponent<Gun>(mngr_.get());
 
 	auto* asteroids = mngr_->addEntity();
-	asteroids->addComponent<Transform>(Vector2D(30.0f, 200.0f), Vector2D(), 50.0f, 50.0f, 0.0f);
+	asteroids->addComponent<Transform>(Vector2D(30.0f, 200.0f), Vector2D(1.0f, 0.0f), 50.0f, 50.0f, 0.0f);
 	asteroids->addComponent<FramedImage>(&sdlutils().images().at("asteroid"), 5, 6);
+	asteroids->addComponent<Follow>(fighter->getComponent<Transform>());
 }
 
 void Game::start() {

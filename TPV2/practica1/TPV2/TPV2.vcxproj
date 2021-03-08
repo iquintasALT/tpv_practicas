@@ -37,6 +37,7 @@
     <ClInclude Include="components\Bounce.h" />
     <ClInclude Include="components\DeAcceleration.h" />
     <ClInclude Include="components\DisableOnExit.h" />
+    <ClInclude Include="components\Follow.h" />
     <ClInclude Include="components\FramedImage.h" />
     <ClInclude Include="components\Generations.h" />
     <ClInclude Include="components\Gun.h" />
