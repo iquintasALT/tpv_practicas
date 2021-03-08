@@ -17,7 +17,7 @@ class Gun : public Component
 public:
 	Gun(Manager* mngr) :
 		tr_(nullptr), mngr_(mngr) {};
-	
+
 	virtual ~Gun() {
 	}
 
@@ -32,16 +32,14 @@ public:
 			if (ih().isKeyDown(SDL_SCANCODE_S)) {
 				createBullet();
 				msToNextBullet = sdlutils().currRealTime();
-		}
-		
-
+			}
 		}
 	}
 
 	void createBullet() {
 		auto bullet = mngr_->addEntity();
 
-		Vector2D bPos = tr_->getPos() + Vector2D(bulletW / 2.0f, bulletH / 2.0f) -
+		Vector2D bPos = (tr_->getPos() + Vector2D(tr_->getW() / 2, tr_->getH() / 2)) + Vector2D(bulletW / 2.0f, bulletH / 2.0f) -
 			Vector2D(0.0f, bulletH / 2.0f + 5.0f + 12.0f).rotate(tr_->getRot()) - Vector2D(2.0f, 10.0f);
 
 		Vector2D bVel = Vector2D(0.0f, -1.0f).rotate(tr_->getRot()) * (tr_->getVel().magnitude() + 5.0f);
