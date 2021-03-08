@@ -191,10 +191,16 @@
     <ClInclude Include="components\ShowAtOppositeSide.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
+    <ClInclude Include="components\DisableOnExit.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
+    <ClInclude Include="components\FramedImage.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
     <ClInclude Include="components\Gun.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
-    <ClInclude Include="components\DisableOnExit.h">
+    <ClInclude Include="components\Generations.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
   </ItemGroup>
