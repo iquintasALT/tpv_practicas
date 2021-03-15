@@ -44,10 +44,9 @@ void Game::init() {
 	fighter->addComponent<ShowAtOppositeSide>(sdlutils().width(), sdlutils().height());
 	fighter->addComponent<Gun>(&sdlutils().soundEffects().at("fire"));
 
-	auto* asteroids = mngr_->addEntity();
-	asteroids->addComponent<Transform>(Vector2D(30.0f, 200.0f), Vector2D(1.0f, 0.0f), 50.0f, 50.0f, 0.0f);
-	asteroids->addComponent<FramedImage>(&sdlutils().images().at("asteroid"), 5, 6);
-	asteroids->addComponent<Follow>(fighter->getComponent<Transform>());
+	for (int i = 0; i < 10; ++i) {
+		generateAsteroid(fighter);
+	}
 }
 
 void Game::start() {
@@ -81,5 +80,16 @@ void Game::start() {
 			SDL_Delay(20 - frameTime);
 	}
 
+}
+
+void Game::generateAsteroid(Entity* fighter)
+{
+	auto* asteroid = mngr_->addEntity();
+	asteroid->addComponent<Transform>(Vector2D(sdlutils().rand().nextInt() % sdlutils().width(), 
+		sdlutils().rand().nextInt() % sdlutils().height()),
+		Vector2D(1.0f, 0.0f), 50.0f, 50.0f, 0.0f);
+	asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid"), 5, 6);
+	asteroid->addComponent<Follow>(fighter->getComponent<Transform>());
+	asteroid->setGroup<Asteroid_grp>(asteroid);
 }
 

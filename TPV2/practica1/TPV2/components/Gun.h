@@ -48,6 +48,7 @@ public:
 		bullet->addComponent<Transform>(bPos, bVel, bulletW, bulletH, tr_->getRot());
 		bullet->addComponent<Image>(&sdlutils().images().at("fire"));
 		bullet->addComponent<DisableOnExit>(sdlutils().width(), sdlutils().height());
+		bullet->setGroup<Bullet_grp>(bullet);
 	}
 
 private:
