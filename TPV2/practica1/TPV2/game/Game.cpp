@@ -18,6 +18,7 @@
 #include "../components/Gun.h"
 #include "../components/Follow.h"
 #include "../components/State.h"
+#include "../components/GameCtrl.h"
 
 #include "../ecs/Manager.h"
 #include "../utils/Vector2D.h"
@@ -47,10 +48,7 @@ void Game::init() {
 
 	auto* gmManager = mngr_->addEntity();
 	gmManager->addComponent<State>();
-
-	for (int i = 0; i < 10; ++i) {
-		generateAsteroid(fighter);
-	}
+	gmManager->addComponent<GameCtrl>(fighter);
 }
 
 void Game::start() {
@@ -84,16 +82,4 @@ void Game::start() {
 		if (frameTime < 20)
 			SDL_Delay(20 - frameTime);
 	}
-
-}
-
-void Game::generateAsteroid(Entity* fighter)
-{
-	auto* asteroid = mngr_->addEntity();
-	asteroid->addComponent<Transform>(Vector2D(sdlutils().rand().nextInt() % sdlutils().width(), 
-		sdlutils().rand().nextInt() % sdlutils().height()),
-		Vector2D(1.0f, 0.0f), 50.0f, 50.0f, 0.0f);
-	asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid"), 5, 6);
-	asteroid->addComponent<Follow>(fighter->getComponent<Transform>());
-	asteroid->setGroup<Asteroid_grp>(asteroid);
 }

@@ -16,6 +16,5 @@ public:
 	void init();
 	void start();
 private:
-	void generateAsteroid(Entity* fighter);
 	std::unique_ptr<Manager> mngr_;
 };

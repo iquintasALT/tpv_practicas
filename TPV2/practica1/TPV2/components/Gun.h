@@ -37,6 +37,13 @@ public:
 		}
 	}
 
+private:
+	Transform* tr_;
+	SoundEffect* sfx_;
+	const int bulletH = 20.0f;
+	const int bulletW = 5.0f;
+	int msToNextBullet = 0;
+
 	void createBullet() {
 		auto bullet = entity_->getMngr()->addEntity();
 
@@ -50,12 +57,5 @@ public:
 		bullet->addComponent<DisableOnExit>(sdlutils().width(), sdlutils().height());
 		bullet->setGroup<Bullet_grp>(bullet);
 	}
-
-private:
-	Transform* tr_;
-	SoundEffect* sfx_;
-	const int bulletH = 20.0f;
-	const int bulletW = 5.0f;
-	int msToNextBullet = 0;
 };
 

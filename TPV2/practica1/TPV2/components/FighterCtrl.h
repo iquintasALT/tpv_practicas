@@ -28,9 +28,9 @@ public:
 
 			if (ih().isKeyDown(SDL_SCANCODE_UP)) {
 				auto& vel = tr_->getVel();
-				auto newVel = vel + (Vector2D(0, -1).rotate(tr_->getRot()) * thrust).normalize();
+				auto newVel = vel + (Vector2D(0, -1).rotate(tr_->getRot())).normalize() * thrust;
 				vel.set((newVel.magnitude() > speedLimit) ?
-					(Vector2D(0, -1).rotate(tr_->getRot()) * thrust).normalize()
+					(Vector2D(0, -1).rotate(tr_->getRot())).normalize() * speedLimit
 					: newVel);
 				sfx_->play();
 			}

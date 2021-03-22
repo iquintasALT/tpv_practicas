@@ -1,45 +1,43 @@
 #pragma once
 
 #include "../ecs/Component.h"
+#include "../sdlutils/InputHandler.h"
 #include "../ecs/Entity.h"
-#include "../sdlutils/SDLUtils.h"
+#include "../ecs/Manager.h"
 
+#include "State.h"
 #include "Transform.h"
-//
-//enum class states { NEWGAME, PAUSED, RUNNING, GAMEOVER };
-//
-//class State : public Component {
-//public:
-//	State() : state_(states::NEWGAME) {}
-//
-//	virtual ~State() {}
-//
-//	states getState() { return state_; };
-//
-//	void setState(states const st) { state_ = st; };
-//
-//	void render() override {
-//		//si no esta jugando
-//		if (state_ != states::RUNNING) {
-//			if (state_ == states::GAMEOVER) {
-//				auto& t = sdlutils().msgs().at("gameover");
-//				t.render((sdlutils().width() - t.width()) / 2,
-//					(sdlutils().height() - t.height()) / 2);
-//			}
-//
-//			if (state_ == states::NEWGAME) {
-//				auto& t = sdlutils().msgs().at("start");
-//				t.render((sdlutils().width() - t.width()) / 2,
-//					sdlutils().height() / 2 + t.height() * 2);
-//			}
-//			else {
-//				auto& t = sdlutils().msgs().at("continue");
-//				t.render((sdlutils().width() - t.width()) / 2,
-//					sdlutils().height() / 2 + t.height() * 2);
-//			}
-//		}
-//	}
-//
-//private:
-//	states state_;
-//};
+#include "FramedImage.h"
+#include "Follow.h"
+
+
+class GameCtrl : public Component {
+public:
+	GameCtrl(Entity* ent_) : fighter_(ent_), state_(nullptr) {}
+
+	virtual ~GameCtrl() {}
+
+	void init() override {
+		state_ = entity_->getComponent<State>();
+		assert(state_ != nullptr);
+	}
+
+	void update() override {
+		if (ih().isKeyDown(SDL_SCANCODE_SPACE) && state_->getState() != states::RUNNING) {
+			state_->setState(state_->getState() > states::RUNNING ? states::NEWGAME : states::RUNNING);
+			for (int i = 0; i < 10; i++) {
+				auto asteroid = entity_->getMngr()->addEntity();
+				asteroid->addComponent<Transform>(Vector2D(sdlutils().rand().nextInt() % sdlutils().width(),
+					sdlutils().rand().nextInt() % sdlutils().height()),
+					Vector2D(1.0f, 0.0f), 50.0f, 50.0f, 0.0f);
+				asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid"), 5, 6);
+				asteroid->addComponent<Follow>(fighter_->getComponent<Transform>());
+				asteroid->setGroup<Asteroid_grp>(asteroid);
+			}
+		}
+	}
+
+private:
+	Entity* fighter_;
+	State* state_;
+};
