@@ -209,8 +209,17 @@
     <ClInclude Include="components\Follow.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
-    <ClInclude Include="game\GameManager.h">
-      <Filter>Header Files\game</Filter>
+    <ClInclude Include="components\State.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
+    <ClInclude Include="components\AsteroidsManager.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
+    <ClInclude Include="components\GameCtrl.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
+    <ClInclude Include="components\CollisionsManager.h">
+      <Filter>Header Files\components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

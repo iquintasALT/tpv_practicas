@@ -3,8 +3,6 @@
 #pragma once
 #include <memory>
 
-
-
 // when you are not using the methods of a class, just
 // say that it exists, that saves time when parsing files
 class Manager;
@@ -20,5 +18,4 @@ public:
 private:
 	void generateAsteroid(Entity* fighter);
 	std::unique_ptr<Manager> mngr_;
-	std::unique_ptr<GameManager> gameManager;
 };

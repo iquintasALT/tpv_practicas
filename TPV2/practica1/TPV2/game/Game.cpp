@@ -6,10 +6,18 @@
 #include "../components/Rotate.h"
 #include "../components/Image.h"
 #include "../components/Transform.h"
+#include "../components/FighterCtrl.h"
+#include "../components/DeAcceleration.h"
+#include "../components/Heart.h"
+#include "../components/ShowAtOppositeSide.h"
+#include "../components/FramedImage.h"
 #include "../ecs/ecs.h"
 #include "../ecs/Entity.h"
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
+#include "../components/Gun.h"
+#include "../components/Follow.h"
+#include "../components/State.h"
 
 #include "../ecs/Manager.h"
 #include "../utils/Vector2D.h"
@@ -23,18 +31,26 @@ Game::~Game() {
 
 void Game::init() {
 
-	SDLUtils::init("Ping Pong", 800, 600,
-			"resources/config/pingpong.resources.json");
+	SDLUtils::init("Asteroid", 800, 600,
+			"resources/config/resources.json");
 
-	auto *ball = mngr_->addEntity();
-	ball->addComponent<Transform>(
-			Vector2D(sdlutils().width() / 2.0f, sdlutils().height() / 2.0f),
-			Vector2D(), 10.0f, 10.0f, 0.0f);
-	ball->addComponent<Image>(&sdlutils().images().at("tennis_ball"));
-	ball->addComponent<Rotate>();
-	ball->addComponent<Bounce>();
+	auto *fighter = mngr_->addEntity();
+	fighter->addComponent<Transform>(
+		Vector2D(sdlutils().width() / 2.0f - 25.0f, sdlutils().height() / 2.0f - 25.0f),
+			Vector2D(), 50.0f, 50.0f, 0.0f);
+	fighter->addComponent<Image>(&sdlutils().images().at("fighter"));
+	fighter->addComponent<FighterCtrl>(&sdlutils().soundEffects().at("thrust"));
+	fighter->addComponent<DeAcceleration>();
+	fighter->addComponent<Heart>(&sdlutils().images().at("heart"), Vector2D(0, 0));
+	fighter->addComponent<ShowAtOppositeSide>(sdlutils().width(), sdlutils().height());
+	fighter->addComponent<Gun>(&sdlutils().soundEffects().at("fire"));
 
+	auto* gmManager = mngr_->addEntity();
+	gmManager->addComponent<State>();
 
+	for (int i = 0; i < 10; ++i) {
+		generateAsteroid(fighter);
+	}
 }
 
 void Game::start() {
@@ -60,6 +76,7 @@ void Game::start() {
 
 		sdlutils().clearRenderer();
 		mngr_->render();
+		
 		sdlutils().presentRenderer();
 
 		Uint32 frameTime = sdlutils().currRealTime() - startTime;
@@ -70,3 +87,13 @@ void Game::start() {
 
 }
 
+void Game::generateAsteroid(Entity* fighter)
+{
+	auto* asteroid = mngr_->addEntity();
+	asteroid->addComponent<Transform>(Vector2D(sdlutils().rand().nextInt() % sdlutils().width(), 
+		sdlutils().rand().nextInt() % sdlutils().height()),
+		Vector2D(1.0f, 0.0f), 50.0f, 50.0f, 0.0f);
+	asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid"), 5, 6);
+	asteroid->addComponent<Follow>(fighter->getComponent<Transform>());
+	asteroid->setGroup<Asteroid_grp>(asteroid);
+}

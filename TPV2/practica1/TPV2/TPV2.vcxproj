@@ -22,7 +22,6 @@
     <ClCompile Include="ecs\Entity.cpp" />
     <ClCompile Include="ecs\Manager.cpp" />
     <ClCompile Include="game\Game.cpp" />
-    <ClCompile Include="game\GameManager.cpp" />
     <ClCompile Include="json\JSON.cpp" />
     <ClCompile Include="json\JSONValue.cpp" />
     <ClCompile Include="json\simplejson_demo.cpp" />
@@ -35,11 +34,14 @@
     <ClCompile Include="utils\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="components\AsteroidsManager.h" />
     <ClInclude Include="components\Bounce.h" />
+    <ClInclude Include="components\CollisionManager.h" />
     <ClInclude Include="components\DeAcceleration.h" />
     <ClInclude Include="components\DisableOnExit.h" />
     <ClInclude Include="components\Follow.h" />
     <ClInclude Include="components\FramedImage.h" />
+    <ClInclude Include="components\GameCtrl.h" />
     <ClInclude Include="components\Generations.h" />
     <ClInclude Include="components\Gun.h" />
     <ClInclude Include="components\Heart.h" />
@@ -48,6 +50,7 @@
     <ClInclude Include="components\Rectangle.h" />
     <ClInclude Include="components\Rotate.h" />
     <ClInclude Include="components\ShowAtOppositeSide.h" />
+    <ClInclude Include="components\State.h" />
     <ClInclude Include="components\Transform.h" />
     <ClInclude Include="ecs\Component.h" />
     <ClInclude Include="ecs\ecs.h" />

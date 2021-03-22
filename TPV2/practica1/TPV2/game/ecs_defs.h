@@ -16,6 +16,10 @@ class DisableOnExit;
 class Gun;
 class FramedImage;
 class Follow;
+class State;
+class GameCtrl;
+class AsteroidsManager;
+class CollisionsManager;
 
 #define _CMPS_LIST_  \
 	Transform,\
@@ -30,7 +34,11 @@ class Follow;
 	DisableOnExit, \
 	Gun, \
 	FramedImage, \
-	Follow
+	Follow, \
+	State, \
+	GameCtrl, \
+	AsteroidsManager, \
+	CollisionsManager
 
 // groups
 
