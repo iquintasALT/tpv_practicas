@@ -36,7 +36,7 @@
   <ItemGroup>
     <ClInclude Include="components\AsteroidsManager.h" />
     <ClInclude Include="components\Bounce.h" />
-    <ClInclude Include="components\CollisionManager.h" />
+    <ClInclude Include="components\CollisionsManager.h" />
     <ClInclude Include="components\DeAcceleration.h" />
     <ClInclude Include="components\DisableOnExit.h" />
     <ClInclude Include="components\Follow.h" />
@@ -60,6 +60,7 @@
     <ClInclude Include="ecs\mpl.h" />
     <ClInclude Include="game\ecs_defs.h" />
     <ClInclude Include="game\Game.h" />
+    <ClInclude Include="game\GameManager.h" />
     <ClInclude Include="json\simplejson_demo.h" />
     <ClInclude Include="json\JSON.h" />
     <ClInclude Include="json\JSONValue.h" />

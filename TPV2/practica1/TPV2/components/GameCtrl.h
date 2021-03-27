@@ -13,7 +13,7 @@
 
 class GameCtrl : public Component {
 public:
-	GameCtrl(Entity* ent_) : fighter_(ent_), state_(nullptr) {}
+	GameCtrl() : state_(nullptr) {}
 
 	virtual ~GameCtrl() {}
 
@@ -31,13 +31,12 @@ public:
 					sdlutils().rand().nextInt() % sdlutils().height()),
 					Vector2D(1.0f, 0.0f), 50.0f, 50.0f, 0.0f);
 				asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid"), 5, 6);
-				asteroid->addComponent<Follow>(fighter_->getComponent<Transform>());
+				asteroid->addComponent<Follow>(entity_->getMngr()->getHandler<Player_hdlr>()->getComponent<Transform>());
 				asteroid->setGroup<Asteroid_grp>(asteroid);
 			}
 		}
 	}
 
 private:
-	Entity* fighter_;
 	State* state_;
 };

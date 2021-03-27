@@ -41,12 +41,11 @@ class CollisionsManager;
 	CollisionsManager
 
 // groups
-
 struct Asteroid_grp;
 struct Bullet_grp;
 #define _GRPS_LIST_  Asteroid_grp, \
 	Bullet_grp
 
 // handlers
-struct Hdlr_1;
-#define _HDLRS_LIST_ Hdlr_1
+struct Player_hdlr;
+#define _HDLRS_LIST_ Player_hdlr
