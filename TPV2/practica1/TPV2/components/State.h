@@ -26,13 +26,12 @@ public:
 				t.render((sdlutils().width() - t.width()) / 2,
 					(sdlutils().height() - t.height()) / 2);
 			}
-
-			if (state_ == states::NEWGAME) {
+			else if (state_ == states::NEWGAME) {
 				auto& t = sdlutils().msgs().at("start");
 				t.render((sdlutils().width() - t.width()) / 2,
 					sdlutils().height() / 2 + t.height() * 2);
 			}
-			else {
+			else if (state_ == states::PAUSED) {
 				auto& t = sdlutils().msgs().at("continue");
 				t.render((sdlutils().width() - t.width()) / 2,
 					sdlutils().height() / 2 + t.height() * 2);

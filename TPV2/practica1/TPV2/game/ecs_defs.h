@@ -50,4 +50,6 @@ struct Bullet_grp;
 
 // handlers
 struct Player_hdlr;
-#define _HDLRS_LIST_ Player_hdlr
+struct Manager_hdlr;
+#define _HDLRS_LIST_ Player_hdlr, \
+	Manager_hdlr

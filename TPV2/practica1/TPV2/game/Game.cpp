@@ -49,6 +49,7 @@ void Game::init() {
 	fighter->addComponent<Gun>(&sdlutils().soundEffects().at("fire"));
 
 	auto* gmManager = mngr_->addEntity();
+	mngr_->setHandler<Manager_hdlr>(gmManager);
 	gmManager->addComponent<State>();
 	gmManager->addComponent<AsteroidsManager>();
 	gmManager->addComponent<GameCtrl>();

@@ -18,8 +18,9 @@ public:
 
 	void init() override {
 		state_ = entity_->getComponent<State>();
+		asteroidsManager_ = entity_->getComponent<AsteroidsManager>();
 
-		assert(state_ != nullptr);
+		assert(state_ != nullptr && asteroidsManager_ != nullptr);
 	}
 
 	void update() override {
@@ -45,12 +46,13 @@ public:
 					}
 					else {
 						state_->setState(states::GAMEOVER);
-
-						for (auto entity : entities)
-							entity->setActive(false);
-
-						fighter->setActive(true);
 					}
+
+					for (auto entity : entities)
+						entity->setActive(false);
+
+					fighter->setActive(true);
+					entity_->getMngr()->getHandler<Manager_hdlr>()->setActive(true);
 
 					fighterTr_->getPos().set(sdlutils().width() / 2.0f - (fighterTr_->getW() / 2),
 						sdlutils().height() / 2.0f - (fighterTr_->getH() / 2));

@@ -5,6 +5,7 @@
 #include "../ecs/Entity.h"
 #include "../sdlutils/SDLUtils.h"
 
+#include "../components/State.h"
 #include "../components/Generations.h"
 #include "../components/FramedImage.h"
 #include "../components/Follow.h"
@@ -12,14 +13,20 @@
 
 class AsteroidsManager : public Component {
 public:
-	AsteroidsManager() : numAsteroids(0), msToNextAsteroid(0){}
+	AsteroidsManager() : numAsteroids(0), msToNextAsteroid(0), state_(nullptr) {}
 
 	virtual ~AsteroidsManager() {}
+
+	void init() override {
+		state_ = entity_->getComponent<State>();
+
+		assert(state_ != nullptr);
+	}
 
 	inline int getNumAsteroids() { return numAsteroids; }
 
 	void update() override {
-		if (sdlutils().currRealTime() - msToNextAsteroid > 5000) {
+		if (state_->getState() == states::RUNNING && sdlutils().currRealTime() - msToNextAsteroid > 5000) {
 
 			generateAsteroid();
 			msToNextAsteroid = sdlutils().currRealTime();
@@ -50,10 +57,11 @@ public:
 		hit_asteroid->setActive(false);
 
 		if (lives > 0)
-			generateAsteroid(--lives);
+			this->generateAsteroid(--lives);
 	}
 
 private:
 	int numAsteroids;
 	int msToNextAsteroid;
+	State* state_;
 };
