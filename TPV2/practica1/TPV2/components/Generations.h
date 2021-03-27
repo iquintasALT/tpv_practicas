@@ -11,8 +11,12 @@
 class Generations : public Component {
 public:
 	Generations() :
-		tr_(nullptr), //
 		lives_(3)
+	{
+	}
+
+	Generations(int lives) :
+		lives_(lives)
 	{
 	}
 
@@ -24,7 +28,6 @@ public:
 	}
 
 private:
-	Transform* tr_;
 	int lives_;
 };
 

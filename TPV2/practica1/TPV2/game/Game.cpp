@@ -20,6 +20,7 @@
 #include "../components/State.h"
 #include "../components/GameCtrl.h"
 #include "../components/CollisionsManager.h"
+#include "../components/AsteroidsManager.h"
 
 #include "../ecs/Manager.h"
 #include "../utils/Vector2D.h"
@@ -49,6 +50,7 @@ void Game::init() {
 
 	auto* gmManager = mngr_->addEntity();
 	gmManager->addComponent<State>();
+	gmManager->addComponent<AsteroidsManager>();
 	gmManager->addComponent<GameCtrl>();
 	gmManager->addComponent<CollisionsManager>();
 }

@@ -24,10 +24,10 @@ public:
 
 	void update() override {
 		auto entities = entity_->getMngr()->getEntities();
-		bool collidesWithPlayer = false;
 
 		for (int i = 0; i < entities.size(); i++) {
 			if (entities[i]->hasGroup<Asteroid_grp>()) {
+				auto asteroid = entities[i];
 				auto fighter = entity_->getMngr()->getHandler<Player_hdlr>();
 				auto fighterTr_ = fighter->getComponent<Transform>();
 				auto tr_ = entities[i]->getComponent<Transform>();
@@ -40,12 +40,18 @@ public:
 					auto health = fighter->getComponent<Heart>();
 					health->eraseLife();
 
-					state_->setState(health->getLifes() > 0 ? states::PAUSED : states::GAMEOVER);
+					if (health->getLifes() > 0) {
+						state_->setState(states::PAUSED);
+					}
+					else {
+						state_->setState(states::GAMEOVER);
 
-					for (auto entity : entities)
-						entity->setActive(false);
+						for (auto entity : entities)
+							entity->setActive(false);
 
-					fighter->setActive(true);
+						fighter->setActive(true);
+					}
+
 					fighterTr_->getPos().set(sdlutils().width() / 2.0f - (fighterTr_->getW() / 2),
 						sdlutils().height() / 2.0f - (fighterTr_->getH() / 2));
 					fighterTr_->getVel().set(Vector2D());
@@ -59,6 +65,7 @@ public:
 							auto bulletTr_ = entities[i]->getComponent<Transform>();
 							if (Collisions::collides(pos, w, h, bulletTr_->getPos(), bulletTr_->getW(), bulletTr_->getH())) {
 								//se destruye
+								asteroidsManager_->onCollision(asteroid);
 								entities[i]->setActive(false);
 							}
 						}

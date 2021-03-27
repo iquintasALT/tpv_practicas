@@ -12,6 +12,7 @@ class Rotate;
 class DeAcceleration;
 class Heart;
 class ShowAtOppositeSide;
+class Generations;
 class DisableOnExit;
 class Gun;
 class FramedImage;
@@ -31,6 +32,7 @@ class CollisionsManager;
 	DeAcceleration, \
 	Heart, \
 	ShowAtOppositeSide, \
+	Generations, \
 	DisableOnExit, \
 	Gun, \
 	FramedImage, \

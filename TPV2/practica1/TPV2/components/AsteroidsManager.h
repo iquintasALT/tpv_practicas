@@ -1,45 +1,59 @@
 #pragma once
 
 #include "../ecs/Component.h"
+#include "../ecs/Manager.h"
 #include "../ecs/Entity.h"
 #include "../sdlutils/SDLUtils.h"
 
-#include "Transform.h"
+#include "../components/Generations.h"
+#include "../components/FramedImage.h"
+#include "../components/Follow.h"
+#include "../components/Transform.h"
 
-//enum class states { NEWGAME, PAUSED, RUNNING, GAMEOVER };
-//
-//class State : public Component {
-//public:
-//	State() : state_(states::NEWGAME) {}
-//
-//	virtual ~State() {}
-//
-//	states getState() { return state_; };
-//
-//	void setState(states const st) { state_ = st; };
-//
-//	void render() override {
-//		//si no esta jugando
-//		if (state_ != states::RUNNING) {
-//			if (state_ == states::GAMEOVER) {
-//				auto& t = sdlutils().msgs().at("gameover");
-//				t.render((sdlutils().width() - t.width()) / 2,
-//					(sdlutils().height() - t.height()) / 2);
-//			}
-//
-//			if (state_ == states::NEWGAME) {
-//				auto& t = sdlutils().msgs().at("start");
-//				t.render((sdlutils().width() - t.width()) / 2,
-//					sdlutils().height() / 2 + t.height() * 2);
-//			}
-//			else {
-//				auto& t = sdlutils().msgs().at("continue");
-//				t.render((sdlutils().width() - t.width()) / 2,
-//					sdlutils().height() / 2 + t.height() * 2);
-//			}
-//		}
-//	}
-//
-//private:
-//	states state_;
-//};
+class AsteroidsManager : public Component {
+public:
+	AsteroidsManager() : numAsteroids(0), msToNextAsteroid(0){}
+
+	virtual ~AsteroidsManager() {}
+
+	inline int getNumAsteroids() { return numAsteroids; }
+
+	void update() override {
+		if (sdlutils().currRealTime() - msToNextAsteroid > 5000) {
+
+			generateAsteroid();
+			msToNextAsteroid = sdlutils().currRealTime();
+		}
+	}
+
+	void generateAsteroid(int lives = 3)
+	{
+		auto asteroid = entity_->getMngr()->addEntity();
+		////componentes
+		asteroid->addComponent<Transform>(Vector2D(sdlutils().rand().nextInt() % sdlutils().width(),
+			sdlutils().rand().nextInt() % sdlutils().height()),
+			Vector2D(1.0f, 0.0f), 50.0f, 50.0f, 0.0f);
+
+		asteroid->addComponent<Generations>(lives);
+		////70% TIPO A, 30% TIPO B
+		if (sdlutils().rand().nextInt() % 100 < 30) {
+			asteroid->addComponent<Follow>(entity_->getMngr()->getHandler<Player_hdlr>()->getComponent<Transform>());
+			asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid_gold"), 5, 6);
+		}
+		else asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid"), 5, 6);
+
+		asteroid->setGroup<Asteroid_grp>(asteroid);
+	}
+	
+	void onCollision(Entity* hit_asteroid) {
+		int lives = hit_asteroid->getComponent<Generations>()->getLives();
+		hit_asteroid->setActive(false);
+
+		if (lives > 0)
+			generateAsteroid(--lives);
+	}
+
+private:
+	int numAsteroids;
+	int msToNextAsteroid;
+};
