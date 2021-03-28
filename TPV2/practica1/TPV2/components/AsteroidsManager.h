@@ -33,13 +33,42 @@ public:
 		}
 	}
 
-	void generateAsteroid(int lives = 3)
+	void generateAsteroid(int lives = 3, Entity* prev_asterroid = nullptr)
 	{
 		auto asteroid = entity_->getMngr()->addEntity();
 		////componentes
-		asteroid->addComponent<Transform>(Vector2D(sdlutils().rand().nextInt() % sdlutils().width(),
-			sdlutils().rand().nextInt() % sdlutils().height()),
-			Vector2D(1.0f, 0.0f), 50.0f, 50.0f, 0.0f);
+		//si no se pasa una referencia a un asteroide, creo uno en una posición aleatoria
+		Vector2D pos, vel;
+		int rand = sdlutils().rand().nextInt(0, 360);
+		//creacion de un asteroide a partir de otro
+		if (prev_asterroid != nullptr) {
+			Transform* t = prev_asterroid->getComponent<Transform>();
+
+			pos = t->getPos() + t->getVel().rotate(rand) * 2 * t->getW();
+			vel = t->getVel().rotate(rand) * 1.1f;
+		}
+		//creacion de un asteroide desde 0
+		else {
+			//pos centro
+			Vector2D c = Vector2D(sdlutils().width() / 2, sdlutils().height() / 2) +
+				Vector2D(sdlutils().rand().nextInt(-100, 101), sdlutils().rand().nextInt(-100, 101));
+			//escogemos la anchura o la altura aleatoriamente
+			int selection = sdlutils().rand().nextInt(0, 2);
+			//tras escoger una de ellas, la segunda componente del vector sera la contraria
+			int first = selection == 0 ? sdlutils().rand().nextInt(0, sdlutils().width()) : 
+				sdlutils().rand().nextInt(0, 2) * sdlutils().width();
+			int second = selection == 0 ? sdlutils().rand().nextInt(0, 2) * sdlutils().height() :
+				sdlutils().rand().nextInt(0, sdlutils().height());
+			//creamos el vector pos y vel
+			pos = Vector2D(first, second);
+			vel = (c - pos).normalize() * (sdlutils().rand().nextInt(1, 10) / 10.0);
+
+		}
+
+		asteroid->addComponent<Transform>(pos,
+			vel, 20 + 10 * lives, 20 + 10 * lives, 0.0f);
+
+		asteroid->addComponent<ShowAtOppositeSide>(sdlutils().width(), sdlutils().height());
 
 		asteroid->addComponent<Generations>(lives);
 		////70% TIPO A, 30% TIPO B
@@ -53,11 +82,13 @@ public:
 	}
 	
 	void onCollision(Entity* hit_asteroid) {
-		int lives = hit_asteroid->getComponent<Generations>()->getLives();
+		int lives = --hit_asteroid->getComponent<Generations>()->getLives();
 		hit_asteroid->setActive(false);
 
-		if (lives > 0)
-			this->generateAsteroid(--lives);
+		if (lives > 0) {
+			generateAsteroid(lives, hit_asteroid);
+			generateAsteroid(lives, hit_asteroid);
+		}
 	}
 
 private:

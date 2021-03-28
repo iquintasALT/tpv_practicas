@@ -9,7 +9,6 @@ class ShowAtOppositeSide : public Component
 {
 public:
 	ShowAtOppositeSide(int const width, int const height) : tr_(nullptr), winHeight(height), winWidth(width) {};
-
 	virtual ~ShowAtOppositeSide() {};
 
 	void init() override {

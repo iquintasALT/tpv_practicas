@@ -24,7 +24,7 @@ public:
 			if (state_ == states::GAMEOVER) {
 				auto& t = sdlutils().msgs().at("gameover");
 				t.render((sdlutils().width() - t.width()) / 2,
-					(sdlutils().height() - t.height()) / 2);
+					(50 + sdlutils().height() - t.height()) / 2);
 			}
 			else if (state_ == states::NEWGAME) {
 				auto& t = sdlutils().msgs().at("start");
