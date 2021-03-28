@@ -66,7 +66,6 @@ public:
 						if (entities[i]->hasGroup<Bullet_grp>() && entities[i]->isActive()) {
 							auto bulletTr_ = entities[i]->getComponent<Transform>();
 							if (Collisions::collides(pos, w, h, bulletTr_->getPos(), bulletTr_->getW(), bulletTr_->getH())) {
-								//se destruye
 								asteroidsManager_->onCollision(asteroid);
 								entities[i]->setActive(false);
 							}
