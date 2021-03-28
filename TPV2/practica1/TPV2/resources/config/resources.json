@@ -17,7 +17,8 @@
   "messages" : [
     { "id" : "start", "text" : "Press SPACE to play", "font" : "ARIAL16", "color" : "0x112233ff", "bg" : "0xffffffff" },
     { "id" : "continue", "text" : "Press SPACE to continue", "font" : "ARIAL16", "color" : "0x0000ffff", "bg" : "0xffffffff"},
-    { "id" : "gameover", "text" : "GAME OVER YOU ******* LOSER!!", "font" : "ARIAL16", "color" : "0x0000ffff", "bg" : "0xffffffff" }
+    { "id" : "gameover", "text" : "YOU DIED", "font" : "ARIAL16", "color" : "0x0000ffff", "bg" : "0xffffffff" },
+	{ "id" : "win", "text" : "YOU HAVE WON", "font" : "ARIAL16", "color" : "0x0000ffff", "bg" : "0xffffffff" }
   ],
   
   "sounds" : [

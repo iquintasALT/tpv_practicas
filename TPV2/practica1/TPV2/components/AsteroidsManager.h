@@ -26,8 +26,7 @@ public:
 	inline int getNumAsteroids() { return numAsteroids; }
 
 	void update() override {
-		if (state_->getState() == states::RUNNING && sdlutils().currRealTime() - msToNextAsteroid > 5000) {
-
+		if (state_->getState() == states::RUNNING && sdlutils().currRealTime() - msToNextAsteroid > 50000) {
 			generateAsteroid();
 			msToNextAsteroid = sdlutils().currRealTime();
 		}
@@ -79,6 +78,7 @@ public:
 		else asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid"), 5, 6);
 
 		asteroid->setGroup<Asteroid_grp>(asteroid);
+		numAsteroids++;
 	}
 	
 	void onCollision(Entity* hit_asteroid) {
@@ -89,6 +89,9 @@ public:
 			generateAsteroid(lives, hit_asteroid);
 			generateAsteroid(lives, hit_asteroid);
 		}
+
+		numAsteroids--; 
+		if (numAsteroids <= 0) state_->setState(states::WIN);
 	}
 
 private:

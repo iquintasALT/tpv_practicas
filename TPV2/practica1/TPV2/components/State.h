@@ -6,7 +6,7 @@
 
 #include "Transform.h"
 
-enum class states { NEWGAME, PAUSED, RUNNING, GAMEOVER };
+enum class states { NEWGAME, PAUSED, RUNNING, GAMEOVER, WIN };
 
 class State : public Component {
 public:
@@ -24,7 +24,7 @@ public:
 			if (state_ == states::GAMEOVER) {
 				auto& t = sdlutils().msgs().at("gameover");
 				t.render((sdlutils().width() - t.width()) / 2,
-					(50 + sdlutils().height() - t.height()) / 2);
+					(sdlutils().height() - t.height()) / 2);
 			}
 			else if (state_ == states::NEWGAME) {
 				auto& t = sdlutils().msgs().at("start");
@@ -33,6 +33,11 @@ public:
 			}
 			else if (state_ == states::PAUSED) {
 				auto& t = sdlutils().msgs().at("continue");
+				t.render((sdlutils().width() - t.width()) / 2,
+					sdlutils().height() / 2 + t.height() * 2);
+			}
+			else if (state_ == states::WIN) {
+				auto& t = sdlutils().msgs().at("win");
 				t.render((sdlutils().width() - t.width()) / 2,
 					sdlutils().height() / 2 + t.height() * 2);
 			}
