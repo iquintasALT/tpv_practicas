@@ -26,7 +26,7 @@ public:
 	inline int getNumAsteroids() { return numAsteroids; }
 
 	void update() override {
-		if (state_->getState() == states::RUNNING && sdlutils().currRealTime() - msToNextAsteroid > 50000) {
+		if (state_->getState() == states::RUNNING && sdlutils().currRealTime() - msToNextAsteroid > 5000) {
 			generateAsteroid();
 			msToNextAsteroid = sdlutils().currRealTime();
 		}

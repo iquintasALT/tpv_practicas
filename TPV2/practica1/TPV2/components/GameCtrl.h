@@ -24,11 +24,11 @@ public:
 	}
 
 	void update() override {
-		if (ih().isKeyUp(SDL_SCANCODE_SPACE) && state_->getState() != states::RUNNING) {
+		if (ih().isKeyDown(SDL_SCANCODE_SPACE) && state_->getState() != states::RUNNING) {
 			state_->setState(state_->getState() > states::RUNNING ? states::NEWGAME : states::RUNNING);
-
+				
 			if (state_->getState() == states::RUNNING)
-				for (int i = 0; i < 1; i++)
+				for (int i = 0; i < 10; i++)
 					asteroidsMngr_->generateAsteroid();
 
 			else if (state_->getState() == states::NEWGAME) 
