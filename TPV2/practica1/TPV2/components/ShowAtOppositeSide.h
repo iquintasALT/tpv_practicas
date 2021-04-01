@@ -2,13 +2,15 @@
 
 #include "../ecs/Component.h"
 #include "../ecs/Entity.h"
+#include "../sdlutils/SDLUtils.h"
 
 #include "Transform.h"
 
 class ShowAtOppositeSide : public Component
 {
 public:
-	ShowAtOppositeSide(int const width, int const height) : tr_(nullptr), winHeight(height), winWidth(width) {};
+	ShowAtOppositeSide() : tr_(nullptr) {};
+
 	virtual ~ShowAtOppositeSide() {};
 
 	void init() override {
@@ -18,20 +20,21 @@ public:
 
 	void update() override {
 		auto& pos = tr_->getPos();
+
 		//toroidal en el eje X
-		if (pos.getX() > winWidth)
+		if (pos.getX() > sdlutils().width())
 			pos.setX(0 - tr_->getW());
 		else if(pos.getX() + tr_->getW() < 0)
-			pos.setX(winWidth);
+			pos.setX(sdlutils().width());
+
 		//toroidal en el eje Y
-		if (pos.getY() > winHeight)
+		if (pos.getY() > sdlutils().height())
 			pos.setY(0 - tr_->getH());
 		else if (pos.getY() + tr_->getH() < 0)
-			pos.setY(winHeight);
+			pos.setY(sdlutils().height());
 	}
 
 private:
 	Transform* tr_;
-	int winWidth, winHeight;
 };
 

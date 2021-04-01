@@ -2,17 +2,16 @@
 
 #include "../ecs/Component.h"
 #include "../ecs/Entity.h"
-#include "Transform.h"
 #include "../utils/Vector2D.h"
+
+#include "Transform.h"
 
 class DeAcceleration : public Component
 {
 public:
-	DeAcceleration() :
-		tr_(nullptr) {};
+	DeAcceleration() : tr_(nullptr) {};
 
-	virtual ~DeAcceleration() {
-	}
+	virtual ~DeAcceleration() {}
 
 	void init() override {
 		tr_ = entity_->getComponent<Transform>();
@@ -21,7 +20,7 @@ public:
 
 	void update() override {
 		auto& vel = tr_->getVel();
-		vel.set((vel * 0.995f));
+		vel.set(vel * 0.995f);
 	}
 
 private:

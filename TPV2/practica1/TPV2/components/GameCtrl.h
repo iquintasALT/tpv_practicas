@@ -24,15 +24,17 @@ public:
 	}
 
 	void update() override {
-		if (ih().isKeyDown(SDL_SCANCODE_SPACE) && state_->getState() != states::RUNNING) {
-			state_->setState(state_->getState() > states::RUNNING ? states::NEWGAME : states::RUNNING);
-				
-			if (state_->getState() == states::RUNNING)
-				for (int i = 0; i < 10; i++)
-					asteroidsMngr_->generateAsteroid();
+		if (ih().keyDownEvent()) {
+			if (ih().isKeyDown(SDL_SCANCODE_SPACE) && state_->getState() != states::RUNNING) {
+				state_->setState(state_->getState() > states::RUNNING ? states::NEWGAME : states::RUNNING);
 
-			else if (state_->getState() == states::NEWGAME) 
-				heart_->resetLifes();
+				if (state_->getState() == states::RUNNING)
+					for (int i = 0; i < 10; i++)
+						asteroidsMngr_->generateAsteroid();
+
+				else if (state_->getState() == states::NEWGAME)
+					heart_->resetLifes();
+			}
 		}
 	}
 

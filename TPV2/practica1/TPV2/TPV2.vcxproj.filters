@@ -66,9 +66,6 @@
     <ClCompile Include="sdlutils\SDLUtils.cpp">
       <Filter>Source Files\sdlutils</Filter>
     </ClCompile>
-    <ClCompile Include="sdlutils\sdlutils_demo.cpp">
-      <Filter>Source Files\sdlutils</Filter>
-    </ClCompile>
     <ClCompile Include="sdlutils\SoundEffect.cpp">
       <Filter>Source Files\sdlutils</Filter>
     </ClCompile>
@@ -87,11 +84,8 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="json\simplejson_demo.cpp">
-      <Filter>Source Files\json</Filter>
-    </ClCompile>
-    <ClCompile Include="game\GameManager.cpp">
-      <Filter>Source Files\game</Filter>
+    <ClCompile Include="components\Gun.cpp">
+      <Filter>Source Files\components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,9 +122,6 @@
     <ClInclude Include="sdlutils\SDLUtils.h">
       <Filter>Header Files\sdlutils</Filter>
     </ClInclude>
-    <ClInclude Include="sdlutils\sdlutils_demo.h">
-      <Filter>Header Files\sdlutils</Filter>
-    </ClInclude>
     <ClInclude Include="sdlutils\SoundEffect.h">
       <Filter>Header Files\sdlutils</Filter>
     </ClInclude>
@@ -140,16 +131,10 @@
     <ClInclude Include="sdlutils\VirtualTimer.h">
       <Filter>Header Files\sdlutils</Filter>
     </ClInclude>
-    <ClInclude Include="json\simplejson_demo.h">
-      <Filter>Header Files\json</Filter>
-    </ClInclude>
     <ClInclude Include="ecs\Component.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
     <ClInclude Include="ecs\ecs.h">
-      <Filter>Header Files\ecs</Filter>
-    </ClInclude>
-    <ClInclude Include="ecs\ecs_defs_example.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
     <ClInclude Include="ecs\Entity.h">
@@ -167,19 +152,10 @@
     <ClInclude Include="game\Game.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="components\Bounce.h">
-      <Filter>Header Files\components</Filter>
-    </ClInclude>
-    <ClInclude Include="components\Rectangle.h">
-      <Filter>Header Files\components</Filter>
-    </ClInclude>
     <ClInclude Include="components\Transform.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
     <ClInclude Include="components\Image.h">
-      <Filter>Header Files\components</Filter>
-    </ClInclude>
-    <ClInclude Include="components\Rotate.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
     <ClInclude Include="components\DeAcceleration.h">

@@ -3,29 +3,18 @@
 #pragma once
 
 #include "../ecs/Component.h"
-#include "../sdlutils/Texture.h"
 #include "../ecs/Entity.h"
+#include "../sdlutils/Texture.h"
 
 #include "Transform.h"
 
 class Generations : public Component {
 public:
-	Generations() :
-		lives_(3)
-	{
-	}
+	Generations(int lives) : lives_(lives) {}
 
-	Generations(int lives) :
-		lives_(lives)
-	{
-	}
+	virtual ~Generations() {}
 
-	int& getLives() {
-		return lives_;
-	}
-
-	virtual ~Generations() {
-	}
+	inline int& getLives() { return lives_; }
 
 private:
 	int lives_;
