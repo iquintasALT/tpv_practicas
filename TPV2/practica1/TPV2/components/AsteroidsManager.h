@@ -24,6 +24,7 @@ public:
 		assert(state_ != nullptr);
 	}
 
+	// se genera un asteroide cada cierto tiempo
 	void update() override {
 		if (state_->getState() == states::RUNNING && sdlutils().currRealTime() - msToNextAsteroid > newAsteroidSpawn) {
 			generateAsteroid();
