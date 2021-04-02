@@ -51,7 +51,7 @@ void Game::init() {
 	gmManager->addComponent<State>();
 	gmManager->addComponent<AsteroidsManager>();
 	gmManager->addComponent<GameCtrl>();
-	gmManager->addComponent<CollisionsManager>();
+	gmManager->addComponent<CollisionsManager>(&sdlutils().soundEffects().at("explosion"), &sdlutils().soundEffects().at("bang"));
 }
 
 void Game::start() {

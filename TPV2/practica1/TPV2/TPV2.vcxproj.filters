@@ -84,6 +84,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="components\AsteroidsManager.cpp">
+      <Filter>Source Files\components</Filter>
+    </ClCompile>
     <ClCompile Include="components\Gun.cpp">
       <Filter>Source Files\components</Filter>
     </ClCompile>
