@@ -21,6 +21,7 @@ public:
 	void update() override {
 		auto& pos = tr_->getPos();
 
+		// si se sale del marco de juego por alguno de sus limites, desactivamos el objeto
 		if (pos.getX() > sdlutils().width() || pos.getX() + tr_->getW() < 0 ||
 			pos.getY() > sdlutils().height() || pos.getY() + tr_->getH() < 0)
 			entity_->setActive(false);

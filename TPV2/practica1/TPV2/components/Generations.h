@@ -10,13 +10,13 @@
 
 class Generations : public Component {
 public:
-	Generations(int lives) : lives_(lives) {}
+	Generations(int gen) : gen_(gen) {}
 
 	virtual ~Generations() {}
 
-	inline int& getLives() { return lives_; }
+	inline int& getLives() { return gen_; }
 
 private:
-	int lives_;
+	int gen_;
 };
 

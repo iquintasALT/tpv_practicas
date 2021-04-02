@@ -8,7 +8,6 @@ class Transform : public Component {
 public:
 	Transform() : pos_(), vel_(), width_(), height_(), rotation_() {}
 
-	// se puede restar la mitad del ancho y el alto para centrarlo bien?
 	Transform(Vector2D pos, Vector2D vel, float width, float height,
 		float rotation) : pos_(pos), vel_(vel), width_(width), height_(height), rotation_(rotation) {}
 

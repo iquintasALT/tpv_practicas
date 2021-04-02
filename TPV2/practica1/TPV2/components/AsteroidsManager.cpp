@@ -21,7 +21,7 @@ void AsteroidsManager::generateAsteroid()
 	Vector2D vel = (c - pos).normalize() * (sdlutils().rand().nextInt(1, 10) / 10.0);
 
 	int lives = sdlutils().rand().nextInt(1, 4); //vidas aleatorias
-	// 20 + 10 * lives para el tamaño dependiente de las generaciones que le quedan
+	// 20 + 10 * lives para el tamaï¿½o dependiente de las generaciones que le quedan
 	asteroid->addComponent<Transform>(pos, vel, 20 + 10 * lives, 20 + 10 * lives, 0.0f);
 	asteroid->addComponent<ShowAtOppositeSide>();
 	asteroid->addComponent<Generations>(lives);
@@ -33,13 +33,12 @@ void AsteroidsManager::generateAsteroid()
 	}
 	else asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid"), 5, 6);
 
-	//se añade al grupo para comprobar colisiones mas tarde
+	//se aÃ±ade al grupo para comprobar colisiones mas tarde
 	asteroid->setGroup<Asteroid_grp>(asteroid);
 	numAsteroids++;
 }
 
-// creacion de un asteroide a partir de otro
-void AsteroidsManager::generateAsteroid(int lives, Entity* prev_asteroid)
+void AsteroidsManager::generateAsteroid(int gen, Entity* prev_asteroid)
 {
 	auto asteroid = entity_->getMngr()->addEntity();
 
@@ -51,11 +50,11 @@ void AsteroidsManager::generateAsteroid(int lives, Entity* prev_asteroid)
 	Vector2D pos = t->getPos() + t->getVel().rotate(rand) * 2 * t->getW();
 	Vector2D vel = t->getVel().rotate(rand) * 1.1f;
 
-	// 20 + 10 * lives para el tamaño dependiente de las generaciones que le quedan
+	// 20 + 10 * lives para el tamaÃ±o dependiente de las generaciones que le quedan
 	asteroid->addComponent<Transform>(pos,
-		vel, 20 + 10 * lives, 20 + 10 * lives, 0.0f);
+		vel, 20 + 10 * gen, 20 + 10 * gen, 0.0f);
 	asteroid->addComponent<ShowAtOppositeSide>();
-	asteroid->addComponent<Generations>(lives);
+	asteroid->addComponent<Generations>(gen);
 
 	// 70% TIPO A, 30% TIPO B
 	if (sdlutils().rand().nextInt() % 100 < 30) {
@@ -69,15 +68,12 @@ void AsteroidsManager::generateAsteroid(int lives, Entity* prev_asteroid)
 }
 
 void AsteroidsManager::onCollision(Entity* hit_asteroid) {
-	// se resta una vida al asteroide
-	int lives = --hit_asteroid->getComponent<Generations>()->getLives();
-	// desactivamos el asteroide
+	int gen = --hit_asteroid->getComponent<Generations>()->getLives();
 	hit_asteroid->setActive(false);
 
-	// si aun tiene vidas, se generan dos asteroides
-	if (lives > 0) {
-		generateAsteroid(lives, hit_asteroid);
-		generateAsteroid(lives, hit_asteroid);
+	if (gen > 0) {
+		generateAsteroid(gen, hit_asteroid);
+		generateAsteroid(gen, hit_asteroid);
 	}
 
 	numAsteroids--;

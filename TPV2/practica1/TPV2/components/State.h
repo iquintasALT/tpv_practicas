@@ -19,7 +19,8 @@ public:
 	void setState(states const st) { state_ = st; };
 
 	void render() override {
-		//si no esta jugando
+		// si no esta en el estado de jugar, presenta un
+		// mensaje acorde al estado actual
 		if (state_ != states::RUNNING) {
 			if (state_ == states::GAMEOVER) {
 				auto& t = sdlutils().msgs().at("gameover");

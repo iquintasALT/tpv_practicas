@@ -19,10 +19,12 @@ public:
 	inline int getLifes() { return lifes_; }
 
 	void render() override {
+		// renderizamos el numero de corazones en 
+		// pantalla acorde a las vidas actuales del caza
 		Vector2D pos = Vector2D(0, 0);
 		for (int i = 0; i < lifes_; i++) {
-			pos.setX(35 * i);
-			SDL_Rect dest = build_sdlrect(pos, 30, 30);
+			pos.setX((heartSize + 5) * i); // dejamos un pequeño margen entre corazones 
+			SDL_Rect dest = build_sdlrect(pos, heartSize, heartSize);
 			text_->render(dest, 0);
 		}
 	}
@@ -30,6 +32,6 @@ public:
 private:
 	Texture* text_;
 
-	const int maxLifes_ = 3;
+	const int maxLifes_ = 3, heartSize = 30;
 	int lifes_;
 };

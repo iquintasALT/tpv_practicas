@@ -20,9 +20,11 @@ public:
 
 	void update() override {
 		auto& vel = tr_->getVel();
-		vel.set(vel * 0.995f);
+		// aplicamos una desaceleracion a la velocidad en cada iteracion
+		vel.set(vel * deAcceleration);
 	}
 
 private:
 	Transform* tr_;
+	const float deAcceleration = 0.995f;
 };

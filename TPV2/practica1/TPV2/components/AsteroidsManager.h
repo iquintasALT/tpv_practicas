@@ -38,7 +38,7 @@ public:
 
 	void generateAsteroid();
 
-	void generateAsteroid(int lives, Entity* prev_asteroid);
+	void generateAsteroid(int gen, Entity* prev_asteroid);
 	
 	void onCollision(Entity* hit_asteroid);
 

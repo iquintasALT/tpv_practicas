@@ -21,13 +21,13 @@ public:
 	void update() override {
 		auto& pos = tr_->getPos();
 
-		//toroidal en el eje X
+		//toroidal en el eje X (fluido)
 		if (pos.getX() > sdlutils().width())
 			pos.setX(0 - tr_->getW());
 		else if(pos.getX() + tr_->getW() < 0)
 			pos.setX(sdlutils().width());
 
-		//toroidal en el eje Y
+		//toroidal en el eje Y (fluido)
 		if (pos.getY() > sdlutils().height())
 			pos.setY(0 - tr_->getH());
 		else if (pos.getY() + tr_->getH() < 0)

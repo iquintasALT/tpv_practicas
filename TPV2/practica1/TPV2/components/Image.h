@@ -18,6 +18,7 @@ public:
 	}
 
 	void render() override {
+		//renderizamos la imagen acorde a su posicion y dimensiones
 		SDL_Rect dest = build_sdlrect(tr_->getPos(), tr_->getW(), tr_->getH());
 		tex_->render(dest, tr_->getRot());
 	}
