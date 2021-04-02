@@ -11,7 +11,7 @@
 class FramedImage : public Component {
 public:
 	FramedImage(Texture* tex, int rows, int cols) : tr_(nullptr), tex_(tex), rows_(rows),
-		cols_(cols), actRow_(0), actCol_(0)  {
+		cols_(cols), actRow_(0), actCol_(0) {
 		auto w = tex->width() / cols;
 		auto h = tex->height() / rows;
 		src_ = { w * actCol_, h * actRow_, w, h };
@@ -26,15 +26,11 @@ public:
 
 	void update() override {
 		if (sdlutils().currRealTime() - lastUpdate > ms) {
-			if (rows_ == actRow_ + 1) {
-				if (cols_ == actCol_ + 1)
-					actCol_ = 0;
-				else
-					actCol_++;
-				actRow_ = 0;
+			if (cols_ == actCol_ + 1) { //si ha llegado al final de 
+				actRow_ = (rows_ == actRow_ + 1 ? 0 : actRow_ + 1);
+				actCol_ = 0;
 			}
-			else
-				actRow_++;
+			else actCol_++;
 
 			lastUpdate = sdlutils().currRealTime();
 		}
@@ -52,6 +48,7 @@ private:
 	Transform* tr_;
 	Texture* tex_;
 	SDL_Rect src_;
+
 	int rows_, cols_;
 	int actRow_, actCol_;
 	const int ms = 50;

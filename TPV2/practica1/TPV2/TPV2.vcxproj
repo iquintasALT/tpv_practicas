@@ -19,14 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="components\Gun.cpp" />
     <ClCompile Include="ecs\Entity.cpp" />
     <ClCompile Include="ecs\Manager.cpp" />
     <ClCompile Include="game\Game.cpp" />
     <ClCompile Include="json\JSON.cpp" />
     <ClCompile Include="json\JSONValue.cpp" />
-    <ClCompile Include="json\simplejson_demo.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="sdlutils\sdlutils_demo.cpp" />
     <ClCompile Include="sdlutils\SDLUtils.cpp" />
     <ClCompile Include="sdlutils\SoundEffect.cpp" />
     <ClCompile Include="sdlutils\Texture.cpp" />
@@ -35,7 +34,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="components\AsteroidsManager.h" />
-    <ClInclude Include="components\Bounce.h" />
     <ClInclude Include="components\CollisionsManager.h" />
     <ClInclude Include="components\DeAcceleration.h" />
     <ClInclude Include="components\DisableOnExit.h" />
@@ -47,24 +45,18 @@
     <ClInclude Include="components\Heart.h" />
     <ClInclude Include="components\Image.h" />
     <ClInclude Include="components\FighterCtrl.h" />
-    <ClInclude Include="components\Rectangle.h" />
-    <ClInclude Include="components\Rotate.h" />
     <ClInclude Include="components\ShowAtOppositeSide.h" />
     <ClInclude Include="components\State.h" />
     <ClInclude Include="components\Transform.h" />
     <ClInclude Include="ecs\Component.h" />
     <ClInclude Include="ecs\ecs.h" />
-    <ClInclude Include="ecs\ecs_defs_example.h" />
     <ClInclude Include="ecs\Entity.h" />
     <ClInclude Include="ecs\Manager.h" />
     <ClInclude Include="ecs\mpl.h" />
     <ClInclude Include="game\ecs_defs.h" />
     <ClInclude Include="game\Game.h" />
-    <ClInclude Include="game\GameManager.h" />
-    <ClInclude Include="json\simplejson_demo.h" />
     <ClInclude Include="json\JSON.h" />
     <ClInclude Include="json\JSONValue.h" />
-    <ClInclude Include="sdlutils\sdlutils_demo.h" />
     <ClInclude Include="sdlutils\Font.h" />
     <ClInclude Include="sdlutils\InputHandler.h" />
     <ClInclude Include="sdlutils\macros.h" />

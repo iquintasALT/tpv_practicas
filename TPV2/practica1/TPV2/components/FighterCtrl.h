@@ -4,19 +4,18 @@
 #include <cassert>
 
 #include "../ecs/Component.h"
-#include "../sdlutils/InputHandler.h"
 #include "../ecs/Entity.h"
+#include "../sdlutils/InputHandler.h"
+
 #include "Transform.h"
 
 class FighterCtrl : public Component {
 public:
-	FighterCtrl(SoundEffect* sfx) : tr_(nullptr), speed_(1.0), sfx_(sfx) {}
+	FighterCtrl(SoundEffect* sfx) : tr_(nullptr), speed_(1.0f), thrust_sfx_(sfx) {}
 
 	virtual ~FighterCtrl() {}
 
-	inline void setSpeed(float speed) {
-		speed_ = speed;
-	}
+	inline void setSpeed(float speed) { speed_ = speed; }
 
 	void init() override {
 		tr_ = entity_->getComponent<Transform>();
@@ -25,14 +24,12 @@ public:
 
 	void update() override {
 		if (ih().keyDownEvent()) {
-
 			if (ih().isKeyDown(SDL_SCANCODE_UP)) {
 				auto& vel = tr_->getVel();
 				auto newVel = vel + (Vector2D(0, -1).rotate(tr_->getRot())).normalize() * thrust;
 				vel.set((newVel.magnitude() > speedLimit) ?
-					(Vector2D(0, -1).rotate(tr_->getRot())).normalize() * speedLimit
-					: newVel);
-				sfx_->play();
+					(Vector2D(0, -1).rotate(tr_->getRot())).normalize() * speedLimit : newVel);
+				thrust_sfx_->play();
 			}
 			else if (ih().isKeyDown(SDL_SCANCODE_LEFT)) {
 				tr_->setRot(tr_->getRot() - 5.0f);
@@ -45,9 +42,8 @@ public:
 
 private:
 	Transform* tr_;
-	SoundEffect* sfx_;
-	float speed_;
-	const float thrust = .2f, speedLimit = 3.0f;
-}
-;
+	SoundEffect* thrust_sfx_;
 
+	float speed_;
+	const float thrust = 0.2f, speedLimit = 3.0f;
+};
