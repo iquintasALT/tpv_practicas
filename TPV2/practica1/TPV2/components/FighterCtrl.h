@@ -6,6 +6,7 @@
 #include "../ecs/Component.h"
 #include "../ecs/Entity.h"
 #include "../sdlutils/InputHandler.h"
+#include "../sdlutils/SoundEffect.h"
 
 #include "Transform.h"
 
@@ -44,6 +45,6 @@ private:
 	Transform* tr_;
 	SoundEffect* thrust_sfx_;
 
-	float speed_;
 	const float thrust = 0.2f, speedLimit = 3.0f;
+	float speed_;
 };

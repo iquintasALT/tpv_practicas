@@ -2,8 +2,6 @@
 
 #include "Game.h"
 
-#include "../components/Bounce.h"
-#include "../components/Rotate.h"
 #include "../components/Image.h"
 #include "../components/Transform.h"
 #include "../components/FighterCtrl.h"
@@ -46,7 +44,7 @@ void Game::init() {
 	fighter->addComponent<Heart>(&sdlutils().images().at("heart"));
 	fighter->addComponent<FighterCtrl>(&sdlutils().soundEffects().at("thrust"));
 	fighter->addComponent<Gun>(&sdlutils().soundEffects().at("fire"));
-	fighter->addComponent<ShowAtOppositeSide>(sdlutils().width(), sdlutils().height());
+	fighter->addComponent<ShowAtOppositeSide>();
 
 	auto* gmManager = mngr_->addEntity();
 	mngr_->setHandler<Manager_hdlr>(gmManager);

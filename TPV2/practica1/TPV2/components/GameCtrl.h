@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../ecs/Component.h"
-#include "../sdlutils/InputHandler.h"
 #include "../ecs/Entity.h"
 #include "../ecs/Manager.h"
+#include "../sdlutils/InputHandler.h"
 
 #include "State.h"
 #include "AsteroidsManager.h"
@@ -11,16 +11,15 @@
 
 class GameCtrl : public Component {
 public:
-	GameCtrl() : state_(nullptr), asteroidsMngr_(nullptr), heart_(nullptr) {}
+	GameCtrl() : state_(nullptr), asteroidsMngr_(nullptr) {}
 
 	virtual ~GameCtrl() {}
 
 	void init() override {
 		state_ = entity_->getComponent<State>();
 		asteroidsMngr_ = entity_->getComponent<AsteroidsManager>();
-		heart_ = entity_->getMngr()->getHandler<Player_hdlr>()->getComponent<Heart>();
 
-		assert(state_ != nullptr && asteroidsMngr_ != nullptr && heart_ != nullptr);
+		assert(state_ != nullptr && asteroidsMngr_ != nullptr);
 	}
 
 	void update() override {
@@ -33,7 +32,7 @@ public:
 						asteroidsMngr_->generateAsteroid();
 
 				else if (state_->getState() == states::NEWGAME)
-					heart_->resetLifes();
+					entity_->getMngr()->getHandler<Player_hdlr>()->getComponent<Heart>()->resetLifes();
 			}
 		}
 	}
@@ -41,5 +40,4 @@ public:
 private:
 	State* state_;
 	AsteroidsManager* asteroidsMngr_;
-	Heart* heart_;
 };

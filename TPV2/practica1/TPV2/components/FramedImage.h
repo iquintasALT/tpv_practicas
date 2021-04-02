@@ -11,7 +11,7 @@
 class FramedImage : public Component {
 public:
 	FramedImage(Texture* tex, int rows, int cols) : tr_(nullptr), tex_(tex), rows_(rows),
-		cols_(cols), actRow_(0), actCol_(0) {
+		cols_(cols), actRow_(0), actCol_(0), lastUpdate(0) {
 		auto w = tex->width() / cols;
 		auto h = tex->height() / rows;
 		src_ = { w * actCol_, h * actRow_, w, h };
@@ -52,5 +52,5 @@ private:
 	int rows_, cols_;
 	int actRow_, actCol_;
 	const int ms = 50;
-	int lastUpdate = 0;
+	int lastUpdate;
 };

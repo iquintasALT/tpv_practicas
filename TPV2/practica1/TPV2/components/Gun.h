@@ -5,6 +5,7 @@
 #include "../ecs/Manager.h"
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
+#include "../sdlutils/SoundEffect.h"
 
 #include "Transform.h"
 #include "Image.h"
@@ -13,7 +14,7 @@
 class Gun : public Component
 {
 public:
-	Gun(SoundEffect* sfx) : tr_(nullptr), bullet_sfx_(sfx) {};
+	Gun(SoundEffect* sfx) : tr_(nullptr), bullet_sfx_(sfx), msToNextBullet(0) {};
 
 	virtual ~Gun() { }
 
@@ -38,7 +39,7 @@ private:
 
 	const float bulletH = 20.0f, bulletW = 5.0f;
 	const int nextBullet = 250;
-	int msToNextBullet = 0;
+	int msToNextBullet;
 
 	void createBullet();
 };
