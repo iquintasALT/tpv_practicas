@@ -14,6 +14,7 @@ void start() {
 
 
 int main(int x, char** args) {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	try {
 		start();
@@ -29,4 +30,3 @@ int main(int x, char** args) {
 
 	return 0;
 }
-
