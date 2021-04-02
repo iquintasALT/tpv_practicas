@@ -3,10 +3,7 @@
 #include <iostream>
 #include <memory>
 
-
-
-
-#include "game/Game.h"
+#include "./game/Game.h"
 
 void start() {
 	Game g;

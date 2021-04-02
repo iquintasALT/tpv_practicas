@@ -48,7 +48,6 @@ void SDLUtils::initWindow() {
 
 	// hide cursor by default
 	hideCursor();
-
 }
 
 void SDLUtils::closeWindow() {

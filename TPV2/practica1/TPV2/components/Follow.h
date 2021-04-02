@@ -23,6 +23,7 @@ public:
 	void update() override {
 		Transform* fighter_tr_ = entity_->getMngr()->getHandler<Player_hdlr>()->getComponent<Transform>();
 		auto& vel = tr_->getVel();
+		//izquierda, derecha rotacion dependiendo de si el caza esta en esa direccion
 		vel = vel.rotate(vel.angle(fighter_tr_->getPos() - tr_->getPos()) > 0 ? 1.0f : -1.0f);
 	}
 

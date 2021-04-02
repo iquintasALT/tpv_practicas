@@ -33,6 +33,8 @@ public:
 
 	inline int getNumAsteroids() { return numAsteroids; }
 
+	inline void resetTimer() { msToNextAsteroid = sdlutils().currRealTime(); }
+
 	void generateAsteroid();
 
 	void generateAsteroid(int lives, Entity* prev_asteroid);
