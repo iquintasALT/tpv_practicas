@@ -23,6 +23,7 @@ public:
 		assert(tr_ != nullptr);
 	}
 
+	// se crea una bala cuando se pulsa la s 
 	void update() override {
 		if (sdlutils().currRealTime() - msToNextBullet > nextBullet) {
 			if (ih().isKeyDown(SDL_SCANCODE_S)) {
@@ -39,7 +40,7 @@ private:
 
 	const float bulletH = 20.0f, bulletW = 5.0f;
 	const int nextBullet = 250;
-	int msToNextBullet;
+	int msToNextBullet; // cooldown hasta la siguiente bala
 
 	void createBullet();
 };
