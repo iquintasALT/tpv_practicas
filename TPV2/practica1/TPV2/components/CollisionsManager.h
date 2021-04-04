@@ -58,6 +58,8 @@ public:
 
 					//reactivamos caza y manager tras desactivar todas las entidades
 					fighter->setActive(true);
+					fighter->removeComponent<FighterCtrl>();
+					fighter->removeComponent<Gun>();
 					entity_->getMngr()->getHandler<Manager_hdlr>()->setActive(true);
 
 					// recolocamos el caza y reseteamos su velocidad y rotacion

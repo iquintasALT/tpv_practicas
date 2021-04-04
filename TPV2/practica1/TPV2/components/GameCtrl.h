@@ -8,6 +8,8 @@
 #include "State.h"
 #include "AsteroidsManager.h"
 #include "Heart.h"
+#include "FighterCtrl.h"
+#include "Gun.h"
 
 class GameCtrl : public Component {
 public:
@@ -34,6 +36,11 @@ public:
 				if (state_->getState() == states::RUNNING) {
 					for (int i = 0; i < 10; i++)
 						asteroidsMngr_->generateAsteroid();
+					// añadimos estos componenetes solo al pasar al estado running para que el jugador no se 
+					// mueva durante el resto de estados
+					entity_->getMngr()->getHandler<Player_hdlr>()->addComponent<FighterCtrl>(&sdlutils().soundEffects().at("thrust"));
+					entity_->getMngr()->getHandler<Player_hdlr>()->addComponent<Gun>(&sdlutils().soundEffects().at("fire"));
+		
 					asteroidsMngr_->resetTimer();
 				}
 

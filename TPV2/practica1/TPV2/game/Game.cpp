@@ -34,6 +34,9 @@ void Game::init() {
 	SDLUtils::init("Asteroid", 800, 600,
 		"resources/config/resources.json");
 
+	// FigtherCtrl y Gun se añaden en GameCtrl.h, para controlar que solo lo tenga
+	// durante el estado de juego (ver implementacion del update de GameCtrl.h [41-42]
+	// y update de CollisionManager.h [61-62])
 	auto* fighter = mngr_->addEntity();
 	mngr_->setHandler<Player_hdlr>(fighter);
 	fighter->addComponent<Transform>(Vector2D(sdlutils().width() / 2.0f - 25.0f, sdlutils().height() / 2.0f - 25.0f),
@@ -41,8 +44,6 @@ void Game::init() {
 	fighter->addComponent<DeAcceleration>();
 	fighter->addComponent<Image>(&sdlutils().images().at("fighter"));
 	fighter->addComponent<Heart>(&sdlutils().images().at("heart"));
-	fighter->addComponent<FighterCtrl>(&sdlutils().soundEffects().at("thrust"));
-	fighter->addComponent<Gun>(&sdlutils().soundEffects().at("fire"));
 	fighter->addComponent<ShowAtOppositeSide>();
 
 	auto* gmManager = mngr_->addEntity();
