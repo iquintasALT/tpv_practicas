@@ -67,11 +67,11 @@ public:
 						sdlutils().height() / 2.0f - (fighterTr_->getH() / 2));
 					fighterTr_->getVel().set(Vector2D(0, 0));
 					fighterTr_->setRot(0);
-
+					
 					// sonido de choque
 					crash_sfx_->play();
 
-					break; //salimo del bucle principal
+					break; //salimos del bucle principal
 				}
 				else { // en caso de no colisionar con el caza
 					for (int i = 0; i < entities.size(); i++) {

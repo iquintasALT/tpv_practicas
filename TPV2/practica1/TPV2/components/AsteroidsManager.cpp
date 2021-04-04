@@ -5,22 +5,24 @@ void AsteroidsManager::generateAsteroid()
 {
 	auto asteroid = entity_->getMngr()->addEntity();
 
+	int lives = sdlutils().rand().nextInt(1, 4); //vidas aleatorias
+
 	//marco de aparicion
 	Vector2D c = Vector2D(sdlutils().width() / 2, sdlutils().height() / 2) +
 		Vector2D(sdlutils().rand().nextInt(-100, 101), sdlutils().rand().nextInt(-100, 101));
 	//se escogem la anchura o la altura aleatoriamente
 	int selection = sdlutils().rand().nextInt(0, 2);
 	//tras escoger una de ellas, la segunda componente del vector sera la que no se ha escogido en primer lugar
-	int first = (selection == 0 ? sdlutils().rand().nextInt(0, sdlutils().width()) :
-		sdlutils().rand().nextInt(0, 2) * sdlutils().width());
-	int second = (selection == 0 ? sdlutils().rand().nextInt(0, 2) * sdlutils().height() :
-		sdlutils().rand().nextInt(0, sdlutils().height()));
+	//(quitamos el ancho/alto del asteroide para que spawneen siempre dentro 
+	int first = (selection == 0 ? sdlutils().rand().nextInt(0, sdlutils().width() - (20 + 10 * lives)) :
+		sdlutils().rand().nextInt(0, 2) * sdlutils().width() - (20 + 10 * lives));
+	int second = (selection == 0 ? sdlutils().rand().nextInt(0, 2) * sdlutils().height() - (20 + 10 * lives) :
+		sdlutils().rand().nextInt(0, sdlutils().height()- (20 + 10 * lives)));
 
 	//creamos el vector pos y vel
 	Vector2D pos = Vector2D(first, second);
 	Vector2D vel = (c - pos).normalize() * (sdlutils().rand().nextInt(1, 10) / 10.0);
 
-	int lives = sdlutils().rand().nextInt(1, 4); //vidas aleatorias
 	// 20 + 10 * lives para el tama�o dependiente de las generaciones que le quedan
 	asteroid->addComponent<Transform>(pos, vel, 20 + 10 * lives, 20 + 10 * lives, 0.0f);
 	asteroid->addComponent<ShowAtOppositeSide>();
