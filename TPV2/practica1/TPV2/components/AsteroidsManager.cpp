@@ -15,8 +15,8 @@ void AsteroidsManager::generateAsteroid()
 	//tras escoger una de ellas, la segunda componente del vector sera la que no se ha escogido en primer lugar
 	//(quitamos el ancho/alto del asteroide para que spawneen siempre dentro 
 	int first = (selection == 0 ? sdlutils().rand().nextInt(0, sdlutils().width() - (20 + 10 * lives)) :
-		sdlutils().rand().nextInt(0, 2) * sdlutils().width() - (20 + 10 * lives));
-	int second = (selection == 0 ? sdlutils().rand().nextInt(0, 2) * sdlutils().height() - (20 + 10 * lives) :
+		sdlutils().rand().nextInt(0, 2) * (sdlutils().width() - (20 + 10 * lives)));
+	int second = (selection == 0 ? sdlutils().rand().nextInt(0, 2) * (sdlutils().height() - (20 + 10 * lives)) :
 		sdlutils().rand().nextInt(0, sdlutils().height()- (20 + 10 * lives)));
 
 	//creamos el vector pos y vel
