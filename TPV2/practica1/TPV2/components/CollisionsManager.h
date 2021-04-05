@@ -2,6 +2,8 @@
 
 #include "../ecs/Component.h"
 #include "../ecs/Entity.h"
+#include "../sdlutils/SDLUtils.h"
+
 #include "../ecs/Manager.h"
 #include "../utils/Collisions.h"
 #include "../sdlutils/SDLUtils.h"
@@ -45,6 +47,9 @@ public:
 					// en caso de que colisione, quitamos una vida
 					auto health = fighter->getComponent<Heart>();
 					health->eraseLife();
+
+					// reseteamos el numero de asteroides
+					asteroidsManager_->resetNumAsteroids();
 
 					// cambiamos el estado acorde al numero de vidas actual
 					if (health->getLifes() > 0)

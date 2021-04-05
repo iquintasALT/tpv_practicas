@@ -79,7 +79,20 @@ void AsteroidsManager::onCollision(Entity* hit_asteroid) {
 	}
 
 	numAsteroids--;
-
 	//si ya no quedan asteroides, el jugador ha ganado
-	if (numAsteroids <= 0) state_->setState(states::WIN);
+	if (numAsteroids <= 0) {
+		// reseteamos la posicion del jugador, y eliminamos los componentes FighterCtrl y Gun
+		auto fighter = entity_->getMngr()->getHandler<Player_hdlr>();
+		auto fighterTr_ = fighter->getComponent<Transform>();
+
+		fighter->removeComponent<FighterCtrl>();
+		fighter->removeComponent<Gun>();
+
+		fighterTr_->getPos().set(sdlutils().width() / 2.0f - (fighterTr_->getW() / 2),
+			sdlutils().height() / 2.0f - (fighterTr_->getH() / 2));
+		fighterTr_->getVel().set(Vector2D(0, 0));
+		fighterTr_->setRot(0);
+
+		state_->setState(states::WIN);
+	}
 }

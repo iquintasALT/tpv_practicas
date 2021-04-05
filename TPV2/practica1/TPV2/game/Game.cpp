@@ -35,8 +35,8 @@ void Game::init() {
 		"resources/config/resources.json");
 
 	// FigtherCtrl y Gun se añaden en GameCtrl.h, para controlar que solo lo tenga
-	// durante el estado de juego (ver implementacion del update de GameCtrl.h [41-42]
-	// y update de CollisionManager.h [61-62])
+	// durante el estado de juego (ver implementacion del update de GameCtrl.h [41-42],
+	// update de CollisionManager.h [61-62] y onCollision de AsteroidsManager.cpp [84-85])
 	auto* fighter = mngr_->addEntity();
 	mngr_->setHandler<Player_hdlr>(fighter);
 	fighter->addComponent<Transform>(Vector2D(sdlutils().width() / 2.0f - 25.0f, sdlutils().height() / 2.0f - 25.0f),

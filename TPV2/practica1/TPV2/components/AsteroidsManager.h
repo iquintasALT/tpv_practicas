@@ -34,6 +34,8 @@ public:
 
 	inline int getNumAsteroids() { return numAsteroids; }
 
+	inline void resetNumAsteroids() { numAsteroids = 0; }
+
 	inline void resetTimer() { msToNextAsteroid = sdlutils().currRealTime(); }
 
 	void generateAsteroid();
