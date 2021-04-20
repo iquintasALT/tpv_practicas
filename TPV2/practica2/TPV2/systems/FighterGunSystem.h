@@ -9,4 +9,4 @@ public:
 	// - se puede incluir ese comportamiento en el FighterSystem directamente en
 	// lugar de definirlo en un sistema separado
 	void update() override;
-}
+};

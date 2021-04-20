@@ -18,6 +18,7 @@ public:
 	// - si el juego está parado no hacer nada.
 	// - mover los asteroides como en la práctica 1.
 	void update() override;
+
 private:
 	std::size_t numOfAsteroids_;
 }

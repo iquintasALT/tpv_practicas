@@ -19,4 +19,4 @@ public:
 	// - si el juego está parado no hacer nada.
 	// - mover las balas y desactivar las que se salen de la ventana
 	void update() override;
-}
+};

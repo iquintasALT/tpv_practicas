@@ -12,4 +12,4 @@ public:
 	// este código en los sistemas correspondientes en lugar de tener un sólo
 	// sistema para rendering
 	void update() override;
-}
+};
