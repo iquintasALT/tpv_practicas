@@ -50,6 +50,13 @@
     <ClInclude Include="sdlutils\SoundEffect.h" />
     <ClInclude Include="sdlutils\Texture.h" />
     <ClInclude Include="sdlutils\VirtualTimer.h" />
+    <ClInclude Include="systems\AsteroidsSystem.h" />
+    <ClInclude Include="systems\BulletsSystem.h" />
+    <ClInclude Include="systems\CollisionSystem.h" />
+    <ClInclude Include="systems\FighterGunSystem.h" />
+    <ClInclude Include="systems\FighterSystem.h" />
+    <ClInclude Include="systems\GameCtrlSystem.h" />
+    <ClInclude Include="systems\RenderSystem.h" />
     <ClInclude Include="utils\checkML.h" />
     <ClInclude Include="utils\Collisions.h" />
     <ClInclude Include="utils\Singleton.h" />

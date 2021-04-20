@@ -50,7 +50,17 @@ struct Manager_hdlr;
 
 
 // systems
-struct AsteroidSystem;
+struct GameCtrlSystem;
+struct AsteroidsSystem;
+struct BulletsSystem;
+struct FighterSystem;
+struct FighterGunSystem;
+struct CollisionSystem;
 struct RenderSystem;
-#define _SYS_LIST_ AsteroidSystem, \
+#define _SYS_LIST_ GameCtrlSystem, \
+	AsteroidsSystem, \
+	BulletsSystem, \
+	FighterSystem, \
+	FighterGunSystem, \
+	CollisionSystem, \
 	RenderSystem
