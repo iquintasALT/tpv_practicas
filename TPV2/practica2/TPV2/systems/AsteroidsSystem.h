@@ -21,4 +21,4 @@ public:
 
 private:
 	std::size_t numOfAsteroids_;
-}
+};

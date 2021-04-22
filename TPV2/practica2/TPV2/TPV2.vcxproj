@@ -33,15 +33,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="components\AsteroidsManager.h" />
-    <ClInclude Include="components\CollisionsManager.h" />
     <ClInclude Include="components\Follow.h" />
     <ClInclude Include="components\FramedImage.h" />
     <ClInclude Include="components\GameCtrl.h" />
     <ClInclude Include="components\Generations.h" />
     <ClInclude Include="components\Health.h" />
     <ClInclude Include="components\Image.h" />
-    <ClInclude Include="components\KeyBoardCtrl.h" />
-    <ClInclude Include="components\ShowAtOppositeSide.h" />
     <ClInclude Include="components\Transform.h" />
     <ClInclude Include="ecs\Component.h" />
     <ClInclude Include="ecs\ecs.h" />
