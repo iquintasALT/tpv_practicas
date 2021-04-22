@@ -46,7 +46,7 @@ public:
 
 				// si pasamos a NEWGAME, reseteamos las vidas del caza
 				else if (state_->getState() == GameState::NEWGAME)
-					entity_->getMngr()->getHandler<Player_hdlr>()->getComponent<Heart>()->resetLifes();
+					entity_->getMngr()->getHandler<Player_hdlr>()->getComponent<Health>()->resetLifes();
 			}
 		}
 	}

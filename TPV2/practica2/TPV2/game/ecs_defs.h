@@ -7,7 +7,7 @@ class Transform;
 class FighterCtrl;
 class Image;
 class DeAcceleration;
-class Heart;
+class Health;
 class ShowAtOppositeSide;
 class Generations;
 class DisableOnExit;
@@ -24,7 +24,7 @@ class CollisionsManager;
 	FighterCtrl,\
 	Image,\
 	DeAcceleration, \
-	Heart, \
+	Health, \
 	ShowAtOppositeSide, \
 	Generations, \
 	DisableOnExit, \

@@ -43,7 +43,7 @@ void Game::init() {
 		Vector2D(), 50.0f, 50.0f, 0.0f);
 	fighter->addComponent<DeAcceleration>();
 	fighter->addComponent<Image>(&sdlutils().images().at("fighter"));
-	fighter->addComponent<Heart>(&sdlutils().images().at("heart"));
+	fighter->addComponent<Health>(&sdlutils().images().at("heart"));
 	fighter->addComponent<ShowAtOppositeSide>();
 
 	auto* gmManager = mngr_->addEntity();

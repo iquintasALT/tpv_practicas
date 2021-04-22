@@ -4,7 +4,7 @@
 
 enum class GameState { NEWGAME, PAUSED, RUNNING, GAMEOVER, WIN };
 
-class State : public Component {
+struct State : public Component {
 	GameState state_;
 
 	State() : state_(GameState::NEWGAME) {}

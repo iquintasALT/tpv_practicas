@@ -1,9 +1,10 @@
 #pragma once
 
 #include "../ecs/Component.h"
+
 #include "../utils/Vector2D.h"
 
-class Transform : public Component {
+struct Transform : public Component {
 	Vector2D pos_;
 	Vector2D vel_;
 

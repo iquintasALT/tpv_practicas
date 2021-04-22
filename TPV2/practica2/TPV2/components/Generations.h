@@ -2,7 +2,7 @@
 
 #include "../ecs/Component.h"
 
-class Generations : public Component {
+struct Generations : public Component {
 	int gen_;
 
 	Generations() : gen_(0) {}

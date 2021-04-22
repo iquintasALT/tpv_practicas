@@ -43,7 +43,7 @@ public:
 				// comprobamos si colisiona con el caza
 				if (Collisions::collides(pos, w, h, fighterTr_->getPos(), fighterTr_->getW(), fighterTr_->getH())) {
 					// en caso de que colisione, quitamos una vida
-					auto health = fighter->getComponent<Heart>();
+					auto health = fighter->getComponent<Health>();
 					health->eraseLife();
 
 					// reseteamos el numero de asteroides
