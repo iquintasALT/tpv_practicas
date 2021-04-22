@@ -35,7 +35,6 @@
   <ItemGroup>
     <ClInclude Include="components\AsteroidsManager.h" />
     <ClInclude Include="components\CollisionsManager.h" />
-    <ClInclude Include="components\DisableOnExit.h" />
     <ClInclude Include="components\Follow.h" />
     <ClInclude Include="components\FramedImage.h" />
     <ClInclude Include="components\GameCtrl.h" />

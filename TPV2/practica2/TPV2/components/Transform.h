@@ -17,4 +17,3 @@ struct Transform : public Component {
 		float rotation = 0) : pos_(pos), vel_(vel), width_(width), height_(height), rotation_(rotation) {}
 	virtual ~Transform() {}
 };
-
