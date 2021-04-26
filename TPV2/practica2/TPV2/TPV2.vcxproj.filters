@@ -43,14 +43,17 @@
     <Filter Include="Source Files\game">
       <UniqueIdentifier>{f6b00691-f971-4a0f-8fad-65fbc8007439}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\systems">
-      <UniqueIdentifier>{58d47e56-4c4a-4e3b-958c-3f4228304c78}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\components">
       <UniqueIdentifier>{9d0eb969-24bd-4375-beff-94fea569b20e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\systems">
+      <UniqueIdentifier>{f1be0be5-2142-41a5-b37d-045a4421f436}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\components">
-      <UniqueIdentifier>{c758aeff-d563-4faa-9a7d-afca65cf9d4b}</UniqueIdentifier>
+      <UniqueIdentifier>{27092c96-5ad4-4792-96ba-7f4c45bd2776}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\systems">
+      <UniqueIdentifier>{166bb50b-ec74-49a3-b334-87b26ab6c24a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -84,8 +87,8 @@
     <ClCompile Include="game\Game.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
-    <ClCompile Include="components\Gun.cpp">
-      <Filter>Source Files\components</Filter>
+    <ClCompile Include="systems\AsteroidsSystem.cpp">
+      <Filter>Source Files\systems</Filter>
     </ClCompile>
     <ClCompile Include="components\AsteroidsManager.cpp">
       <Filter>Source Files\components</Filter>
@@ -161,31 +164,7 @@
     <ClInclude Include="game\ecs_defs.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="systems\AsteroidsSystem.h">
-      <Filter>Header Files\systems</Filter>
-    </ClInclude>
-    <ClInclude Include="systems\BulletsSystem.h">
-      <Filter>Header Files\systems</Filter>
-    </ClInclude>
-    <ClInclude Include="systems\CollisionSystem.h">
-      <Filter>Header Files\systems</Filter>
-    </ClInclude>
-    <ClInclude Include="systems\FighterGunSystem.h">
-      <Filter>Header Files\systems</Filter>
-    </ClInclude>
-    <ClInclude Include="systems\FighterSystem.h">
-      <Filter>Header Files\systems</Filter>
-    </ClInclude>
-    <ClInclude Include="systems\GameCtrlSystem.h">
-      <Filter>Header Files\systems</Filter>
-    </ClInclude>
-    <ClInclude Include="systems\RenderSystem.h">
-      <Filter>Header Files\systems</Filter>
-    </ClInclude>
     <ClInclude Include="components\AsteroidsManager.h">
-      <Filter>Header Files\components</Filter>
-    </ClInclude>
-    <ClInclude Include="components\CollisionsManager.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
     <ClInclude Include="components\Follow.h">
@@ -200,26 +179,32 @@
     <ClInclude Include="components\Generations.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
-    <ClInclude Include="components\Gun.h">
+    <ClInclude Include="components\Health.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
     <ClInclude Include="components\Image.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
-    <ClInclude Include="components\KeyBoardCtrl.h">
-      <Filter>Header Files\components</Filter>
-    </ClInclude>
-    <ClInclude Include="components\ShowAtOppositeSide.h">
-      <Filter>Header Files\components</Filter>
-    </ClInclude>
-    <ClInclude Include="components\State.h">
-      <Filter>Header Files\components</Filter>
-    </ClInclude>
     <ClInclude Include="components\Transform.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
-    <ClInclude Include="components\Health.h">
-      <Filter>Header Files\components</Filter>
+    <ClInclude Include="systems\AsteroidsSystem.h">
+      <Filter>Header Files\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="systems\BulletsSystem.h">
+      <Filter>Header Files\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="systems\CollisionSystem.h">
+      <Filter>Header Files\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="systems\FighterSystem.h">
+      <Filter>Header Files\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="systems\GameCtrlSystem.h">
+      <Filter>Header Files\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="systems\RenderSystem.h">
+      <Filter>Header Files\systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

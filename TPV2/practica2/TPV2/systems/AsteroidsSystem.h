@@ -1,12 +1,19 @@
 #pragma once
 
 #include "../ecs/Entity.h"
+#include "../ecs/Manager.h"
 #include "../ecs/System.h"
+
+#include "../sdlutils/SDLUtils.h"
+#include "../sdlutils/SoundEffect.h"
+#include "../utils/Vector2D.h"
+
+#include "../components/Transform.h"
 
 class AsteroidsSystem : public System {
 public:
 	// - añade n asteroides al juego como en la práctica 1.
-	void addAsteroids(int n);
+	void addAsteroid();
 
 	// - desactivar el asteroide “a” y crear 2 asteroides como en la práctica 1.
 	// - pasamos una referencia a la bala aunque no se usa de momento (en el futuro
@@ -19,6 +26,8 @@ public:
 	// - mover los asteroides como en la práctica 1.
 	void update() override;
 
+
+	void asteroidFollow(Entity* asteroid);
 private:
 	std::size_t numOfAsteroids_;
 };

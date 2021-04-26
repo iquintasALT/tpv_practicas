@@ -28,6 +28,7 @@
     <ClCompile Include="sdlutils\SDLUtils.cpp" />
     <ClCompile Include="sdlutils\SoundEffect.cpp" />
     <ClCompile Include="sdlutils\Texture.cpp" />
+    <ClCompile Include="systems\AsteroidsSystem.cpp" />
     <ClCompile Include="utils\Collisions.cpp" />
     <ClCompile Include="utils\Vector2D.cpp" />
   </ItemGroup>
