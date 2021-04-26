@@ -22,6 +22,13 @@ public:
 	// - si no hay más asteroides avisar al GameCtrlSystem
 	void onCollisionWithBullet(Entity* a, Entity* b);
 
+	void resetAsteroids() {
+		numOfAsteroids_ = 0;
+		//desactivamos todas las entidades para su posterior eliminacion
+		for (auto entity : manager_->getEntities())
+			manager_->setActive(entity, false);
+	};
+
 	// - si el juego está parado no hacer nada.
 	// - mover los asteroides como en la práctica 1.
 	void update() override;

@@ -29,8 +29,6 @@ public:
 
 		// sonido de choque
 		crash_sfx_->play();
-
-		manager_->getSystem<GameCtrlSystem>()->onFighterDeath();
 	}
 
 	// - crear la entidad del caza, añadir sus componentes (Transform, Health, etc.)

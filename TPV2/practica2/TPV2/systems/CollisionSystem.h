@@ -1,6 +1,17 @@
 #pragma once
 
+#include "../ecs/Entity.h"
+#include "../ecs/Manager.h"
 #include "../ecs/System.h"
+
+#include "../utils/Collisions.h"
+
+#include "../components/Transform.h"
+#include "../components/Health.h"
+
+#include "FighterSystem.h"
+#include "BulletsSystem.h"
+#include "AsteroidsSystem.h"
 
 class CollisionSystem : public System {
 public:
@@ -8,67 +19,45 @@ public:
 	// - comprobar colisiones como en la práctica 1 y avisar a los sistemas
 	// correspondientes en caso de colisiones
 	void update() override {
-		auto entities = entity_->getMngr()->getEntities();
+		auto entities = manager_->getEntities();
 
 		for (int i = 0; i < entities.size(); i++) {
-			if (entities[i]->hasGroup<Asteroid_grp>()) { // para cada asteroide
+			if (manager_->hasGroup<Asteroid_grp>(entities[i])) { // para cada asteroide
 				auto asteroid = entities[i];
-				auto asteroidTr_ = entities[i]->getComponent<Transform>();
+				auto asteroidTr_ = manager_->getComponent<Transform>(entities[i]);
 
-				auto fighter = entity_->getMngr()->getHandler<Player_hdlr>();
-				auto fighterTr_ = fighter->getComponent<Transform>();
-
-				auto& pos = asteroidTr_->getPos();
-				auto w = asteroidTr_->getW();
-				auto h = asteroidTr_->getH();
+				auto fighter = manager_->getHandler<Player_hdlr>();
+				auto fighterTr_ = manager_->getComponent<Transform>(fighter);
 
 				// comprobamos si colisiona con el caza
-				if (Collisions::collides(pos, w, h, fighterTr_->getPos(), fighterTr_->getW(), fighterTr_->getH())) {
+				if (Collisions::collides(asteroidTr_->pos_, asteroidTr_->width_, asteroidTr_->height_,
+					fighterTr_->pos_, fighterTr_->width_, fighterTr_->height_)) {
 					// en caso de que colisione, quitamos una vida
-					auto health = fighter->getComponent<Health>();
-					health->eraseLife();
-
-					// reseteamos el numero de asteroides
-					asteroidsManager_->resetNumAsteroids();
+					int lifes = manager_->getComponent<Health>(fighter)->lifes_--;
 
 					// cambiamos el estado acorde al numero de vidas actual
-					if (health->getLifes() > 0)
-						state_->setState(GameState::PAUSED);
-					else
-						state_->setState(GameState::GAMEOVER);
+					manager_->getSystem<GameCtrlSystem>()->setGameState(lifes > 0 ? 
+						GameState::PAUSED : GameState::GAMEOVER);
 
-					//desactivamos todas las entidades para su posterior eliminacion
-					for (auto entity : entities)
-						entity->setActive(false);
+					// reseteamos el numero de asteroides
+					manager_->getSystem<AsteroidsSystem>()->resetAsteroids();
 
-					//reactivamos caza y manager tras desactivar todas las entidades
-					fighter->setActive(true);
-					fighter->removeComponent<FighterCtrl>();
-					fighter->removeComponent<Gun>();
-					entity_->getMngr()->getHandler<Manager_hdlr>()->setActive(true);
-
-					// recolocamos el caza y reseteamos su velocidad y rotacion
-					fighterTr_->getPos().set(sdlutils().width() / 2.0f - (fighterTr_->getW() / 2),
-						sdlutils().height() / 2.0f - (fighterTr_->getH() / 2));
-					fighterTr_->getVel().set(Vector2D(0, 0));
-					fighterTr_->setRot(0);
-
-					// sonido de choque
-					crash_sfx_->play();
+					manager_->getSystem<FighterSystem>()->onCollisionWithAsteroid(entities[i]);
+					manager_->getSystem<GameCtrlSystem>()->onFighterDeath();
 
 					break; //salimos del bucle principal
 				}
 				else { // en caso de no colisionar con el caza
 					for (int i = 0; i < entities.size(); i++) {
 						// comprobamos si colisiona con alguna bala
-						if (entities[i]->hasGroup<Bullet_grp>() && entities[i]->isActive()) {
-							auto bulletTr_ = entities[i]->getComponent<Transform>();
+						if (manager_->hasGroup<Bullet_grp>(entities[i]) && manager_->isActive(entities[i])) {
+							auto bulletTr_ = manager_->getComponent<Transform>(entities[i]);
 							// si colisiona
-							if (Collisions::collides(pos, w, h, bulletTr_->getPos(), bulletTr_->getW(), bulletTr_->getH())) {
+							if (Collisions::collides(asteroidTr_->pos_, asteroidTr_->width_, asteroidTr_->height_,
+								bulletTr_->pos_, bulletTr_->width_, bulletTr_->height_)) {
 								// aplicamos el comportamiento de colision correspondiente
-								asteroidsManager_->onCollision(asteroid);
-								entities[i]->setActive(false); // desactivamos la bala
-								destroy_sfx_->play(); // sonido de explosion de disparo
+								manager_->getSystem<AsteroidsSystem>()->onCollisionWithBullet(asteroid, entities[i]);
+								manager_->getSystem<BulletsSystem>()->onCollisionWithAsteroid(entities[i], asteroid);
 							}
 						}
 					}

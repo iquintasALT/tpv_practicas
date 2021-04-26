@@ -17,6 +17,8 @@ public:
 	// - devuelve el estado del juego.
 	GameState getGameState() { return gameState; };
 
+	void setGameState(GameState const gs) { gameState = gs; };
+
 	// - inicializar el estado del juego si es necesario, etc.
 	void init() override;
 
