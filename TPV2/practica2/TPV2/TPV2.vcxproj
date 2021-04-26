@@ -36,7 +36,6 @@
     <ClInclude Include="components\AsteroidsManager.h" />
     <ClInclude Include="components\Follow.h" />
     <ClInclude Include="components\FramedImage.h" />
-    <ClInclude Include="components\GameCtrl.h" />
     <ClInclude Include="components\Generations.h" />
     <ClInclude Include="components\Health.h" />
     <ClInclude Include="components\Image.h" />

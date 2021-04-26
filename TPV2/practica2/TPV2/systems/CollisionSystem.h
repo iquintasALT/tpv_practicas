@@ -35,13 +35,6 @@ public:
 					// en caso de que colisione, quitamos una vida
 					int lifes = manager_->getComponent<Health>(fighter)->lifes_--;
 
-					// cambiamos el estado acorde al numero de vidas actual
-					manager_->getSystem<GameCtrlSystem>()->setGameState(lifes > 0 ? 
-						GameState::PAUSED : GameState::GAMEOVER);
-
-					// reseteamos el numero de asteroides
-					manager_->getSystem<AsteroidsSystem>()->resetAsteroids();
-
 					manager_->getSystem<FighterSystem>()->onCollisionWithAsteroid(entities[i]);
 					manager_->getSystem<GameCtrlSystem>()->onFighterDeath();
 
