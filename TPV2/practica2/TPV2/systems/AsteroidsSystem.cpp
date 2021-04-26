@@ -1,4 +1,6 @@
 ﻿#include "AsteroidsSystem.h"
+#include "../systems/GameCtrlSystem.h"
+#include "../components/Generations.h"
 
 void AsteroidsSystem::addAsteroid()
 {
@@ -27,18 +29,83 @@ void AsteroidsSystem::addAsteroid()
 	manager_->addComponent<Generations>(asteroid, lives);
 
 	// 70% TIPO A, 30% TIPO B
+	bool followPlayer = false;
 	if (sdlutils().rand().nextInt() % 100 < 30) {
-		asteroid->addComponent<Follow>();
-		asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid_gold"), 5, 6);
+		followPlayer = true;
+		//IMAGEN 
+		/*asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid_gold"), 5, 6);*/
 	}
-	else asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid"), 5, 6);
-
+	// else asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid"), 5, 6); //IMAGEN
+	manager_->addComponent<Follow>(asteroid, followPlayer);
 	//se añade al grupo para comprobar colisiones mas tarde
-	asteroid->setGroup<Asteroid_grp>(asteroid);
+	manager_->setGroup<Asteroid_grp>(asteroid, true);
 	numAsteroids++;
 }
 
-void AsteroidsSystem::asteroidFollow(Entity* asteroid)
+void AsteroidsSystem::addAsteroid(int gen, Entity* prev_asteroid)
+{
+	auto asteroid = manager_->addEntity();
+
+	// rotacion aleatoria
+	int rand = sdlutils().rand().nextInt(0, 360);
+	Transform* t = manager_->getComponent<Transform>(prev_asteroid);
+
+	// creamos el vector pos y vel
+	Vector2D pos = t->pos_ + t->vel_.rotate(rand) * 2 * t->width_;
+	Vector2D vel = t->vel_.rotate(rand) * 1.1f;
+
+	// 20 + 10 * lives para el tamaño dependiente de las generaciones que le quedan
+	manager_->addComponent<Transform>(asteroid, pos,
+		vel, 20 + 10 * gen, 20 + 10 * gen, 0.0f);
+	manager_->addComponent<Generations>(asteroid, gen);
+
+	// 70% TIPO A, 30% TIPO B
+	bool followPlayer = false;
+	if (sdlutils().rand().nextInt() % 100 < 30) {
+		followPlayer = true;
+		//IMAGEN
+		//asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid_gold"), 5, 6);
+	}
+	//else asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid"), 5, 6); //IMAGEN
+
+	manager_->addComponent<Follow>(asteroid, followPlayer);
+	//se añade al grupo para comprobar colisiones mas tarde
+	manager_->setGroup<Asteroid_grp>(asteroid, true);
+	numAsteroids++;;
+}
+
+void AsteroidsSystem::addAsteroids(int n)
+{
+	for (int i = 0; i < n; i++) addAsteroid();
+}
+
+void AsteroidsSystem::onCollisionWithBullet(Entity* hit_asteroid, Entity* bullet)
+{
+	int gen = --manager_->getComponent<Generations>(hit_asteroid)->gen_;
+	manager_->setActive(hit_asteroid,false);
+
+	if (gen > 0) {
+		addAsteroid(gen, hit_asteroid);
+		addAsteroid(gen, hit_asteroid);
+	}
+
+	numAsteroids--;
+	//si ya no quedan asteroides, el jugador ha ganado
+	if (numAsteroids <= 0) {
+		// reseteamos la posicion del jugador, y eliminamos los componentes FighterCtrl y Gun
+		auto fighter = manager_->getHandler<Player_hdlr>();
+		auto fighterTr_ = manager_->getComponent<Transform>(fighter);
+
+		fighterTr_->pos_.set(sdlutils().width() / 2.0f - (fighterTr_->width_ / 2),
+			sdlutils().height() / 2.0f - (fighterTr_->height_ / 2));
+		fighterTr_->vel_.set(Vector2D(0, 0));
+		fighterTr_->rotation_ = 0;
+
+		manager_->getSystem<GameCtrlSystem>()->setGameState(GameState::WIN);
+	}
+}
+
+void AsteroidsSystem::asteroidOppositeSide(Entity* asteroid)
 {
 	Transform* tr = manager_->getComponent<Transform>(asteroid);
 	//toroidal en el eje X (fluido)
@@ -53,11 +120,23 @@ void AsteroidsSystem::asteroidFollow(Entity* asteroid)
 	else if (tr->pos_.getY() + tr->height_ < 0)
 		tr->pos_.setY(sdlutils().height());
 }
+
+void AsteroidsSystem::asteroidFollow(Entity* asteroid)
+{
+	Transform* fighter_tr_ = manager_->getComponent<Transform>(manager_->getHandler<Player_hdlr>());
+	Transform* tr_ = manager_->getComponent<Transform>(asteroid);
+	auto& vel = tr_->vel_;
+	// rotamos progresivamente a la izquierda o derecha dependiendo
+	// de si el caza esta a su derecha o a su izquierda
+	vel = vel.rotate(vel.angle(fighter_tr_->pos_ - tr_->pos_) > 0 ? 1.0f : -1.0f);
 }
+
 
 void AsteroidsSystem::update()
 {
 	for (Entity* asteroid : manager_->getEntities()) {
-
-
+		if (manager_->hasGroup<Asteroid_grp>(asteroid)) {
+			asteroidFollow(asteroid);
+			asteroidOppositeSide(asteroid);
+		}
 }

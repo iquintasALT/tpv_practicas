@@ -14,6 +14,8 @@ class AsteroidsSystem : public System {
 public:
 	// - añade n asteroides al juego como en la práctica 1.
 	void addAsteroid();
+	void addAsteroid(int gen, Entity* hit_asteroid);
+	void addAsteroids(int n);
 
 	// - desactivar el asteroide “a” y crear 2 asteroides como en la práctica 1.
 	// - pasamos una referencia a la bala aunque no se usa de momento (en el futuro
@@ -34,7 +36,9 @@ public:
 	void update() override;
 
 
+	void asteroidOppositeSide(Entity* asteroid);
 	void asteroidFollow(Entity* asteroid);
 private:
 	std::size_t numOfAsteroids_;
+	int numAsteroids = 0;
 };
