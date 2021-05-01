@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="components\AsteroidsManager.cpp" />
     <ClCompile Include="ecs\Manager.cpp" />
     <ClCompile Include="game\Game.cpp" />
     <ClCompile Include="json\JSON.cpp" />
@@ -29,11 +28,15 @@
     <ClCompile Include="sdlutils\SoundEffect.cpp" />
     <ClCompile Include="sdlutils\Texture.cpp" />
     <ClCompile Include="systems\AsteroidsSystem.cpp" />
+    <ClCompile Include="systems\BulletsSystem.cpp" />
+    <ClCompile Include="systems\CollisionSystem.cpp" />
+    <ClCompile Include="systems\FighterSystem.cpp" />
+    <ClCompile Include="systems\GameCtrlSystem.cpp" />
+    <ClCompile Include="systems\RenderSystem.cpp" />
     <ClCompile Include="utils\Collisions.cpp" />
     <ClCompile Include="utils\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="components\AsteroidsManager.h" />
     <ClInclude Include="components\Follow.h" />
     <ClInclude Include="components\FramedImage.h" />
     <ClInclude Include="components\Generations.h" />

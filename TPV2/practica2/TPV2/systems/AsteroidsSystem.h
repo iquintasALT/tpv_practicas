@@ -30,9 +30,9 @@ public:
 	// - mover los asteroides como en la práctica 1.
 	void update() override;
 
-
 	void asteroidOppositeSide(Entity* asteroid);
 	void asteroidFollow(Entity* asteroid);
+
 private:
 	std::size_t numOfAsteroids_;
 	int numAsteroids = 0;

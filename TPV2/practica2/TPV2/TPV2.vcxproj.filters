@@ -90,9 +90,6 @@
     <ClCompile Include="systems\AsteroidsSystem.cpp">
       <Filter>Source Files\systems</Filter>
     </ClCompile>
-    <ClCompile Include="components\AsteroidsManager.cpp">
-      <Filter>Source Files\components</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="json\JSON.h">
@@ -163,9 +160,6 @@
     </ClInclude>
     <ClInclude Include="game\ecs_defs.h">
       <Filter>Header Files\game</Filter>
-    </ClInclude>
-    <ClInclude Include="components\AsteroidsManager.h">
-      <Filter>Header Files\components</Filter>
     </ClInclude>
     <ClInclude Include="components\Follow.h">
       <Filter>Header Files\components</Filter>

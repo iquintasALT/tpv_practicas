@@ -131,7 +131,6 @@ void AsteroidsSystem::asteroidFollow(Entity* asteroid)
 	vel = vel.rotate(vel.angle(fighter_tr_->pos_ - tr_->pos_) > 0 ? 1.0f : -1.0f);
 }
 
-
 void AsteroidsSystem::update()
 {
 	for (Entity* asteroid : manager_->getEntities()) {
