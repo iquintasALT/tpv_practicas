@@ -1,6 +1,7 @@
 ﻿#include "AsteroidsSystem.h"
 #include "../systems/GameCtrlSystem.h"
 #include "../components/Generations.h"
+#include "../components/Image.h"
 
 void AsteroidsSystem::addAsteroid()
 {
@@ -144,4 +145,33 @@ void AsteroidsSystem::update()
 		addAsteroid();
 		msToNextAsteroid = sdlutils().currRealTime();
 	}
+}
+
+void AsteroidsSystem::render()
+{
+	if (manager_->getSystem<GameCtrlSystem>()->getGameState() == GameState::RUNNING) {
+		for (Entity* e : manager_->getEntities()) {
+			if (manager_->hasGroup<Asteroid_grp>(e)) {
+				Image* image = manager_->getComponent<Image>(e);
+				Transform* tr_ = manager_->getComponent<Transform>(e);
+
+				/*SDL_Rect dest = build_sdlrect(tr_->pos_, tr_->width_, tr_->height_);
+				image->tex_->render(dest, tr_->rotation_);*/
+
+				//render por frames
+				if (sdlutils().currRealTime() - lastUpdate > ms) {
+					if (image->cols_ == image->actCol_ + 1) { // si ha llegado al final de la fila (nCols)
+						// actualizamos la fila en caso de que sea el final o no
+						image->actRow_ = (image->rows_ == image->actRow_ + 1 ? 0 : image->actRow_ + 1);
+						image->actCol_ = 0; // reseteamos columna
+					}
+					else image->actCol_++;
+
+					// actualizamos timer
+					lastUpdate = sdlutils().currRealTime();
+				}
+			}
+		}
+	}
+
 }

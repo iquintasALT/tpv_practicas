@@ -29,7 +29,7 @@ public:
 	// - si el juego está parado no hacer nada.
 	// - mover los asteroides como en la práctica 1.
 	void update() override;
-
+	void render() override;
 	void asteroidOppositeSide(Entity* asteroid);
 	void asteroidFollow(Entity* asteroid);
 
@@ -38,4 +38,6 @@ private:
 	std::size_t numOfAsteroids_;
 	int numAsteroids = 0;
 	int msToNextAsteroid = 0;
+	int lastUpdate = 0;
+	int ms = 50;
 };

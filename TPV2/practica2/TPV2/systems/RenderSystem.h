@@ -1,6 +1,9 @@
 #pragma once
 
 #include "../ecs/System.h"
+#include "../ecs/Entity.h"
+#include "../ecs/Manager.h"
+#include "../systems/GameCtrlSystem.h"
 
 class RenderSystem : public System {
 public:
@@ -12,13 +15,12 @@ public:
 	// este código en los sistemas correspondientes en lugar de tener un sólo
 	// sistema para rendering
 	void update() override;
-
 	//void render() override {
 	//	//renderizamos la imagen acorde a su posicion y dimensiones
 	//	SDL_Rect dest = build_sdlrect(tr_->getPos(), tr_->getW(), tr_->getH());
 	//	tex_->render(dest, tr_->getRot());
 	//}
-
+	void render();
 	//// cada vez que cambia de frame
 	//if (sdlutils().currRealTime() - lastUpdate > ms) {
 	//	if (cols_ == actCol_ + 1) { // si ha llegado al final de la fila (nCols)
