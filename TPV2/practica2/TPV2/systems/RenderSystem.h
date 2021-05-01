@@ -18,4 +18,24 @@ public:
 	//	SDL_Rect dest = build_sdlrect(tr_->getPos(), tr_->getW(), tr_->getH());
 	//	tex_->render(dest, tr_->getRot());
 	//}
+
+	//// cada vez que cambia de frame
+	//if (sdlutils().currRealTime() - lastUpdate > ms) {
+	//	if (cols_ == actCol_ + 1) { // si ha llegado al final de la fila (nCols)
+	//		// actualizamos la fila en caso de que sea el final o no
+	//		actRow_ = (rows_ == actRow_ + 1 ? 0 : actRow_ + 1);
+	//		actCol_ = 0; // reseteamos columna
+	//	}
+	//	else actCol_++;
+
+	//	// actualizamos timer
+	//	lastUpdate = sdlutils().currRealTime();
+	//}
+
+	//// calculamos el frame a renderizar
+	//src_.x = src_.w * actCol_;
+	//src_.y = src_.h * actRow_;
+
+	//SDL_Rect dest = build_sdlrect(tr_->getPos(), tr_->getW(), tr_->getH());
+	//tex_->render(src_, dest, tr_->getRot());
 };
