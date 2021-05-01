@@ -36,3 +36,18 @@ void BulletsSystem::update() {
 		}
 	}
 }
+
+void BulletsSystem::render()
+{
+	if (manager_->getSystem<GameCtrlSystem>()->getGameState() == GameState::RUNNING) {
+		for (Entity* e : manager_->getEntities()) {
+			if (manager_->hasGroup<Bullet_grp>(e)) {
+				Image* image = manager_->getComponent<Image>(e);
+				Transform* tr_ = manager_->getComponent<Transform>(e);
+
+				SDL_Rect dest = build_sdlrect(tr_->pos_, tr_->width_, tr_->height_);
+				image->tex_->render(dest, tr_->rotation_);
+			}
+		}
+	}
+}

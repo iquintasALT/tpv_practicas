@@ -9,6 +9,9 @@
 
 #include "../components/Transform.h"
 
+#include "../systems/GameCtrlSystem.h"
+#include "../components/Image.h"
+
 class BulletsSystem : public System {
 public:
 	// - añadir una bala al juego, como en la práctica 1. La rotación de la bala
@@ -24,6 +27,7 @@ public:
 	// - si el juego está parado no hacer nada.
 	// - mover las balas y desactivar las que se salen de la ventana
 	void update() override;
+	void render() override;
 
 private:
 	const float bulletH = 20.0f, bulletW = 5.0f;

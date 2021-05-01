@@ -1,6 +1,5 @@
 #include "FighterSystem.h"
 
-
 void FighterSystem::onCollisionWithAsteroid(Entity* a) {
 	// recolocamos el caza y reseteamos su velocidad y rotacion
 	player_tr_->pos_.set(sdlutils().width() / 2.0f - (player_tr_->width_ / 2),
@@ -69,8 +68,9 @@ void FighterSystem::update() {
 
 void FighterSystem::render()
 {
-	//VIDAS
+
 	if (manager_->getSystem<GameCtrlSystem>()->getGameState() == GameState::RUNNING) {
+		//VIDAS
 		Texture* tex = &sdlutils().images().at("heart");
 		Vector2D pos = Vector2D(0, 0);
 		for (int i = 0; i < lifes_; i++) {
@@ -80,9 +80,8 @@ void FighterSystem::render()
 		}
 		
 		//CAZA
-
 		SDL_Rect dest = build_sdlrect(player_tr_->pos_, player_tr_->width_, player_tr_->height_);
-		manager_->getComponent<Image>()->tex_->render(dest, tr_->rotation_);
+		manager_->getComponent<Image>(fighter_)->tex_->render(dest, player_tr_->rotation_);
 	}
 
 }
