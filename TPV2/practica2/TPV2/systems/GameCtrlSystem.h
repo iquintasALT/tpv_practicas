@@ -33,6 +33,7 @@ public:
 	// - si el juego está parado y el jugador pulsa SDLK_SPACE cambia el estado como
 	// en la práctica 1, etc.
 	void update() override;
+	void render() override;
 
 private:
 	GameState gameState = GameState::NEWGAME;

@@ -2,6 +2,7 @@
 
 #pragma once
 #include <memory>
+#include <vector>
 
 // when you are not using the methods of a class, just
 // say that it exists, that saves time when parsing files
@@ -17,5 +18,5 @@ public:
 	void start();
 private:
 	std::unique_ptr<Manager> mngr_;
+	std::vector<System*> systems;
 };
-

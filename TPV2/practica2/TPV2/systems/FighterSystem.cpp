@@ -78,7 +78,6 @@ void FighterSystem::render()
 			SDL_Rect dest = build_sdlrect(pos, heartSize, heartSize);
 			tex->render(dest, 0);
 		}
-		
 		//CAZA
 		SDL_Rect dest = build_sdlrect(player_tr_->pos_, player_tr_->width_, player_tr_->height_);
 		manager_->getComponent<Image>(fighter_)->tex_->render(dest, player_tr_->rotation_);

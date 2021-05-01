@@ -37,4 +37,34 @@ void GameCtrlSystem::update() {
 			}
 		}
 	}
-};
+
+
+}
+void GameCtrlSystem::render()
+{
+	// si no esta en el estado de jugar, presenta un
+// mensaje acorde al estado actual
+	if (gameState != GameState::RUNNING) {
+		if (gameState == GameState::GAMEOVER) {
+			auto& t = sdlutils().msgs().at("gameover");
+			t.render((sdlutils().width() - t.width()) / 2,
+				sdlutils().height() / 2 + t.height() * 2);
+		}
+		else if (gameState == GameState::NEWGAME) {
+			auto& t = sdlutils().msgs().at("start");
+			t.render((sdlutils().width() - t.width()) / 2,
+				sdlutils().height() / 2 + t.height() * 2);
+		}
+		else if (gameState == GameState::PAUSED) {
+			auto& t = sdlutils().msgs().at("continue");
+			t.render((sdlutils().width() - t.width()) / 2,
+				sdlutils().height() / 2 + t.height() * 2);
+		}
+		else if (gameState == GameState::WIN) {
+			auto& t = sdlutils().msgs().at("win");
+			t.render((sdlutils().width() - t.width()) / 2,
+				sdlutils().height() / 2 + t.height() * 2);
+		}
+	}
+}
+;

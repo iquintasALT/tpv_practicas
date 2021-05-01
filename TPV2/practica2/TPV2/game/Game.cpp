@@ -9,19 +9,11 @@
 #include "../sdlutils/SDLUtils.h"
 #include "../utils/Vector2D.h"
 
-#include "../components/Transform.h"
-#include "../components/DeAcceleration.h"
-#include "../components/Image.h"
-#include "../components/Heart.h"
-#include "../components/FighterCtrl.h"
-#include "../components/Gun.h"
-#include "../components/ShowAtOppositeSide.h"
-#include "../components/FramedImage.h"
-#include "../components/Follow.h"
-#include "../components/State.h"
-#include "../components/GameCtrl.h"
-#include "../components/AsteroidsManager.h"
-#include "../components/CollisionsManager.h"
+#include "../systems/AsteroidsSystem.h"
+#include "../systems/BulletsSystem.h"
+#include "../systems/CollisionSystem.h"
+#include "../systems/FighterSystem.h"
+#include "../systems/GameCtrlSystem.h"
 
 Game::Game() {
 	mngr_.reset(new Manager());
@@ -37,21 +29,11 @@ void Game::init() {
 	// FigtherCtrl y Gun se añaden en GameCtrl.h, para controlar que solo lo tenga
 	// durante el estado de juego (ver implementacion del update de GameCtrl.h [41-42],
 	// update de CollisionManager.h [61-62] y onCollision de AsteroidsManager.cpp [84-85])
-	auto* fighter = mngr_->addEntity();
-	mngr_->setHandler<Player_hdlr>(fighter);
-	fighter->addComponent<Transform>(Vector2D(sdlutils().width() / 2.0f - 25.0f, sdlutils().height() / 2.0f - 25.0f),
-		Vector2D(), 50.0f, 50.0f, 0.0f);
-	fighter->addComponent<DeAcceleration>();
-	fighter->addComponent<Image>(&sdlutils().images().at("fighter"));
-	fighter->addComponent<Health>(&sdlutils().images().at("heart"));
-	fighter->addComponent<ShowAtOppositeSide>();
-
-	auto* gmManager = mngr_->addEntity();
-	mngr_->setHandler<Manager_hdlr>(gmManager);
-	gmManager->addComponent<State>();
-	gmManager->addComponent<AsteroidsManager>();
-	gmManager->addComponent<GameCtrl>();
-	gmManager->addComponent<CollisionsManager>(&sdlutils().soundEffects().at("explosion"), &sdlutils().soundEffects().at("bang"));
+	systems.push_back(mngr_->addSystem<AsteroidsSystem>());
+	systems.push_back(mngr_->addSystem<BulletsSystem>());
+	systems.push_back(mngr_->addSystem<CollisionSystem>());
+	systems.push_back(mngr_->addSystem<FighterSystem>());
+	systems.push_back(mngr_->addSystem<GameCtrlSystem>());
 }
 
 void Game::start() {
@@ -72,11 +54,11 @@ void Game::start() {
 			continue;
 		}
 
-		mngr_->update();
+		for (System* s : systems) s->update();
 		mngr_->refresh();
 
 		sdlutils().clearRenderer();
-		mngr_->render();
+		for (System* s : systems) s->render();
 
 		sdlutils().presentRenderer();
 
