@@ -138,4 +138,10 @@ void AsteroidsSystem::update()
 			asteroidFollow(asteroid);
 			asteroidOppositeSide(asteroid);
 		}
+	}
+	//hacer timer
+	if (manager_->getSystem<GameCtrlSystem>()->getGameState() == GameState::RUNNING && sdlutils().currRealTime() - msToNextAsteroid > newAsteroidSpawn) {
+		addAsteroid();
+		msToNextAsteroid = sdlutils().currRealTime();
+	}
 }
