@@ -8,6 +8,7 @@
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SoundEffect.h"
 #include "../utils/Vector2D.h"
+#include "../components/Image.h"
 
 #include "../components/Transform.h"
 
@@ -29,6 +30,7 @@ public:
 	// - si el juego está parado no hacer nada.
 	// - actualizar la velocidad del caza y moverlo como en la práctica 1.
 	void update() override;
+	void render() override;
 
 private:
 	const float thrust = 0.2f, speedLimit = 3.0f;
@@ -36,7 +38,9 @@ private:
 
 	const int nextBullet = 250; // in ms
 	int msToNextBullet;
-
+	int lifes_ = 3;
+	int heartSize = 30;
 	Transform* player_tr_ = nullptr;
 	SoundEffect* thrust_sfx_ = nullptr, * crash_sfx_= nullptr;
+	Entity* fighter_ = nullptr;
 };

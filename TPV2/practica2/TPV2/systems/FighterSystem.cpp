@@ -1,5 +1,6 @@
 #include "FighterSystem.h"
 
+
 void FighterSystem::onCollisionWithAsteroid(Entity* a) {
 	// recolocamos el caza y reseteamos su velocidad y rotacion
 	player_tr_->pos_.set(sdlutils().width() / 2.0f - (player_tr_->width_ / 2),
@@ -12,14 +13,15 @@ void FighterSystem::onCollisionWithAsteroid(Entity* a) {
 }
 
 void FighterSystem::init() {
-	auto player = manager_->addEntity();
-	player_tr_ = manager_->addComponent<Transform>(player, Vector2D(sdlutils().width() / 2.0f - 25.0f,
+	fighter_ = manager_->addEntity();
+	player_tr_ = manager_->addComponent<Transform>(fighter_, Vector2D(sdlutils().width() / 2.0f - 25.0f,
 		sdlutils().height() / 2.0f - 25.0f), Vector2D(), 50.0f, 50.0f);
-	manager_->addComponent<Health>(player, &sdlutils().images().at("heart"));
-	manager_->setHandler<Player_hdlr>(player);
+	manager_->addComponent<Health>(fighter_, &sdlutils().images().at("heart"));
+	manager_->setHandler<Player_hdlr>(fighter_);
 
 	thrust_sfx_ = &sdlutils().soundEffects().at("thrust");
 	crash_sfx_ = &sdlutils().soundEffects().at("explosion");
+
 }
 
 void FighterSystem::update() {
@@ -63,4 +65,24 @@ void FighterSystem::update() {
 		else if (player_tr_->pos_.getY() + player_tr_->height_ < 0)
 			player_tr_->pos_.setY(sdlutils().height());
 	}
+}
+
+void FighterSystem::render()
+{
+	//VIDAS
+	if (manager_->getSystem<GameCtrlSystem>()->getGameState() == GameState::RUNNING) {
+		Texture* tex = &sdlutils().images().at("heart");
+		Vector2D pos = Vector2D(0, 0);
+		for (int i = 0; i < lifes_; i++) {
+			pos.setX((heartSize + 5) * i); // dejamos un pequeño margen entre corazones 
+			SDL_Rect dest = build_sdlrect(pos, heartSize, heartSize);
+			tex->render(dest, 0);
+		}
+		
+		//CAZA
+
+		SDL_Rect dest = build_sdlrect(player_tr_->pos_, player_tr_->width_, player_tr_->height_);
+		manager_->getComponent<Image>()->tex_->render(dest, tr_->rotation_);
+	}
+
 }
