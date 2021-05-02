@@ -44,7 +44,7 @@ void AsteroidsSystem::addAsteroid()
 	manager_->addComponent<Follow>(asteroid, followPlayer);
 	//se añade al grupo para comprobar colisiones mas tarde
 	manager_->setGroup<Asteroid_grp>(asteroid, true);
-	numAsteroids++;
+	numOfAsteroids_++;
 }
 
 void AsteroidsSystem::addAsteroid(int gen, Entity* prev_asteroid)
@@ -76,7 +76,7 @@ void AsteroidsSystem::addAsteroid(int gen, Entity* prev_asteroid)
 	manager_->addComponent<Follow>(asteroid, followPlayer);
 	//se añade al grupo para comprobar colisiones mas tarde
 	manager_->setGroup<Asteroid_grp>(asteroid, true);
-	numAsteroids++;;
+	numOfAsteroids_++;
 }
 
 void AsteroidsSystem::addAsteroids(int n)
@@ -94,9 +94,9 @@ void AsteroidsSystem::onCollisionWithBullet(Entity* hit_asteroid, Entity* bullet
 		addAsteroid(gen, hit_asteroid);
 	}
 
-	numAsteroids--;
+	numOfAsteroids_--;
 	//si ya no quedan asteroides, el jugador ha ganado
-	if (numAsteroids <= 0) {
+	if (numOfAsteroids_ <= 0) {
 		// reseteamos la posicion del jugador, y eliminamos los componentes FighterCtrl y Gun
 		auto fighter = manager_->getHandler<Player_hdlr>();
 		auto fighterTr_ = manager_->getComponent<Transform>(fighter);
@@ -153,7 +153,7 @@ void AsteroidsSystem::update()
 		msToNextAsteroid = sdlutils().currRealTime();
 	}
 
-
+	std::cout << numOfAsteroids_ << std::endl;
 }
 
 void AsteroidsSystem::render()
@@ -184,8 +184,6 @@ void AsteroidsSystem::render()
 
 				SDL_Rect dest = build_sdlrect(tr_->pos_, tr_->width_, tr_->height_);
 				image->tex_->render(src, dest, tr_->rotation_);
-
-
 			}
 		}
 	}

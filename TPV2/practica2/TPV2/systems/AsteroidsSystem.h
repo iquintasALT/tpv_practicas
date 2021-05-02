@@ -33,8 +33,7 @@ public:
 
 private:
 	const int newAsteroidSpawn = 5000;
-	std::size_t numOfAsteroids_;
-	int numAsteroids = 0;
+	int numOfAsteroids_ = 0;
 	int msToNextAsteroid = 0;
 	int ms = 50;
 };

@@ -16,7 +16,7 @@ class BulletsSystem : public System {
 public:
 	// - añadir una bala al juego, como en la práctica 1. La rotación de la bala
 	// sería vel.angle(Vector2D(0.0f,-1.0f))
-	void shoot(Vector2D pos, Vector2D vel, double width, double height);
+	void shoot(Vector2D pos, Vector2D vel, double rot, double width, double height);
 
 	// - desactivar la bala “b”
 	// - pasamos una referencia al asteroid aunque no se usa de momento (en el futuro

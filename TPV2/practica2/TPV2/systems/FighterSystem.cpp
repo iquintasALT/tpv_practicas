@@ -27,12 +27,6 @@ void FighterSystem::init() {
 void FighterSystem::update() {
 	if (manager_->getSystem<GameCtrlSystem>()->getGameState() == GameState::RUNNING) {
 		if (ih().keyDownEvent()) {
-			if (ih().isKeyDown(SDLK_s) && sdlutils().currRealTime() - msToNextBullet > nextBullet) { // shoot
-				manager_->getSystem<BulletsSystem>()->shoot(player_tr_->pos_, player_tr_->vel_,
-					player_tr_->width_, player_tr_->height_);
-				msToNextBullet = sdlutils().currRealTime();
-			}
-
 			if (ih().isKeyDown(SDL_SCANCODE_UP)) { // impulso
 				auto& vel = player_tr_->vel_;
 				auto newVel = vel + (Vector2D(0, -1).rotate(player_tr_->rotation_)).normalize() * thrust;
@@ -47,6 +41,12 @@ void FighterSystem::update() {
 			}
 			else if (ih().isKeyDown(SDL_SCANCODE_RIGHT)) { // rotacion derecha
 				player_tr_->rotation_ = player_tr_->rotation_ + 5.0f;
+			}
+
+			if (ih().isKeyDown(SDLK_s) && sdlutils().currRealTime() - msToNextBullet > nextBullet) { // shoot
+				manager_->getSystem<BulletsSystem>()->shoot(player_tr_->pos_, player_tr_->vel_, player_tr_->rotation_,
+					player_tr_->width_, player_tr_->height_);
+				msToNextBullet = sdlutils().currRealTime();
 			}
 		}
 
@@ -73,18 +73,14 @@ void FighterSystem::render()
 	//CAZA
 	SDL_Rect dest = build_sdlrect(player_tr_->pos_, player_tr_->width_, player_tr_->height_);
 	manager_->getComponent<Image>(fighter_)->tex_->render(dest, player_tr_->rotation_);
-	//EN RUNNING
-	if (manager_->getSystem<GameCtrlSystem>()->getGameState() == GameState::RUNNING) {
-		//VIDAS
-		Health* health = manager_->getComponent<Health>(fighter_);
-		Texture* tex = &sdlutils().images().at("heart");
-		Vector2D pos = Vector2D(0, 0);
-		for (int i = 0; i < health->lifes_; i++) {
-			pos.setX((health->heartSize + 5) * i); // dejamos un pequeño margen entre corazones 
-			SDL_Rect dest = build_sdlrect(pos, health->heartSize, health->heartSize);
-			tex->render(dest, 0);
-		}
+
+	//VIDAS
+	Health* health = manager_->getComponent<Health>(fighter_);
+	Texture* tex = &sdlutils().images().at("heart");
+	Vector2D pos = Vector2D(0, 0);
+	for (int i = 0; i < health->lifes_; i++) {
+		pos.setX((health->heartSize + 5) * i); // dejamos un pequeño margen entre corazones 
+		SDL_Rect dest = build_sdlrect(pos, health->heartSize, health->heartSize);
+		tex->render(dest, 0);
 	}
-
-
 }
