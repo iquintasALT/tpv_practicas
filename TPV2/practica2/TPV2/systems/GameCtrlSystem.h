@@ -6,6 +6,7 @@
 
 #include "../components/Health.h"
 
+#include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/InputHandler.h"
 
 #include "AsteroidsSystem.h"

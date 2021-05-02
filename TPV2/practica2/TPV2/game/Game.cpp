@@ -67,5 +67,4 @@ void Game::start() {
 		if (frameTime < 20)
 			SDL_Delay(20 - frameTime);
 	}
-
 }
