@@ -5,7 +5,7 @@
 #include <algorithm>
 
 Manager::Manager() {
-	msgsQueue_.reserve(10);
+	//msgsQueue_.reserve(10);
 }
 
 Manager::~Manager() {

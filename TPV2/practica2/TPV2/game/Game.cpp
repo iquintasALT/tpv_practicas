@@ -3,8 +3,8 @@
 #include "Game.h"
 
 #include "../ecs/ecs.h"
-#include "../ecs/Entity.h"
 #include "../ecs/Manager.h"
+#include "../ecs/System.h"
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../utils/Vector2D.h"

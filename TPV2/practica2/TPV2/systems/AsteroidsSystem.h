@@ -8,8 +8,6 @@
 #include "../sdlutils/SoundEffect.h"
 #include "../utils/Vector2D.h"
 
-#include "../components/Transform.h"
-
 class AsteroidsSystem : public System {
 public:
 	// - añade n asteroides al juego como en la práctica 1.

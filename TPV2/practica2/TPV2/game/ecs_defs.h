@@ -4,37 +4,18 @@
 
 // components -- forward declaration, i.e., assume they are defined somewhere
 class Transform;
-class FighterCtrl;
 class Image;
-class DeAcceleration;
 class Health;
-class ShowAtOppositeSide;
 class Generations;
-class DisableOnExit;
-class Gun;
-class FramedImage;
 class Follow;
-class State;
-class GameCtrl;
-class AsteroidsManager;
-class CollisionsManager;
 
 #define _CMPS_LIST_  \
 	Transform,\
-	FighterCtrl,\
 	Image,\
-	DeAcceleration, \
 	Health, \
-	ShowAtOppositeSide, \
 	Generations, \
-	DisableOnExit, \
-	Gun, \
-	FramedImage, \
-	Follow, \
-	State, \
-	GameCtrl, \
-	AsteroidsManager, \
-	CollisionsManager
+	Follow
+
 
 // groups
 struct Asteroid_grp;
@@ -44,23 +25,17 @@ struct Bullet_grp;
 
 // handlers
 struct Player_hdlr;
-struct Manager_hdlr;
-#define _HDLRS_LIST_ Player_hdlr, \
-	Manager_hdlr
-
+#define _HDLRS_LIST_ Player_hdlr
 
 // systems
 struct GameCtrlSystem;
 struct AsteroidsSystem;
 struct BulletsSystem;
 struct FighterSystem;
-struct FighterGunSystem;
 struct CollisionSystem;
-struct RenderSystem;
+
 #define _SYS_LIST_ GameCtrlSystem, \
 	AsteroidsSystem, \
 	BulletsSystem, \
 	FighterSystem, \
-	FighterGunSystem, \
-	CollisionSystem, \
-	RenderSystem
+	CollisionSystem

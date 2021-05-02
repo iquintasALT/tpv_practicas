@@ -1,7 +1,11 @@
 ﻿#include "AsteroidsSystem.h"
+
 #include "../systems/GameCtrlSystem.h"
+
 #include "../components/Generations.h"
 #include "../components/Image.h"
+#include "../components/Transform.h"
+#include "../components/Follow.h"
 
 void AsteroidsSystem::addAsteroid()
 {
