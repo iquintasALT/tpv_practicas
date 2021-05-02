@@ -7,19 +7,26 @@
   ],
   
   "images" : [
-    { "id" : "sdl_logo", "file" : "resources/images/SDL_logo.png" },
-    { "id" : "tennis_ball", "file" : "resources/images/tennis_ball.png" },
-    { "id" : "star", "file" : "resources/images/star.png"}
+    { "id" : "fighter", "file" : "resources/images/fighter.png"},
+    { "id" : "heart", "file" : "resources/images/heart.png"},
+	  { "id" : "fire", "file" : "resources/images/fire.png"},
+	  { "id" : "asteroid", "file" : "resources/images/asteroid.png"},
+	  { "id" : "asteroid_gold", "file" : "resources/images/asteroid_gold.png"}
   ],
   
   "messages" : [
-    { "id" : "PressAnyKey", "text" : "Press Any Key", "font" : "ARIAL24", "color" : "0x112233ff", "bg" : "0xffffffff" },
-    { "id" : "HelloSDL", "text" : "Hello SDL!", "font" : "ARIAL48", "color" : "0x0000ffff" }
+    { "id" : "start", "text" : "Press SPACE to play", "font" : "ARIAL16", "color" : "0x8c1900ff"},
+    { "id" : "continue", "text" : "Press SPACE to continue", "font" : "ARIAL16", "color" : "0x8c1900ff"},
+    { "id" : "gameover", "text" : "YOU DIED", "font" : "ARIAL16", "color" : "0x8c1900ff"},
+	  { "id" : "win", "text" : "YOU HAVE WON", "font" : "ARIAL16", "color" : "8c1900ff"}
   ],
   
   "sounds" : [
-    { "id" : "gunshot", "file" : "resources/sound/gunshot.wav" },
-    { "id" : "explosion", "file" : "resources/sound/explosion.wav" }
+    { "id" : "thrust", "file" : "resources/sound/thrust.wav" },
+    { "id" : "fire", "file" : "resources/sound/fire.wav" }, 
+	  { "id" : "explosion", "file" : "resources/sound/explosion.wav" },
+	  { "id" : "bang", "file" : "resources/sound/bangSmall.wav" }
+	
   ],
 
   "musics" : [
