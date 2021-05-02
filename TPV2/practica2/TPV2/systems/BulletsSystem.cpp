@@ -27,7 +27,7 @@ void BulletsSystem::update() {
 			Transform* bullet_tr_ = manager_->getComponent<Transform>(entities[i]);
 			auto& pos = bullet_tr_->pos_;
 
-			pos.set(pos + bullet_tr_->vel_);
+			bullet_tr_->pos_ = pos + bullet_tr_->vel_;
 
 			// si se sale del marco de juego por alguno de sus limites, desactivamos el objeto
 			if (pos.getX() > sdlutils().width() || pos.getX() + bullet_tr_->width_ < 0 ||

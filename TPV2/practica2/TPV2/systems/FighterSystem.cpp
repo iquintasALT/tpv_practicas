@@ -76,11 +76,12 @@ void FighterSystem::render()
 	//EN RUNNING
 	if (manager_->getSystem<GameCtrlSystem>()->getGameState() == GameState::RUNNING) {
 		//VIDAS
+		Health* health = manager_->getComponent<Health>(fighter_);
 		Texture* tex = &sdlutils().images().at("heart");
 		Vector2D pos = Vector2D(0, 0);
-		for (int i = 0; i < lifes_; i++) {
-			pos.setX((heartSize + 5) * i); // dejamos un pequeño margen entre corazones 
-			SDL_Rect dest = build_sdlrect(pos, heartSize, heartSize);
+		for (int i = 0; i < health->lifes_; i++) {
+			pos.setX((health->heartSize + 5) * i); // dejamos un pequeño margen entre corazones 
+			SDL_Rect dest = build_sdlrect(pos, health->heartSize, health->heartSize);
 			tex->render(dest, 0);
 		}
 	}

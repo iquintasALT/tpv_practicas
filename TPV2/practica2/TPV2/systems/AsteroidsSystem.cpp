@@ -138,17 +138,22 @@ void AsteroidsSystem::asteroidFollow(Entity* asteroid)
 
 void AsteroidsSystem::update()
 {
+	//COMPORTAMIENTO DE CADA ASTEROIDE
 	for (Entity* asteroid : manager_->getEntities()) {
 		if (manager_->hasGroup<Asteroid_grp>(asteroid)) {
 			if (manager_->getComponent<Follow>(asteroid)->followsPlayer) asteroidFollow(asteroid);
 			asteroidOppositeSide(asteroid);
+			Transform* tr = manager_->getComponent<Transform>(asteroid);
+			tr->pos_ = tr->pos_ + tr->vel_;
 		}
 	}
-	//hacer timer
+	//TIMER PARA NUEVO ASTEROIDE
 	if (manager_->getSystem<GameCtrlSystem>()->getGameState() == GameState::RUNNING && sdlutils().currRealTime() - msToNextAsteroid > newAsteroidSpawn) {
 		addAsteroid();
 		msToNextAsteroid = sdlutils().currRealTime();
 	}
+
+
 }
 
 void AsteroidsSystem::render()

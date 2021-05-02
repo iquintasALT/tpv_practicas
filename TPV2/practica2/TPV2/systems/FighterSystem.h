@@ -38,8 +38,6 @@ private:
 
 	const int nextBullet = 250; // in ms
 	int msToNextBullet;
-	int lifes_ = 3;
-	int heartSize = 30;
 	Transform* player_tr_ = nullptr;
 	SoundEffect* thrust_sfx_ = nullptr, * crash_sfx_= nullptr;
 	Entity* fighter_ = nullptr;
