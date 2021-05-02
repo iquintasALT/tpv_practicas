@@ -36,6 +36,5 @@ private:
 	std::size_t numOfAsteroids_;
 	int numAsteroids = 0;
 	int msToNextAsteroid = 0;
-	int lastUpdate = 0;
 	int ms = 50;
 };

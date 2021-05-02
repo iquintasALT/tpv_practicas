@@ -16,6 +16,7 @@ void FighterSystem::init() {
 	player_tr_ = manager_->addComponent<Transform>(fighter_, Vector2D(sdlutils().width() / 2.0f - 25.0f,
 		sdlutils().height() / 2.0f - 25.0f), Vector2D(), 50.0f, 50.0f);
 	manager_->addComponent<Health>(fighter_, &sdlutils().images().at("heart"));
+	manager_->addComponent <Image>(fighter_, &sdlutils().images().at("fighter"));
 	manager_->setHandler<Player_hdlr>(fighter_);
 
 	thrust_sfx_ = &sdlutils().soundEffects().at("thrust");
@@ -68,7 +69,11 @@ void FighterSystem::update() {
 
 void FighterSystem::render()
 {
-
+	//EN CUALQUIER ESTADO
+	//CAZA
+	SDL_Rect dest = build_sdlrect(player_tr_->pos_, player_tr_->width_, player_tr_->height_);
+	manager_->getComponent<Image>(fighter_)->tex_->render(dest, player_tr_->rotation_);
+	//EN RUNNING
 	if (manager_->getSystem<GameCtrlSystem>()->getGameState() == GameState::RUNNING) {
 		//VIDAS
 		Texture* tex = &sdlutils().images().at("heart");
@@ -78,9 +83,7 @@ void FighterSystem::render()
 			SDL_Rect dest = build_sdlrect(pos, heartSize, heartSize);
 			tex->render(dest, 0);
 		}
-		//CAZA
-		SDL_Rect dest = build_sdlrect(player_tr_->pos_, player_tr_->width_, player_tr_->height_);
-		manager_->getComponent<Image>(fighter_)->tex_->render(dest, player_tr_->rotation_);
 	}
+
 
 }

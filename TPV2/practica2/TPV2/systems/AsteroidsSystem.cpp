@@ -38,9 +38,9 @@ void AsteroidsSystem::addAsteroid()
 	if (sdlutils().rand().nextInt() % 100 < 30) {
 		followPlayer = true;
 		//IMAGEN 
-		/*asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid_gold"), 5, 6);*/
+		manager_->addComponent<Image>(asteroid, &sdlutils().images().at("asteroid_gold"), 5, 6);
 	}
-	// else asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid"), 5, 6); //IMAGEN
+	else manager_->addComponent<Image>(asteroid, &sdlutils().images().at("asteroid"), 5, 6);
 	manager_->addComponent<Follow>(asteroid, followPlayer);
 	//se añade al grupo para comprobar colisiones mas tarde
 	manager_->setGroup<Asteroid_grp>(asteroid, true);
@@ -69,9 +69,9 @@ void AsteroidsSystem::addAsteroid(int gen, Entity* prev_asteroid)
 	if (sdlutils().rand().nextInt() % 100 < 30) {
 		followPlayer = true;
 		//IMAGEN
-		//asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid_gold"), 5, 6);
+		manager_->addComponent<Image>(asteroid, &sdlutils().images().at("asteroid_gold"), 5, 6);
 	}
-	//else asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid"), 5, 6); //IMAGEN
+	else manager_->addComponent<Image>(asteroid, &sdlutils().images().at("asteroid"), 5, 6); //IMAGEN
 
 	manager_->addComponent<Follow>(asteroid, followPlayer);
 	//se añade al grupo para comprobar colisiones mas tarde
@@ -87,7 +87,7 @@ void AsteroidsSystem::addAsteroids(int n)
 void AsteroidsSystem::onCollisionWithBullet(Entity* hit_asteroid, Entity* bullet)
 {
 	int gen = --manager_->getComponent<Generations>(hit_asteroid)->gen_;
-	manager_->setActive(hit_asteroid,false);
+	manager_->setActive(hit_asteroid, false);
 
 	if (gen > 0) {
 		addAsteroid(gen, hit_asteroid);
@@ -159,11 +159,8 @@ void AsteroidsSystem::render()
 				Image* image = manager_->getComponent<Image>(e);
 				Transform* tr_ = manager_->getComponent<Transform>(e);
 
-				/*SDL_Rect dest = build_sdlrect(tr_->pos_, tr_->width_, tr_->height_);
-				image->tex_->render(dest, tr_->rotation_);*/
-
 				//render por frames
-				if (sdlutils().currRealTime() - lastUpdate > ms) {
+				if (sdlutils().currRealTime() - image->lastUpdate > ms) {
 					if (image->cols_ == image->actCol_ + 1) { // si ha llegado al final de la fila (nCols)
 						// actualizamos la fila en caso de que sea el final o no
 						image->actRow_ = (image->rows_ == image->actRow_ + 1 ? 0 : image->actRow_ + 1);
@@ -172,8 +169,18 @@ void AsteroidsSystem::render()
 					else image->actCol_++;
 
 					// actualizamos timer
-					lastUpdate = sdlutils().currRealTime();
+					image->lastUpdate = sdlutils().currRealTime();
 				}
+
+				SDL_Rect src = { image->actCol_ * (image->tex_->width() / image->cols_),
+								image->actRow_ * (image->tex_->height() / image->rows_),
+								image->tex_->width() / image->cols_ ,
+								image->tex_->height() / image->rows_ };
+
+				SDL_Rect dest = build_sdlrect(tr_->pos_, tr_->width_, tr_->height_);
+				image->tex_->render(src, dest, tr_->rotation_);
+
+
 			}
 		}
 	}

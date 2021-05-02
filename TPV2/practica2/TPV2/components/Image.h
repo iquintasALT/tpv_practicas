@@ -5,8 +5,6 @@
 
 struct Image: public Component {
 	Texture *tex_;
-
-	const int ms = 50;
 	
 	int rows_, cols_;
 	int actRow_, actCol_;
