@@ -140,7 +140,7 @@ void AsteroidsSystem::update()
 {
 	for (Entity* asteroid : manager_->getEntities()) {
 		if (manager_->hasGroup<Asteroid_grp>(asteroid)) {
-			asteroidFollow(asteroid);
+			if (manager_->getComponent<Follow>(asteroid)->followsPlayer) asteroidFollow(asteroid);
 			asteroidOppositeSide(asteroid);
 		}
 	}
