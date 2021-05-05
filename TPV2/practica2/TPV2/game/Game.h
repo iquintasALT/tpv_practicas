@@ -8,8 +8,6 @@
 // say that it exists, that saves time when parsing files
 class Manager;
 class System;
-class Entity;
-class GameManager;
 
 class Game {
 public:

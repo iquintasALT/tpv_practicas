@@ -77,6 +77,7 @@ void AsteroidsSystem::addAsteroid(int gen, Entity* prev_asteroid)
 	//se añade al grupo para comprobar colisiones mas tarde
 	manager_->setGroup<Asteroid_grp>(asteroid, true);
 	numOfAsteroids_++;
+	numOfAsteroids_++;
 }
 
 void AsteroidsSystem::addAsteroids(int n)
@@ -152,8 +153,6 @@ void AsteroidsSystem::update()
 		addAsteroid();
 		msToNextAsteroid = sdlutils().currRealTime();
 	}
-
-	std::cout << numOfAsteroids_ << std::endl;
 }
 
 void AsteroidsSystem::render()

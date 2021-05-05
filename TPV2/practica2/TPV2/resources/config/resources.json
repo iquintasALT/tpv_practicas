@@ -3,7 +3,8 @@
   "fonts" : [
     { "id" : "ARIAL16", "file" : "resources/fonts/ARIAL.ttf", "size": 16 },
     { "id" : "ARIAL24", "file" : "resources/fonts/ARIAL.ttf", "size": 24 },
-    { "id" : "ARIAL48", "file" : "resources/fonts/ARIAL.ttf", "size": 48 }
+    { "id" : "ARIAL48", "file" : "resources/fonts/ARIAL.ttf", "size": 48 },
+    { "id" : "NESChimera", "file" : "resources/fonts/NES-Chimera.ttf", "size": 24 }
   ],
   
   "images" : [
@@ -15,10 +16,10 @@
   ],
   
   "messages" : [
-    { "id" : "start", "text" : "Press SPACE to play", "font" : "ARIAL16", "color" : "0x8c1900ff"},
-    { "id" : "continue", "text" : "Press SPACE to continue", "font" : "ARIAL16", "color" : "0x8c1900ff"},
-    { "id" : "gameover", "text" : "YOU DIED", "font" : "ARIAL16", "color" : "0x8c1900ff"},
-	  { "id" : "win", "text" : "YOU HAVE WON", "font" : "ARIAL16", "color" : "8c1900ff"}
+    { "id" : "start", "text" : "Press SPACE to play", "font" : "NESChimera", "color" : "0x8c1900ff"},
+    { "id" : "continue", "text" : "Press SPACE to continue", "font" : "NESChimera", "color" : "0x8c1900ff"},
+    { "id" : "gameover", "text" : "YOU DIED", "font" : "NESChimera", "color" : "0x8c1900ff"},
+	{ "id" : "win", "text" : "YOU HAVE WON", "font" : "NESChimera", "color" : "0x8c1900ff"}
   ],
   
   "sounds" : [
@@ -26,7 +27,6 @@
     { "id" : "fire", "file" : "resources/sound/fire.wav" }, 
 	  { "id" : "explosion", "file" : "resources/sound/explosion.wav" },
 	  { "id" : "bang", "file" : "resources/sound/bangSmall.wav" }
-	
   ],
 
   "musics" : [

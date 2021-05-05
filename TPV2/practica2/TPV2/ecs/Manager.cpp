@@ -5,7 +5,7 @@
 #include <algorithm>
 
 Manager::Manager() {
-	//msgsQueue_.reserve(10);
+	msgsQueue_.reserve(10);
 }
 
 Manager::~Manager() {
@@ -15,19 +15,12 @@ Manager::~Manager() {
 }
 
 void Manager::refresh() {
-
 	// remove dead entities from the list of entities
-	entities_.erase( //
-			std::remove_if( //
-					entities_.begin(), //
-					entities_.end(), //
-					[](const Entity *e) { //
-						if (e->active_) {
-							return false;
-						} else {
-							delete e;
-							return true;
-						}
-					}), //
-			entities_.end());
+	entities_.erase(std::remove_if(entities_.begin(), entities_.end(), [](const Entity* e) { 
+		if (e->active_)
+			return false;
+		else {
+			delete e;
+			return true;
+		}}), entities_.end());
 }

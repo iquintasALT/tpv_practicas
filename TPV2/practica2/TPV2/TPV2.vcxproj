@@ -51,6 +51,7 @@
     <ClInclude Include="ecs\System.h" />
     <ClInclude Include="game\ecs_defs.h" />
     <ClInclude Include="game\Game.h" />
+    <ClInclude Include="game\Messages.h" />
     <ClInclude Include="json\JSON.h" />
     <ClInclude Include="json\JSONValue.h" />
     <ClInclude Include="sdlutils\Font.h" />

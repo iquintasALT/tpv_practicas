@@ -8,14 +8,12 @@ class Image;
 class Health;
 class Generations;
 class Follow;
-
 #define _CMPS_LIST_  \
 	Transform,\
 	Image,\
 	Health, \
 	Generations, \
 	Follow
-
 
 // groups
 struct Asteroid_grp;
@@ -33,9 +31,11 @@ struct AsteroidsSystem;
 struct BulletsSystem;
 struct FighterSystem;
 struct CollisionSystem;
-
 #define _SYS_LIST_ GameCtrlSystem, \
 	AsteroidsSystem, \
 	BulletsSystem, \
 	FighterSystem, \
 	CollisionSystem
+
+// messages
+#include "Messages.h"

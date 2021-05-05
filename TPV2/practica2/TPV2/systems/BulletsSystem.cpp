@@ -13,6 +13,8 @@ void BulletsSystem::shoot(Vector2D pos, Vector2D vel, double rot, double width, 
 	manager_->addComponent<Transform>(bullet, bPos, bVel, bulletW, bulletH, rot);
 	manager_->addComponent<Image>(bullet, &sdlutils().images().at("fire"));
 	manager_->setGroup<Bullet_grp>(bullet, true);
+
+	sdlutils().soundEffects().at("fire").play(); // sonido
 }
 
 void BulletsSystem::onCollisionWithAsteroid(Entity* b, Entity* a) {

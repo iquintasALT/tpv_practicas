@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../ecs/Component.h"
+
 #include "../sdlutils/Texture.h"
 
 struct Image: public Component {
