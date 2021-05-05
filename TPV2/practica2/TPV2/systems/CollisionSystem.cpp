@@ -17,6 +17,10 @@ void CollisionSystem::update() {
 				// en caso de que colisione, quitamos una vida
 				int lifes = manager_->getComponent<Health>(fighter)->lifes_--;
 
+				Message msg = Message(MsgId::LMAO);
+				msg.bMsg.x = 69;
+				manager_->send(msg);
+
 				manager_->getSystem<FighterSystem>()->onCollisionWithAsteroid(entities[i]);
 				manager_->getSystem<GameCtrlSystem>()->onFighterDeath();
 

@@ -19,8 +19,9 @@ struct Message {
 	// en caso de que se inicialice (con un msg.bMsg = tumadre) para poder acceder despues habria que hacer casteo estatico
 	// static_cast<&ElTipo>(msg);
 	union { // uneme esta crack
-		BulletMsg* bMsg;
+		BulletMsg bMsg;
 	};
 
 	Message(MsgId id) : id_(id) {};
+	~Message() {};
 };
