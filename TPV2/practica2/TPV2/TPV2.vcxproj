@@ -32,7 +32,6 @@
     <ClCompile Include="systems\CollisionSystem.cpp" />
     <ClCompile Include="systems\FighterSystem.cpp" />
     <ClCompile Include="systems\GameCtrlSystem.cpp" />
-    <ClCompile Include="systems\RenderSystem.cpp" />
     <ClCompile Include="utils\Collisions.cpp" />
     <ClCompile Include="utils\Vector2D.cpp" />
   </ItemGroup>
@@ -68,7 +67,6 @@
     <ClInclude Include="systems\CollisionSystem.h" />
     <ClInclude Include="systems\FighterSystem.h" />
     <ClInclude Include="systems\GameCtrlSystem.h" />
-    <ClInclude Include="systems\RenderSystem.h" />
     <ClInclude Include="utils\checkML.h" />
     <ClInclude Include="utils\Collisions.h" />
     <ClInclude Include="utils\Singleton.h" />
