@@ -29,8 +29,9 @@ void CollisionSystem::update() {
 						if (Collisions::collides(asteroidTr_->pos_, asteroidTr_->width_, asteroidTr_->height_,
 							bulletTr_->pos_, bulletTr_->width_, bulletTr_->height_)) {
 							// aplicamos el comportamiento de colision correspondiente
-							manager_->getSystem<AsteroidsSystem>()->onCollisionWithBullet(asteroid, entities[i]);
-							manager_->getSystem<BulletsSystem>()->onCollisionWithAsteroid(entities[i], asteroid);
+							Message msg = Message(MsgId::BULLET_COLLIDES);
+							msg.cData.bullet = entities[i]; msg.cData.asteroid = asteroid;
+							manager_->send(msg);
 						}
 					}
 				}

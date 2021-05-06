@@ -53,3 +53,15 @@ void BulletsSystem::render()
 		}
 	}
 }
+
+void BulletsSystem::receive(const Message& msg)
+{
+	switch (msg.id_) {
+	case MsgId::SHOOT_BULLET:
+		shoot(msg.bData.pos, msg.bData.vel, msg.bData.rot, msg.bData.width, msg.bData.height);
+		break;
+	case MsgId::BULLET_COLLIDES:
+		onCollisionWithAsteroid(msg.cData.bullet, msg.cData.asteroid);
+		break;
+	}
+}

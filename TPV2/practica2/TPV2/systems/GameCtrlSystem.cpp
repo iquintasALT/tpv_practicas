@@ -30,8 +30,10 @@ void GameCtrlSystem::update() {
 			gameState = gameState > GameState::RUNNING ? GameState::NEWGAME : GameState::RUNNING;
 
 			// si pasamos a RUNNING, generamos los 10 asteroides y reseteamos el timer de spawn de los asteroides
-			if (gameState == GameState::RUNNING)
-				manager_->getSystem<AsteroidsSystem>()->addAsteroids(10);
+			if (gameState == GameState::RUNNING) {
+				Message msg = Message(MsgId::START_GAME);
+				manager_->send(msg);
+			}
 			// si pasamos a NEWGAME, reseteamos las vidas del caza
 			else if (gameState == GameState::NEWGAME) {
 				auto health = manager_->getComponent<Health>(manager_->getHandler<Player_hdlr>());
@@ -75,6 +77,9 @@ void GameCtrlSystem::receive(const Message& msg)
 	switch (msg.id_) {
 	case MsgId::LOSE_LIFE:
 		onFighterDeath();
+		break;
+	case MsgId::WINNING:
+		gameState = GameState::WIN;
 		break;
 	}
 }

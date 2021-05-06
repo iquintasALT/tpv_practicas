@@ -28,6 +28,7 @@ public:
 	// - mover las balas y desactivar las que se salen de la ventana
 	void update() override;
 	void render() override;
+	void receive(const Message& msg) override;
 
 private:
 	const float bulletH = 20.0f, bulletW = 5.0f;

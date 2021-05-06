@@ -21,7 +21,6 @@ void FighterSystem::init() {
 
 	thrust_sfx_ = &sdlutils().soundEffects().at("thrust");
 	crash_sfx_ = &sdlutils().soundEffects().at("explosion");
-
 }
 
 void FighterSystem::update() {
@@ -44,8 +43,13 @@ void FighterSystem::update() {
 			}
 
 			if (ih().isKeyDown(SDLK_s) && sdlutils().currRealTime() - msToNextBullet > nextBullet) { // shoot
-				manager_->getSystem<BulletsSystem>()->shoot(player_tr_->pos_, player_tr_->vel_, player_tr_->rotation_,
-					player_tr_->width_, player_tr_->height_);
+
+				Message msg = Message(MsgId::SHOOT_BULLET);
+				msg.bData.pos = player_tr_->pos_; msg.bData.vel = player_tr_->vel_;
+				msg.bData.rot = player_tr_->rotation_; msg.bData.width = player_tr_->width_;
+				msg.bData.height = player_tr_->height_;
+				manager_->send(msg);
+
 				msToNextBullet = sdlutils().currRealTime();
 			}
 		}
@@ -69,7 +73,6 @@ void FighterSystem::update() {
 
 void FighterSystem::render()
 {
-	//EN CUALQUIER ESTADO
 	//CAZA
 	SDL_Rect dest = build_sdlrect(player_tr_->pos_, player_tr_->width_, player_tr_->height_);
 	manager_->getComponent<Image>(fighter_)->tex_->render(dest, player_tr_->rotation_);

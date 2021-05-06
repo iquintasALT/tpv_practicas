@@ -82,7 +82,8 @@ void AsteroidsSystem::addAsteroid(int gen, Entity* prev_asteroid)
 
 void AsteroidsSystem::addAsteroids(int n)
 {
-	for (int i = 0; i < n; i++) addAsteroid();
+	for (int i = 0; i < n; i++)
+		addAsteroid();
 }
 
 void AsteroidsSystem::onCollisionWithBullet(Entity* hit_asteroid, Entity* bullet)
@@ -107,7 +108,8 @@ void AsteroidsSystem::onCollisionWithBullet(Entity* hit_asteroid, Entity* bullet
 		fighterTr_->vel_.set(Vector2D(0, 0));
 		fighterTr_->rotation_ = 0;
 
-		manager_->getSystem<GameCtrlSystem>()->setGameState(GameState::WIN);
+		Message msg = Message(MsgId::WINNING);
+		manager_->send(msg);
 	}
 }
 
@@ -191,8 +193,14 @@ void AsteroidsSystem::render()
 void AsteroidsSystem::receive(const Message& msg)
 {
 	switch (msg.id_) {
-	case RESET_ASTEROIDS: // podria ser lose_life
+	case MsgId::RESET_ASTEROIDS: // podria ser lose_life
 		numOfAsteroids_ = 0;
+		break;
+	case MsgId::BULLET_COLLIDES:
+		onCollisionWithBullet(msg.cData.asteroid, msg.cData.bullet);
+		break;
+	case MsgId::START_GAME:
+		addAsteroids(10);
 		break;
 	}
 }
