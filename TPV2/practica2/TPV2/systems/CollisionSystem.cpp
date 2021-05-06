@@ -14,15 +14,9 @@ void CollisionSystem::update() {
 			// comprobamos si colisiona con el caza
 			if (Collisions::collides(asteroidTr_->pos_, asteroidTr_->width_, asteroidTr_->height_,
 				fighterTr_->pos_, fighterTr_->width_, fighterTr_->height_)) {
-				// en caso de que colisione, quitamos una vida
-				int lifes = manager_->getComponent<Health>(fighter)->lifes_--;
 
-				Message msg = Message(MsgId::LMAO);
-				msg.bMsg.x = 69;
+				Message msg = Message(MsgId::LOSE_LIFE);
 				manager_->send(msg);
-
-				manager_->getSystem<FighterSystem>()->onCollisionWithAsteroid(entities[i]);
-				manager_->getSystem<GameCtrlSystem>()->onFighterDeath();
 
 				break; //salimos del bucle principal
 			}

@@ -1,8 +1,9 @@
 #pragma once
 
 enum MsgId : Uint8 {
-	HAHA,
-	XD,
+	LOSE_LIFE,
+	RESET_ASTEROIDS,
+	BULLET_COLLISION,
 	LOL,
 	LMAO,
 	GOTTEM

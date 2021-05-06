@@ -186,5 +186,13 @@ void AsteroidsSystem::render()
 			}
 		}
 	}
+}
 
+void AsteroidsSystem::receive(const Message& msg)
+{
+	switch (msg.id_) {
+	case RESET_ASTEROIDS: // podria ser lose_life
+		numOfAsteroids_ = 0;
+		break;
+	}
 }

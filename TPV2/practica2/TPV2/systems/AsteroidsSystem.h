@@ -22,12 +22,12 @@ public:
 	// - si no hay más asteroides avisar al GameCtrlSystem
 	void onCollisionWithBullet(Entity* a, Entity* b);
 
-	void resetAsteroids() { numOfAsteroids_ = 0; };
-
 	// - si el juego está parado no hacer nada.
 	// - mover los asteroides como en la práctica 1.
 	void update() override;
 	void render() override;
+	void receive(const Message& msg) override;
+
 	void asteroidOppositeSide(Entity* asteroid);
 	void asteroidFollow(Entity* asteroid);
 

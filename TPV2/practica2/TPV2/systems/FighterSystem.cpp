@@ -1,6 +1,6 @@
 #include "FighterSystem.h"
 
-void FighterSystem::onCollisionWithAsteroid(Entity* a) {
+void FighterSystem::onCollisionWithAsteroid() {
 	// recolocamos el caza y reseteamos su velocidad y rotacion
 	player_tr_->pos_.set(sdlutils().width() / 2.0f - (player_tr_->width_ / 2),
 		sdlutils().height() / 2.0f - (player_tr_->height_ / 2));
@@ -82,5 +82,14 @@ void FighterSystem::render()
 		pos.setX((health->heartSize + 5) * i); // dejamos un pequeño margen entre corazones 
 		SDL_Rect dest = build_sdlrect(pos, health->heartSize, health->heartSize);
 		tex->render(dest, 0);
+	}
+}
+
+void FighterSystem::receive(const Message& msg)
+{
+	switch (msg.id_) {
+	case MsgId::LOSE_LIFE:
+		onCollisionWithAsteroid();
+		break;
 	}
 }

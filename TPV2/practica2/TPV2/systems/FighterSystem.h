@@ -21,7 +21,7 @@ public:
 	// desactivar la entidad (no dibujarla si el juego está parado en RenderSystem).
 	// - avisar al GameCtrlSystem que se ha muerto el caza (se puede también avisar
 	// directamente en el CollisionSystem)
-	void onCollisionWithAsteroid(Entity* a);
+	void onCollisionWithAsteroid();
 
 	// - crear la entidad del caza, añadir sus componentes (Transform, Health, etc.)
 	// y asociarla con el handler correspondiente.
@@ -31,6 +31,7 @@ public:
 	// - actualizar la velocidad del caza y moverlo como en la práctica 1.
 	void update() override;
 	void render() override;
+	void receive(const Message& msg) override;
 
 private:
 	const float thrust = 0.2f, speedLimit = 3.0f;

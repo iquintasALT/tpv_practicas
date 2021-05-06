@@ -35,6 +35,7 @@ public:
 	// en la práctica 1, etc.
 	void update() override;
 	void render() override;
+	void receive(const Message& msg) override;
 
 private:
 	GameState gameState = GameState::NEWGAME;

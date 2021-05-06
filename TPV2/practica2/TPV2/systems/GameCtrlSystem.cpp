@@ -1,6 +1,7 @@
 #include "GameCtrlSystem.h"
 
 void GameCtrlSystem::onFighterDeath() {
+	manager_->getComponent<Health>(manager_->getHandler<Player_hdlr>())->lifes_--;
 	gameState = manager_->getComponent<Health>(manager_->getHandler<Player_hdlr>())->lifes_ > 0 ?
 		GameState::PAUSED : GameState::GAMEOVER;
 
@@ -9,7 +10,8 @@ void GameCtrlSystem::onFighterDeath() {
 		if (manager_->hasGroup<Asteroid_grp>(entity) || manager_->hasGroup<Bullet_grp>(entity))
 			manager_->setActive(entity, false);
 
-	manager_->getSystem<AsteroidsSystem>()->resetAsteroids();
+	Message msg = Message(MsgId::RESET_ASTEROIDS);
+	manager_->send(msg);
 };
 
 void GameCtrlSystem::onAsteroidsExtinction() {
@@ -66,5 +68,13 @@ void GameCtrlSystem::render()
 				sdlutils().height() / 2 + t.height() * 2);
 		}
 	}
+};
+
+void GameCtrlSystem::receive(const Message& msg)
+{
+	switch (msg.id_) {
+	case MsgId::LOSE_LIFE:
+		onFighterDeath();
+		break;
+	}
 }
-;

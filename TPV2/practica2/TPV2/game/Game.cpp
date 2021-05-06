@@ -55,6 +55,8 @@ void Game::start() {
 		}
 
 		for (System* s : systems) s->update();
+
+		mngr_->flushMsgsQueue();
 		mngr_->refresh();
 
 		sdlutils().clearRenderer();

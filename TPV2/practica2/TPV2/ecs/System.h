@@ -15,7 +15,7 @@ public:
 
 	virtual void render() {};
 
-	virtual void receive(const Message&) {};
+	virtual void receive(const Message& msg) {};
 
 protected:
 	Manager* manager_;
