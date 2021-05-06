@@ -108,6 +108,7 @@ void AsteroidsSystem::onCollisionWithBullet(Entity* hit_asteroid, Entity* bullet
 		fighterTr_->vel_.set(Vector2D(0, 0));
 		fighterTr_->rotation_ = 0;
 
+		isRunning = false;
 		Message msg = Message(MsgId::WINNING);
 		manager_->send(msg);
 	}
@@ -159,7 +160,7 @@ void AsteroidsSystem::update()
 
 void AsteroidsSystem::render()
 {
-	if (manager_->getSystem<GameCtrlSystem>()->getGameState() == GameState::RUNNING) {
+	if (isRunning) {
 		for (Entity* e : manager_->getEntities()) {
 			if (manager_->hasGroup<Asteroid_grp>(e)) {
 				Image* image = manager_->getComponent<Image>(e);
@@ -193,14 +194,16 @@ void AsteroidsSystem::render()
 void AsteroidsSystem::receive(const Message& msg)
 {
 	switch (msg.id_) {
-	case MsgId::RESET_ASTEROIDS: // podria ser lose_life
+	case MsgId::STOP_RUNNING: // podria ser lose_life
 		numOfAsteroids_ = 0;
+		isRunning = false;
 		break;
 	case MsgId::BULLET_COLLIDES:
 		onCollisionWithBullet(msg.cData.asteroid, msg.cData.bullet);
 		break;
 	case MsgId::START_GAME:
 		addAsteroids(10);
+		isRunning = true;
 		break;
 	}
 }

@@ -10,7 +10,7 @@ void GameCtrlSystem::onFighterDeath() {
 		if (manager_->hasGroup<Asteroid_grp>(entity) || manager_->hasGroup<Bullet_grp>(entity))
 			manager_->setActive(entity, false);
 
-	Message msg = Message(MsgId::RESET_ASTEROIDS);
+	Message msg = Message(MsgId::STOP_RUNNING);
 	manager_->send(msg);
 };
 

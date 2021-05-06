@@ -36,4 +36,6 @@ private:
 	int numOfAsteroids_ = 0;
 	int msToNextAsteroid = 0;
 	int ms = 50;
+
+	bool isRunning = false;
 };

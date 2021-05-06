@@ -42,4 +42,6 @@ private:
 	Transform* player_tr_ = nullptr;
 	SoundEffect* thrust_sfx_ = nullptr, * crash_sfx_= nullptr;
 	Entity* fighter_ = nullptr;
+
+	bool isRunning = false;
 };

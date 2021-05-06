@@ -32,4 +32,5 @@ public:
 
 private:
 	const float bulletH = 20.0f, bulletW = 5.0f;
+	bool isRunning = false;
 };

@@ -24,7 +24,7 @@ void FighterSystem::init() {
 }
 
 void FighterSystem::update() {
-	if (manager_->getSystem<GameCtrlSystem>()->getGameState() == GameState::RUNNING) {
+	if (isRunning) {
 		if (ih().keyDownEvent()) {
 			if (ih().isKeyDown(SDL_SCANCODE_UP)) { // impulso
 				auto& vel = player_tr_->vel_;
@@ -93,6 +93,15 @@ void FighterSystem::receive(const Message& msg)
 	switch (msg.id_) {
 	case MsgId::LOSE_LIFE:
 		onCollisionWithAsteroid();
+		break;
+	case MsgId::START_GAME:
+		isRunning = true;
+		break;
+	case MsgId::STOP_RUNNING:
+		isRunning = false;
+		break;
+	case MsgId::WINNING:
+		isRunning = false;
 		break;
 	}
 }

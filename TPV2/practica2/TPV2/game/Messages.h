@@ -5,12 +5,12 @@ class Entity;
 #include "../utils/Vector2D.h"
 
 enum MsgId : Uint8 {
-	LOSE_LIFE,
-	RESET_ASTEROIDS,
 	SHOOT_BULLET,
 	BULLET_COLLIDES,
+	LOSE_LIFE,
+	WINNING,
 	START_GAME,
-	WINNING
+	STOP_RUNNING
 };
 
 struct CollisionData {

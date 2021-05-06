@@ -41,7 +41,7 @@ void BulletsSystem::update() {
 
 void BulletsSystem::render()
 {
-	if (manager_->getSystem<GameCtrlSystem>()->getGameState() == GameState::RUNNING) {
+	if (isRunning) {
 		for (Entity* e : manager_->getEntities()) {
 			if (manager_->hasGroup<Bullet_grp>(e)) {
 				Image* image = manager_->getComponent<Image>(e);
@@ -62,6 +62,15 @@ void BulletsSystem::receive(const Message& msg)
 		break;
 	case MsgId::BULLET_COLLIDES:
 		onCollisionWithAsteroid(msg.cData.bullet, msg.cData.asteroid);
+		break;
+	case MsgId::START_GAME:
+		isRunning = true;
+		break;
+	case MsgId::STOP_RUNNING:
+		isRunning = false;
+		break;
+	case MsgId::WINNING:
+		isRunning = false;
 		break;
 	}
 }
