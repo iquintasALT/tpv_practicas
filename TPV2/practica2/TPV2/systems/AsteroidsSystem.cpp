@@ -1,4 +1,4 @@
-﻿#include "AsteroidsSystem.h"
+﻿﻿#include "AsteroidsSystem.h"
 
 #include "../systems/GameCtrlSystem.h"
 
@@ -203,7 +203,8 @@ void AsteroidsSystem::receive(const Message& msg)
 		onCollisionWithBullet(msg.cData.asteroid, msg.cData.bullet);
 		break;
 	case MsgId::START_GAME:
-		addAsteroids(1);
+		addAsteroids(10);
+		msToNextAsteroid = sdlutils().currRealTime();
 		isRunning = true;
 		break;
 	}

@@ -105,6 +105,7 @@ void FighterSystem::receive(const Message& msg)
 		break;
 	case MsgId::START_GAME:
 		isRunning = true;
+		msToNextBullet = sdlutils().currRealTime();
 		break;
 	case MsgId::STOP_RUNNING:
 	case MsgId::WINNING:
