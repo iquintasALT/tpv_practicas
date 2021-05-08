@@ -20,7 +20,7 @@ public:
 	void receive(const Message& msg) override;
 
 private:
-	const int newAsteroidSpawnTime = 10000;
+	const int newAsteroidSpawnTime = 5000;
 	const int ms = 50;
 	int msToNextAsteroid = 0;
 
