@@ -1,9 +1,6 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
-
 #include "Vector2D.h"
 
 #include <cassert>
-
 
 #define PI 3.14159265358979323846264338327950288f
 

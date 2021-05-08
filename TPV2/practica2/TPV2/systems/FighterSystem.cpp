@@ -1,5 +1,9 @@
 #include "FighterSystem.h"
 
+#include "../components/Image.h"
+#include "../components/Transform.h"
+#include "../components/Health.h"
+
 void FighterSystem::onCollisionWithAsteroid() {
 	// recolocamos el caza y reseteamos su velocidad y rotacion
 	player_tr_->pos_.set(sdlutils().width() / 2.0f - (player_tr_->width_ / 2),
@@ -9,6 +13,21 @@ void FighterSystem::onCollisionWithAsteroid() {
 
 	// sonido de choque
 	crash_sfx_->play();
+}
+
+void FighterSystem::fighterToroidalMove()
+{
+	//toroidal en el eje X (fluido)
+	if (player_tr_->pos_.getX() > sdlutils().width())
+		player_tr_->pos_.setX(0 - player_tr_->width_);
+	else if (player_tr_->pos_.getX() + player_tr_->width_ < 0)
+		player_tr_->pos_.setX(sdlutils().width());
+
+	//toroidal en el eje Y (fluido)
+	if (player_tr_->pos_.getY() > sdlutils().height())
+		player_tr_->pos_.setY(0 - player_tr_->height_);
+	else if (player_tr_->pos_.getY() + player_tr_->height_ < 0)
+		player_tr_->pos_.setY(sdlutils().height());
 }
 
 void FighterSystem::init() {
@@ -57,17 +76,7 @@ void FighterSystem::update() {
 		player_tr_->pos_ = player_tr_->pos_ + player_tr_->vel_;
 		player_tr_->vel_ = player_tr_->vel_ * deAcceleration;
 
-		//toroidal en el eje X (fluido)
-		if (player_tr_->pos_.getX() > sdlutils().width())
-			player_tr_->pos_.setX(0 - player_tr_->width_);
-		else if (player_tr_->pos_.getX() + player_tr_->width_ < 0)
-			player_tr_->pos_.setX(sdlutils().width());
-
-		//toroidal en el eje Y (fluido)
-		if (player_tr_->pos_.getY() > sdlutils().height())
-			player_tr_->pos_.setY(0 - player_tr_->height_);
-		else if (player_tr_->pos_.getY() + player_tr_->height_ < 0)
-			player_tr_->pos_.setY(sdlutils().height());
+		fighterToroidalMove();
 	}
 }
 
@@ -98,9 +107,6 @@ void FighterSystem::receive(const Message& msg)
 		isRunning = true;
 		break;
 	case MsgId::STOP_RUNNING:
-		isRunning = false;
-		break;
-	case MsgId::WINNING:
 		isRunning = false;
 		break;
 	}

@@ -10,32 +10,26 @@
 
 class AsteroidsSystem : public System {
 public:
-	// - añade n asteroides al juego como en la práctica 1.
-	void addAsteroid();
-	void addAsteroid(int gen, Entity* hit_asteroid);
-	void addAsteroids(int n);
-
-	// - desactivar el asteroide “a” y crear 2 asteroides como en la práctica 1.
-	// - pasamos una referencia a la bala aunque no se usa de momento (en el futuro
-	// se puede usar para tener comportamientos distintos depende del tipo de
-	// bala, etc.)
-	// - si no hay más asteroides avisar al GameCtrlSystem
-	void onCollisionWithBullet(Entity* a, Entity* b);
-
-	// - si el juego está parado no hacer nada.
-	// - mover los asteroides como en la práctica 1.
 	void update() override;
+
 	void render() override;
+
 	void receive(const Message& msg) override;
 
-	void asteroidOppositeSide(Entity* asteroid);
-	void asteroidFollow(Entity* asteroid);
-
 private:
-	const int newAsteroidSpawn = 5000;
-	int numOfAsteroids_ = 0;
+	const int newAsteroidSpawnTime = 5000;
+	const int ms = 50;
 	int msToNextAsteroid = 0;
-	int ms = 50;
 
+	int numOfAsteroids_ = 0;
 	bool isRunning = false;
+
+	void addAsteroids(int n);
+	void newAsteroidChild(int gen, Entity* hit_asteroid);
+	void newAsteroid();
+
+	void toroidalAsteroid(Entity* asteroid);
+	void followAsteroid(Entity* asteroid);
+
+	void onCollisionWithBullet(Entity* a, Entity* b);
 };

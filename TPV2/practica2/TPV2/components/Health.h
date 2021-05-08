@@ -6,7 +6,6 @@
 
 struct Health : public Component {
 	Texture* texture_;
-
 	const int maxLifes_ = 3, heartSize = 30;
 	int lifes_;
 	

@@ -1,5 +1,8 @@
 #include "BulletsSystem.h"
 
+#include "../components/Transform.h"
+#include "../components/Image.h"
+
 void BulletsSystem::shoot(Vector2D pos, Vector2D vel, double rot, double width, double height) {
 	auto bullet = manager_->addEntity();
 
@@ -7,6 +10,7 @@ void BulletsSystem::shoot(Vector2D pos, Vector2D vel, double rot, double width, 
 	Vector2D bPos = (pos + Vector2D(width / 2, height / 2)) -
 		Vector2D(0.0f, bulletH / 2.0f + 5.0f + 12.0f).rotate(rot)
 		- Vector2D(2.0f, 10.0f);
+
 	// aplicamos la velocidad con la misma rotacion del caza
 	Vector2D bVel = Vector2D(0.0f, -1.0f).rotate(rot) * (vel.magnitude() + 5.0f);
 
@@ -67,9 +71,6 @@ void BulletsSystem::receive(const Message& msg)
 		isRunning = true;
 		break;
 	case MsgId::STOP_RUNNING:
-		isRunning = false;
-		break;
-	case MsgId::WINNING:
 		isRunning = false;
 		break;
 	}

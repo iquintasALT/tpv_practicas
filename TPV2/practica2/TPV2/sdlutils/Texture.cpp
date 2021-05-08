@@ -1,5 +1,3 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
-
 #include "Texture.h"
 
 Texture& Texture::operator=(Texture &&other) noexcept {

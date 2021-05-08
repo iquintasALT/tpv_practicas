@@ -1,6 +1,5 @@
 #include "Collisions.h"
 
-
 bool Collisions::collidesWithRotation(const Vector2D o1Pos, float o1Width,
 		float o1Height, float o1Rot, const Vector2D o2Pos, float o2Width,
 		float o2Height, float o2Rot) {

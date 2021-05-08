@@ -1,5 +1,7 @@
 #include "GameCtrlSystem.h"
 
+#include "../components/Health.h"
+
 void GameCtrlSystem::onFighterDeath() {
 	manager_->getComponent<Health>(manager_->getHandler<Player_hdlr>())->lifes_--;
 	gameState = manager_->getComponent<Health>(manager_->getHandler<Player_hdlr>())->lifes_ > 0 ?

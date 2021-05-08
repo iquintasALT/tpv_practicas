@@ -2,9 +2,6 @@
 
 #include "Vector2D.h"
 
-/*
- *
- */
 class Collisions {
 public:
 	// virtual ~Collisions();

@@ -7,7 +7,13 @@
 #include "../components/Transform.h"
 #include "../components/Follow.h"
 
-void AsteroidsSystem::addAsteroid()
+void AsteroidsSystem::addAsteroids(int n)
+{
+	for (int i = 0; i < n; i++)
+		newAsteroid();
+}
+
+void AsteroidsSystem::newAsteroid()
 {
 	auto asteroid = manager_->addEntity();
 
@@ -47,7 +53,7 @@ void AsteroidsSystem::addAsteroid()
 	numOfAsteroids_++;
 }
 
-void AsteroidsSystem::addAsteroid(int gen, Entity* prev_asteroid)
+void AsteroidsSystem::newAsteroidChild(int gen, Entity* prev_asteroid)
 {
 	auto asteroid = manager_->addEntity();
 
@@ -80,20 +86,14 @@ void AsteroidsSystem::addAsteroid(int gen, Entity* prev_asteroid)
 	numOfAsteroids_++;
 }
 
-void AsteroidsSystem::addAsteroids(int n)
-{
-	for (int i = 0; i < n; i++)
-		addAsteroid();
-}
-
 void AsteroidsSystem::onCollisionWithBullet(Entity* hit_asteroid, Entity* bullet)
 {
 	int gen = --manager_->getComponent<Generations>(hit_asteroid)->gen_;
 	manager_->setActive(hit_asteroid, false);
 
 	if (gen > 0) {
-		addAsteroid(gen, hit_asteroid);
-		addAsteroid(gen, hit_asteroid);
+		newAsteroidChild(gen, hit_asteroid);
+		newAsteroidChild(gen, hit_asteroid);
 	}
 
 	numOfAsteroids_--;
@@ -108,13 +108,12 @@ void AsteroidsSystem::onCollisionWithBullet(Entity* hit_asteroid, Entity* bullet
 		fighterTr_->vel_.set(Vector2D(0, 0));
 		fighterTr_->rotation_ = 0;
 
-		isRunning = false;
-		Message msg = Message(MsgId::WINNING);
+		Message msg = Message(MsgId::STOP_RUNNING);
 		manager_->send(msg);
 	}
 }
 
-void AsteroidsSystem::asteroidOppositeSide(Entity* asteroid)
+void AsteroidsSystem::toroidalAsteroid(Entity* asteroid)
 {
 	Transform* tr = manager_->getComponent<Transform>(asteroid);
 	//toroidal en el eje X (fluido)
@@ -130,7 +129,7 @@ void AsteroidsSystem::asteroidOppositeSide(Entity* asteroid)
 		tr->pos_.setY(sdlutils().height());
 }
 
-void AsteroidsSystem::asteroidFollow(Entity* asteroid)
+void AsteroidsSystem::followAsteroid(Entity* asteroid)
 {
 	Transform* fighter_tr_ = manager_->getComponent<Transform>(manager_->getHandler<Player_hdlr>());
 	Transform* tr_ = manager_->getComponent<Transform>(asteroid);
@@ -145,15 +144,15 @@ void AsteroidsSystem::update()
 	//COMPORTAMIENTO DE CADA ASTEROIDE
 	for (Entity* asteroid : manager_->getEntities()) {
 		if (manager_->hasGroup<Asteroid_grp>(asteroid)) {
-			if (manager_->getComponent<Follow>(asteroid)->followsPlayer) asteroidFollow(asteroid);
-			asteroidOppositeSide(asteroid);
+			if (manager_->getComponent<Follow>(asteroid)->followsPlayer) followAsteroid(asteroid);
+			toroidalAsteroid(asteroid);
 			Transform* tr = manager_->getComponent<Transform>(asteroid);
 			tr->pos_ = tr->pos_ + tr->vel_;
 		}
 	}
 	//TIMER PARA NUEVO ASTEROIDE
-	if (manager_->getSystem<GameCtrlSystem>()->getGameState() == GameState::RUNNING && sdlutils().currRealTime() - msToNextAsteroid > newAsteroidSpawn) {
-		addAsteroid();
+	if (isRunning && sdlutils().currRealTime() - msToNextAsteroid > newAsteroidSpawnTime) {
+		newAsteroid();
 		msToNextAsteroid = sdlutils().currRealTime();
 	}
 }
@@ -194,7 +193,7 @@ void AsteroidsSystem::render()
 void AsteroidsSystem::receive(const Message& msg)
 {
 	switch (msg.id_) {
-	case MsgId::STOP_RUNNING: // podria ser lose_life
+	case MsgId::STOP_RUNNING: // lo llamamos aunque sea victoria porque ya es 0, así que no causa efecto erroneo
 		numOfAsteroids_ = 0;
 		isRunning = false;
 		break;

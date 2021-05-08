@@ -1,10 +1,9 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
-
 #include "Game.h"
 
 #include "../ecs/ecs.h"
 #include "../ecs/Manager.h"
 #include "../ecs/System.h"
+
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../utils/Vector2D.h"

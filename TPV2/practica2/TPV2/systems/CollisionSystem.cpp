@@ -1,5 +1,8 @@
 #include "CollisionSystem.h"
 
+#include "../components/Transform.h"
+#include "../components/Health.h"
+
 void CollisionSystem::update() {
 	auto entities = manager_->getEntities();
 
