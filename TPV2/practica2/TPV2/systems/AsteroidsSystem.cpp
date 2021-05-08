@@ -108,7 +108,8 @@ void AsteroidsSystem::onCollisionWithBullet(Entity* hit_asteroid, Entity* bullet
 		fighterTr_->vel_.set(Vector2D(0, 0));
 		fighterTr_->rotation_ = 0;
 
-		Message msg = Message(MsgId::STOP_RUNNING);
+		isRunning = false;
+		Message msg = Message(MsgId::WINNING);
 		manager_->send(msg);
 	}
 }

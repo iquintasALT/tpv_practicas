@@ -107,6 +107,7 @@ void FighterSystem::receive(const Message& msg)
 		isRunning = true;
 		break;
 	case MsgId::STOP_RUNNING:
+	case MsgId::WINNING:
 		isRunning = false;
 		break;
 	}
