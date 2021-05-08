@@ -203,6 +203,7 @@ void AsteroidsSystem::receive(const Message& msg)
 		break;
 	case MsgId::START_GAME:
 		addAsteroids(10);
+		msToNextAsteroid = sdlutils().currRealTime();
 		isRunning = true;
 		break;
 	}
