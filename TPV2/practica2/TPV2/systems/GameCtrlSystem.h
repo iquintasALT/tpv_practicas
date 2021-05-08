@@ -9,6 +9,9 @@
 
 enum class GameState { NEWGAME, PAUSED, RUNNING, GAMEOVER, WIN };
 
+/// <summary>
+/// Sistema que gestiona la transicion de estados de juego
+/// </summary>
 class GameCtrlSystem : public System {
 public:
 	void update() override;

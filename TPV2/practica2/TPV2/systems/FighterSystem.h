@@ -10,7 +10,9 @@
 #include "../utils/Vector2D.h"
 
 class Transform;
-
+/// <summary>
+/// Sistema que gestiona el caza
+/// </summary>
 class FighterSystem : public System {
 public:
 	void init() override;

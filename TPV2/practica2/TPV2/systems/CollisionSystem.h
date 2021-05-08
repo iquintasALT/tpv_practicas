@@ -6,6 +6,10 @@
 
 #include "../utils/Collisions.h"
 
+/// <summary>
+/// Sistema que gestiona las colisiones
+/// </summary>
+
 class CollisionSystem : public System {
 public:
 	void update() override;

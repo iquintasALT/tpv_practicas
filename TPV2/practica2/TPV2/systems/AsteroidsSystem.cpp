@@ -83,7 +83,6 @@ void AsteroidsSystem::newAsteroidChild(int gen, Entity* prev_asteroid)
 	//se añade al grupo para comprobar colisiones mas tarde
 	manager_->setGroup<Asteroid_grp>(asteroid, true);
 	numOfAsteroids_++;
-	numOfAsteroids_++;
 }
 
 void AsteroidsSystem::onCollisionWithBullet(Entity* hit_asteroid, Entity* bullet)
@@ -91,6 +90,7 @@ void AsteroidsSystem::onCollisionWithBullet(Entity* hit_asteroid, Entity* bullet
 	int gen = --manager_->getComponent<Generations>(hit_asteroid)->gen_;
 	manager_->setActive(hit_asteroid, false);
 
+	//se generan dos asteroides nuevos en caso de que el asteroide tenga vidas suficientes
 	if (gen > 0) {
 		newAsteroidChild(gen, hit_asteroid);
 		newAsteroidChild(gen, hit_asteroid);
@@ -109,6 +109,7 @@ void AsteroidsSystem::onCollisionWithBullet(Entity* hit_asteroid, Entity* bullet
 		fighterTr_->rotation_ = 0;
 
 		isRunning = false;
+		// enviamos el mensaje WINNING
 		Message msg = Message(MsgId::WINNING);
 		manager_->send(msg);
 	}
@@ -202,7 +203,7 @@ void AsteroidsSystem::receive(const Message& msg)
 		onCollisionWithBullet(msg.cData.asteroid, msg.cData.bullet);
 		break;
 	case MsgId::START_GAME:
-		addAsteroids(10);
+		addAsteroids(1);
 		isRunning = true;
 		break;
 	}
