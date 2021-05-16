@@ -15,8 +15,16 @@
 
   "images": [
     {
-      "id": "tennis_ball",
-      "file": "resources/images/tennis_ball.png"
+      "id": "fighter1",
+      "file": "resources/images/fighter.png"
+    },
+	{
+      "id": "fighter2",
+      "file": "resources/images/fighter2.png"
+    },
+	{
+      "id": "bullet",
+      "file": "resources/images/fire.png"
     }
   ],
 
