@@ -24,7 +24,7 @@ public:
 	}
 
 	inline bool isGameReady() {
-		return isGameReday_;
+		return isGameReady_;
 	}
 
 	void sendPaddlePosition(Vector2D pos);
@@ -37,7 +37,7 @@ public:
 	}
 
 	void switchId() {
-		if (isMaster_ && !isGameReday_) {
+		if (isMaster_ && !isGameReady_) {
 			id_ = 1 - id_;
 			std::swap(names_[0], names_[1]);
 		}
@@ -47,7 +47,7 @@ private:
 	const char *host_;
 	Uint16 port_;
 	bool isMaster_;
-	bool isGameReday_;
+	bool isGameReady_;
 	Uint8 id_;
 	UDPsocket conn_;
 	UDPpacket *p_;

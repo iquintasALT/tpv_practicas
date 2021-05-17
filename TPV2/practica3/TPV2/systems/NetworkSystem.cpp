@@ -13,7 +13,7 @@ NetworkSystem::NetworkSystem(const char *host, Uint16 port,
 		host_(host), //
 		port_(port), //
 		isMaster_(false), //
-		isGameReday_(false), //
+		isGameReady_(false), //
 		id_(0), //
 		conn_(), //
 		p_(nullptr), //
@@ -77,7 +77,7 @@ void NetworkSystem::init() {
 		// we use id 1, and open a socket to send/receive messages
 		isMaster_ = false;
 
-//		id_ = 1;
+		id_ = 1;
 		conn_ = SDLNet_UDP_Open(0);
 		if (!conn_)
 			throw SDLNet_GetError();
@@ -110,7 +110,7 @@ void NetworkSystem::init() {
 			if (SDLNet_SocketReady(conn_)) {
 				if (SDLNet_UDP_Recv(conn_, p_) > 0) {
 					if (m_->_type == _WELCOME_) {
-						isGameReday_ = true;
+						isGameReady_ = true;
 						WelcomeMsg *m = static_cast<WelcomeMsg*>(m_);
 						remotePlayerName_ = std::string(
 								reinterpret_cast<char*>(m->name));
@@ -126,11 +126,10 @@ void NetworkSystem::init() {
 		SDLNet_FreeSocketSet(socketSet);
 
 		// if did not succeed to connect, throw an exception
-		if (!isGameReday_)
+		if (!isGameReady_)
 			throw "Failed to connect!";
 
 	}
-
 }
 
 void NetworkSystem::update() {
@@ -140,8 +139,6 @@ void NetworkSystem::update() {
 	p_->address = otherPlayerAddress_;
 	SDLNet_UDP_Send(conn_, -1, p_);
 
-
-
 	// in each iteration we poll all pending message and process them
 	while (SDLNet_UDP_Recv(conn_, p_) > 0) {
 		lastTimeActive_ = SDL_GetTicks();
@@ -149,7 +146,7 @@ void NetworkSystem::update() {
 
 		case _I_WANT_TO_PLAY_: {
 			// we accept the connection if the player is the master, and no other player is connected
-			if (isMaster_ && !isGameReday_) {
+			if (isMaster_ && !isGameReady_) {
 				PlayRequestMsg *m = static_cast<PlayRequestMsg*>(m_);
 				otherPlayerAddress_ = p_->address;
 				remotePlayerName_ = std::string(
@@ -165,7 +162,7 @@ void NetworkSystem::update() {
 				mr->id = 1 - id_;
 				p_->len = sizeof(WelcomeMsg);
 				SDLNet_UDP_Send(conn_, -1, p_);
-				isGameReday_ = true;
+				isGameReady_ = true;
 			}
 			break;
 		}
@@ -204,7 +201,7 @@ void NetworkSystem::update() {
 
 		case _DISCONNECTED_: {
 			DissConnectMsg *m = static_cast<DissConnectMsg*>(m_);
-			isGameReday_ = false;
+			isGameReady_ = false;
 			names_[1 - m->id] = remotePlayerName_ = "N/A";
 			manager_->getSystem<GameManagerSystem>()->resetGame();
 			if (!isMaster_) {
@@ -216,8 +213,8 @@ void NetworkSystem::update() {
 		}
 	}
 
-	if (isGameReday_ && SDL_GetTicks() - lastTimeActive_ > 3000) {
-		isGameReday_ = false;
+	if (isGameReady_ && SDL_GetTicks() - lastTimeActive_ > 3000) {
+		isGameReady_ = false;
 		names_[1 - id_] = remotePlayerName_ = "N/A";
 		manager_->getSystem<GameManagerSystem>()->resetGame();
 		if (!isMaster_) {
@@ -233,7 +230,7 @@ void NetworkSystem::update() {
 void NetworkSystem::sendPaddlePosition(Vector2D pos) {
 
 	// if the other player is not connected do nothing
-	if (!isGameReday_)
+	if (!isGameReady_)
 		return;
 
 	// we prepare a message that includes all information
@@ -262,7 +259,7 @@ void NetworkSystem::sendStartGameRequest() {
 void NetworkSystem::sendStateChanged(Uint8 state, Uint8 left_score,
 		Uint8 right_score) {
 	// if the other player is not connected do nothing
-	if (!isGameReday_)
+	if (!isGameReady_)
 		return;
 
 	// we prepare a message that includes all information
@@ -283,7 +280,7 @@ void NetworkSystem::sendStateChanged(Uint8 state, Uint8 left_score,
 
 void NetworkSystem::sendBallInfo(Vector2D pos, Vector2D vel) {
 	// if the other player is not connected do nothing
-	if (!isGameReday_)
+	if (!isGameReady_)
 		return;
 
 	// we prepare a message that includes all information
