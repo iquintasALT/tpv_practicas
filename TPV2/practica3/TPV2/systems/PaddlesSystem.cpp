@@ -7,37 +7,42 @@
 
 #include "../components/PaddleCtrlKeys.h"
 #include "../components/Transform.h"
+#include "../components/Image.h"
 
 #include "NetworkSystem.h"
 
 PaddlesSystem::PaddlesSystem() :
-		leftPaddle_(nullptr), //
-		rightPaddle_(nullptr) {
+		leftFighter_(nullptr), //
+		rightFighter_(nullptr) {
 }
 
 PaddlesSystem::~PaddlesSystem() {
 }
 
 void PaddlesSystem::init() {
-	leftPaddle_ = manager_->addEntity();
-	manager_->addComponent<Transform>(leftPaddle_, //
+	leftFighter_ = manager_->addEntity();
+	manager_->addComponent<Transform>(leftFighter_, //
 			Vector2D(10.0, sdlutils().height() / 2.0f - 25.0f), //
 			Vector2D(), //
 			10.0f, 50.0f, 0.0f);
-	manager_->addComponent<PaddleCtrlKeys>(leftPaddle_, //
+	manager_->addComponent<Image>(leftFighter_, //
+			&sdlutils().images().at("fighter1"));
+	manager_->addComponent<PaddleCtrlKeys>(leftFighter_, //
 			SDL_SCANCODE_UP, SDL_SCANCODE_DOWN, SDL_SCANCODE_SPACE, 5.0f);
-	manager_->setHandler<LeftPaddle>(leftPaddle_);
+	manager_->setHandler<LeftFighter>(leftFighter_);
 
-	rightPaddle_ = manager_->addEntity();
+	rightFighter_ = manager_->addEntity();
 	manager_->addComponent<Transform>(
-			rightPaddle_, //
+			rightFighter_, //
 			Vector2D(sdlutils().width() - 10.0f - 10.0f,
 					sdlutils().height() / 2.0f - 25.0f), //
 			Vector2D(), //
 			10.0f, 50.0f, 0.0f);
-	manager_->addComponent<PaddleCtrlKeys>(rightPaddle_, //
+	manager_->addComponent<Image>(rightFighter_, //
+		&sdlutils().images().at("fighter2"));
+	manager_->addComponent<PaddleCtrlKeys>(rightFighter_, //
 			SDL_SCANCODE_UP, SDL_SCANCODE_DOWN, SDL_SCANCODE_SPACE, 5.0f);
-	manager_->setHandler<RightPaddle>(rightPaddle_);
+	manager_->setHandler<RightFighter>(rightFighter_);
 }
 
 void PaddlesSystem::update() {
@@ -46,9 +51,9 @@ void PaddlesSystem::update() {
 	Uint8 myId = manager_->getSystem<NetworkSystem>()->getId();
 
 	if (myId == 0)
-		movePaddle(leftPaddle_);
+		movePaddle(leftFighter_);
 	else
-		movePaddle(rightPaddle_);
+		movePaddle(rightFighter_);
 }
 
 void PaddlesSystem::movePaddle(Entity *e) {
@@ -57,11 +62,11 @@ void PaddlesSystem::movePaddle(Entity *e) {
 	auto keys = manager_->getComponent<PaddleCtrlKeys>(e);
 
 	if (ih().keyDownEvent()) {
-		if (ih().isKeyDown(keys->up_)) {
+		if (ih().isKeyDown(SDL_SCANCODE_UP)) {
 			tr_->vel_.setY(-keys->speed_);
-		} else if (ih().isKeyDown(keys->down_)) {
+		} else if (ih().isKeyDown(SDL_SCANCODE_DOWN)) {
 			tr_->vel_.setY(keys->speed_);
-		} else if (ih().isKeyDown(keys->stop_)) {
+		} else if (ih().isKeyDown(SDL_SCANCODE_STOP)) {
 			tr_->vel_.setY(0.0f);
 		}
 	}
@@ -83,9 +88,9 @@ void PaddlesSystem::movePaddle(Entity *e) {
 void PaddlesSystem::setPaddlePosition(Uint8 id, Vector2D pos) {
 	Entity *e = nullptr;
 	if (id == 0) {
-		e = leftPaddle_;
+		e = leftFighter_;
 	} else {
-		e = rightPaddle_;
+		e = rightFighter_;
 	}
 	auto tr_ = manager_->getComponent<Transform>(e);
 	tr_->pos_ = pos;

@@ -24,10 +24,10 @@ void RenderSystem::init() {
 	ballTr_ = manager_->getComponent<Transform>(manager_->getHandler<Ball>());
 	assert(ballTr_ != nullptr);
 	leftPaddelTr_ = manager_->getComponent<Transform>(
-			manager_->getHandler<LeftPaddle>());
+			manager_->getHandler<LeftFighter>());
 	assert(leftPaddelTr_ != nullptr);
 	rightPaddelTr_ = manager_->getComponent<Transform>(
-			manager_->getHandler<RightPaddle>());
+			manager_->getHandler<RightFighter>());
 	assert(rightPaddelTr_ != nullptr);
 }
 
@@ -47,7 +47,6 @@ void RenderSystem::drawRect(Transform *tr, SDL_Color color) {
 	SDL_Rect rect = build_sdlrect(tr->pos_, tr->width_, tr->height_);
 
 	SDL_RenderFillRect(sdlutils().renderer(), &rect);
-
 }
 
 void RenderSystem::drawScore() {

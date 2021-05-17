@@ -18,7 +18,7 @@ public:
 private:
 	void movePaddle(Entity *e);
 
-	Entity *leftPaddle_;
-	Entity *rightPaddle_;
+	Entity *leftFighter_;
+	Entity *rightFighter_;
 };
 

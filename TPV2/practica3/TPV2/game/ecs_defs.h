@@ -11,17 +11,18 @@ struct PaddleCtrlKeys;
 	PaddleCtrlKeys
 
 // groups
-struct Paddle;
-#define _GRPS_LIST_ Paddle
+struct LeftBullet;
+struct RightBullet;
+#define _GRPS_LIST_ RightBullet
 
 // handlers
 struct Ball;
-struct LeftPaddle;
-struct RightPaddle;
+struct LeftFighter;
+struct RightFighter;
 #define _HDLRS_LIST_ \
 	Ball, \
-	LeftPaddle, \
-	RightPaddle
+	LeftFighter, \
+	RightFighter
 
 // systems
 class BallSystem;
