@@ -24,7 +24,7 @@ void PaddlesSystem::init() {
 	manager_->addComponent<Transform>(leftFighter_, //
 			Vector2D(10.0, sdlutils().height() / 2.0f - 25.0f), //
 			Vector2D(), //
-			10.0f, 50.0f, 0.0f);
+			50.0f, 50.0f, 0.0f);
 	manager_->addComponent<Image>(leftFighter_, //
 			&sdlutils().images().at("fighter1"));
 	manager_->addComponent<PaddleCtrlKeys>(leftFighter_, //
@@ -34,10 +34,10 @@ void PaddlesSystem::init() {
 	rightFighter_ = manager_->addEntity();
 	manager_->addComponent<Transform>(
 			rightFighter_, //
-			Vector2D(sdlutils().width() - 10.0f - 10.0f,
+			Vector2D(sdlutils().width() - 50.0f - 10.0f,
 					sdlutils().height() / 2.0f - 25.0f), //
 			Vector2D(), //
-			10.0f, 50.0f, 0.0f);
+			50.0f, 50.0f, 0.0f);
 	manager_->addComponent<Image>(rightFighter_, //
 		&sdlutils().images().at("fighter2"));
 	manager_->addComponent<PaddleCtrlKeys>(rightFighter_, //

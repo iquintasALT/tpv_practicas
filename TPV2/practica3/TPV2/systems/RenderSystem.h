@@ -1,9 +1,8 @@
 #pragma once
-#include <SDL_pixels.h>
-
 #include "../ecs/System.h"
 
 struct Transform;
+struct Image;
 
 class RenderSystem: public System {
 public:
@@ -13,13 +12,15 @@ public:
 	void update() override;
 private:
 
-	void drawRect(Transform *tr, SDL_Color color);
+	void drawFighter(Transform *tr, Image* img);
+	void drawBullets();
 	void drawScore();
 	void drawMsgs();
 	void drawNames();
 
-	Transform *ballTr_;
-	Transform *leftPaddelTr_;
-	Transform *rightPaddelTr_;
+	Transform *leftFighterTr_;
+	Transform *rightFighterlTr_;
+	Image *leftFighterImg_;
+	Image *rightFighterlImg_;
 };
 

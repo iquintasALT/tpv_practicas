@@ -5,7 +5,7 @@ struct Transform;
 struct Image;
 struct PaddleCtrlKeys;
 
-#define _CMPS_LIST_  \
+#define _CMPS_LIST_ \
 	Transform,\
 	Image,\
 	PaddleCtrlKeys
@@ -13,7 +13,9 @@ struct PaddleCtrlKeys;
 // groups
 struct LeftBullet;
 struct RightBullet;
-#define _GRPS_LIST_ RightBullet
+#define _GRPS_LIST_ \
+	LeftBullet, \
+	RightBullet
 
 // handlers
 struct Ball;

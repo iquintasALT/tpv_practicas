@@ -85,7 +85,7 @@ public:
 		return hdlrs_[ecs::hdlrIdx<T>];
 	}
 
-	inline const std::vector<Entity*>& getEnteties() {
+	inline const std::vector<Entity*>& getEntities() {
 		return entities_;
 	}
 
