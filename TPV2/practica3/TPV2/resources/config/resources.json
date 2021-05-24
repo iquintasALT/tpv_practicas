@@ -22,9 +22,17 @@
       "id": "fighter2",
       "file": "resources/images/fighter2.png"
     },
-	{
+    {
       "id": "bullet",
       "file": "resources/images/fire.png"
+    },
+    {
+      "id": "bullet2",
+      "file": "resources/images/fire2.png"
+    },
+    {
+      "id": "hand",
+      "file": "resources/images/fingerpoint.png"
     }
   ],
 

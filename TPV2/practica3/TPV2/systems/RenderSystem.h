@@ -4,7 +4,7 @@
 struct Transform;
 struct Image;
 
-class RenderSystem: public System {
+class RenderSystem : public System {
 public:
 	RenderSystem();
 	virtual ~RenderSystem();
@@ -12,15 +12,16 @@ public:
 	void update() override;
 private:
 
-	void drawFighter(Transform *tr, Image* img);
+	void drawFighter(Transform* tr, Image* img);
 	void drawBullets();
+	void drawHand();
 	void drawScore();
 	void drawMsgs();
 	void drawNames();
 
-	Transform *leftFighterTr_;
-	Transform *rightFighterlTr_;
-	Image *leftFighterImg_;
-	Image *rightFighterlImg_;
+	Transform* leftFighterTr_;
+	Transform* rightFighterTr_;
+	Image* leftFighterImg_;
+	Image* rightFighterImg_;
 };
 

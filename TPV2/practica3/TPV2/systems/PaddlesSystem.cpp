@@ -5,7 +5,7 @@
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
 
-#include "../components/PaddleCtrlKeys.h"
+#include "../components/FighterCtrlKEys.h"
 #include "../components/Transform.h"
 #include "../components/Image.h"
 
