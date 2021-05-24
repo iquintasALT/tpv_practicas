@@ -6,7 +6,7 @@
 
 #include "BallSystem.h"
 #include "GameManagerSystem.h"
-#include "PaddlesSystem.h"
+#include "FighterSystem.h"
 #include "BulletsSystem.h"
 
 NetworkSystem::NetworkSystem(const char *host, Uint16 port,
@@ -187,7 +187,7 @@ void NetworkSystem::update() {
 		case _PADDLE_POS: {
 			PaddlePositionMsg *m = static_cast<PaddlePositionMsg*>(m_);
 			Vector2D pos(m->x, m->y);
-			manager_->getSystem<PaddlesSystem>()->setPaddlePosition(m->id, pos);
+			manager_->getSystem<FighterSystem>()->setFighterPosition(m->id, pos);
 			break;
 		}
 
@@ -210,11 +210,14 @@ void NetworkSystem::update() {
 				conn_ = SDLNet_UDP_Open(port_);
 				isMaster_ = true;
 			}
+
+			break;
 		}
 
 		case _SHOOT_: {
 			ShootMessage* m = static_cast<ShootMessage*>(m_);
-			manager_->getSystem<BulletsSystem>()->shoot();
+			manager_->getSystem<BulletsSystem>()->shoot(m->id);
+			break;
 		}
 		}
 	}
@@ -228,7 +231,6 @@ void NetworkSystem::update() {
 			conn_ = SDLNet_UDP_Open(port_);
 			isMaster_ = true;
 		}
-
 	}
 
 }
@@ -252,7 +254,6 @@ void NetworkSystem::sendPaddlePosition(Vector2D pos) {
 
 	// send the message
 	SDLNet_UDP_Send(conn_, -1, p_);
-
 }
 
 void NetworkSystem::sendStartGameRequest() {
@@ -305,7 +306,7 @@ void NetworkSystem::sendBallInfo(Vector2D pos, Vector2D vel) {
 	SDLNet_UDP_Send(conn_, -1, p_);
 }
 
-void NetworkSystem::sendShoot(Transform* player_tr)
+void NetworkSystem::sendShoot()
 {
 	// if the other player is not connected do nothing
 	if (!isGameReady_)
@@ -314,7 +315,7 @@ void NetworkSystem::sendShoot(Transform* player_tr)
 	// we prepare a message that includes all information
 	ShootMessage* m = static_cast<ShootMessage*>(m_);
 	m->_type = _SHOOT_;
-	m->id = id;
+	m->id = id_;
 
 	// set the message length and the address of the other player
 	p_->len = sizeof(ShootMessage);

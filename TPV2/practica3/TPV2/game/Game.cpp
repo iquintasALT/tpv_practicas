@@ -12,7 +12,7 @@
 #include "../systems/CollisionSystem.h"
 #include "../systems/GameManagerSystem.h"
 #include "../systems/NetworkSystem.h"
-#include "../systems/PaddlesSystem.h"
+#include "../systems/FighterSystem.h"
 #include "../systems/RenderSystem.h"
 
 Game::Game() {
@@ -39,7 +39,7 @@ void Game::init(const char *host, Uint16 port) {
 
 	networkSys_ = mngr_->addSystem<NetworkSystem>(host, port, playerName);
 	ballSys_ = mngr_->addSystem<BallSystem>();
-	paddlesSys_ = mngr_->addSystem<PaddlesSystem>();
+	paddlesSys_ = mngr_->addSystem<FighterSystem>();
 	collisionSys_ = mngr_->addSystem<CollisionSystem>();
 	gameMngrSys_ = mngr_->addSystem<GameManagerSystem>();
 	renderSys_ = mngr_->addSystem<RenderSystem>();

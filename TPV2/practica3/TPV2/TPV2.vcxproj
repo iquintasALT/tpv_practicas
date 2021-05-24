@@ -32,11 +32,10 @@
     <ClCompile Include="systems\BulletsSystem.cpp" />
     <ClCompile Include="systems\CollisionSystem.cpp" />
     <ClCompile Include="systems\CollisionsSystem.cpp" />
-    <ClCompile Include="systems\FighterSystem.cpp" />
     <ClCompile Include="systems\GameCtrlSystem.cpp" />
     <ClCompile Include="systems\GameManagerSystem.cpp" />
     <ClCompile Include="systems\NetworkSystem.cpp" />
-    <ClCompile Include="systems\PaddlesSystem.cpp" />
+    <ClCompile Include="systems\FighterSystem.cpp" />
     <ClCompile Include="systems\RenderSystem.cpp" />
     <ClCompile Include="utils\Collisions.cpp" />
     <ClCompile Include="utils\Vector2D.cpp" />
@@ -69,13 +68,12 @@
     <ClInclude Include="systems\BulletsSystem.h" />
     <ClInclude Include="systems\CollisionSystem.h" />
     <ClInclude Include="systems\CollisionsSystem.h" />
-    <ClInclude Include="systems\FighterSystem.h" />
     <ClInclude Include="systems\GameCtrlSystem.h" />
     <ClInclude Include="systems\GameManagerSystem.h" />
     <ClInclude Include="systems\NetworkSystem.h" />
     <ClInclude Include="systems\network_types.h" />
     <ClInclude Include="systems\network_messages.h" />
-    <ClInclude Include="systems\PaddlesSystem.h" />
+    <ClInclude Include="systems\FighterSystem.h" />
     <ClInclude Include="systems\RenderSystem.h" />
     <ClInclude Include="utils\Collisions.h" />
     <ClInclude Include="utils\Singleton.h" />

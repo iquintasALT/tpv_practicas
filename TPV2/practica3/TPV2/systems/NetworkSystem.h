@@ -31,7 +31,7 @@ public:
 	void sendStartGameRequest();
 	void sendStateChanged(Uint8 state, Uint8 left_score, Uint8 right_score);
 	void sendBallInfo(Vector2D pos, Vector2D vel);
-	void sendShoot(Transform* player_tr);
+	void sendShoot();
 
 	auto& getNames() {
 		return names_;

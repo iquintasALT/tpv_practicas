@@ -28,15 +28,17 @@ struct RightFighter;
 
 // systems
 class BallSystem;
-class PaddlesSystem;
+class FighterSystem;
 class RenderSystem;
+class BulletsSystem;
 class CollisionSystem;
 class GameManagerSystem;
 class NetworkSystem;
 #define _SYS_LIST_ \
 		BallSystem, \
-		PaddlesSystem, \
+		FighterSystem, \
 		RenderSystem, \
+        BulletsSystem, \
 		CollisionSystem, \
 		GameManagerSystem,\
 		NetworkSystem
