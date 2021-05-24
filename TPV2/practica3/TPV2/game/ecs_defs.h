@@ -3,12 +3,12 @@
 // components -- forward declaration, i.e., assume they are defined somewhere
 struct Transform;
 struct Image;
-struct PaddleCtrlKeys;
+struct FighterCtrlKeys;
 
 #define _CMPS_LIST_ \
 	Transform,\
 	Image,\
-	PaddleCtrlKeys
+	FighterCtrlKeys
 
 // groups
 struct LeftBullet;

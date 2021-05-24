@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="components\Image.h" />
-    <ClInclude Include="components\PaddleCtrlKeys.h" />
+    <ClInclude Include="components\FighterCtrlKeys.h" />
     <ClInclude Include="components\Transform.h" />
     <ClInclude Include="ecs\Component.h" />
     <ClInclude Include="ecs\ecs.h" />

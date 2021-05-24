@@ -49,9 +49,6 @@
     <Filter Include="Source Files\systems">
       <UniqueIdentifier>{f1be0be5-2142-41a5-b37d-045a4421f436}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\components">
-      <UniqueIdentifier>{27092c96-5ad4-4792-96ba-7f4c45bd2776}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\systems">
       <UniqueIdentifier>{166bb50b-ec74-49a3-b334-87b26ab6c24a}</UniqueIdentifier>
     </Filter>
@@ -215,9 +212,6 @@
     <ClInclude Include="systems\PaddlesSystem.h">
       <Filter>Header Files\systems</Filter>
     </ClInclude>
-    <ClInclude Include="components\PaddleCtrlKeys.h">
-      <Filter>Header Files\components</Filter>
-    </ClInclude>
     <ClInclude Include="systems\network_messages.h">
       <Filter>Header Files\network</Filter>
     </ClInclude>
@@ -238,6 +232,9 @@
     </ClInclude>
     <ClInclude Include="systems\GameCtrlSystem.h">
       <Filter>Header Files\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="components\FighterCtrlKeys.h">
+      <Filter>Header Files\components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

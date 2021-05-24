@@ -27,7 +27,7 @@ void PaddlesSystem::init() {
 			50.0f, 50.0f, 0.0f);
 	manager_->addComponent<Image>(leftFighter_, //
 			&sdlutils().images().at("fighter1"));
-	manager_->addComponent<PaddleCtrlKeys>(leftFighter_, //
+	manager_->addComponent<FighterCtrlKeys>(leftFighter_, //
 			SDL_SCANCODE_UP, SDL_SCANCODE_DOWN, SDL_SCANCODE_SPACE, 5.0f);
 	manager_->setHandler<LeftFighter>(leftFighter_);
 
@@ -40,7 +40,7 @@ void PaddlesSystem::init() {
 			50.0f, 50.0f, 0.0f);
 	manager_->addComponent<Image>(rightFighter_, //
 		&sdlutils().images().at("fighter2"));
-	manager_->addComponent<PaddleCtrlKeys>(rightFighter_, //
+	manager_->addComponent<FighterCtrlKeys>(rightFighter_, //
 			SDL_SCANCODE_UP, SDL_SCANCODE_DOWN, SDL_SCANCODE_SPACE, 5.0f);
 	manager_->setHandler<RightFighter>(rightFighter_);
 }
@@ -59,7 +59,7 @@ void PaddlesSystem::update() {
 void PaddlesSystem::movePaddle(Entity *e) {
 
 	auto tr_ = manager_->getComponent<Transform>(e);
-	auto keys = manager_->getComponent<PaddleCtrlKeys>(e);
+	auto keys = manager_->getComponent<FighterCtrlKeys>(e);
 
 	if (ih().keyDownEvent()) {
 		if (ih().isKeyDown(SDL_SCANCODE_UP)) {
