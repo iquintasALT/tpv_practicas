@@ -20,25 +20,25 @@ GameManagerSystem::~GameManagerSystem() {
 void GameManagerSystem::init() {
 }
 
-void GameManagerSystem::onBallExit(Side side) {
-
-	assert(state_ == RUNNING); // this should be called only when game is runnig
-
-	if (side == LEFT) {
-		score_[1]++;
-	} else {
-		score_[0]++;
-	}
-
-	if (score_[0] < maxScore_ && score_[1] < maxScore_)
-		state_ = PAUSED;
-	else
-		state_ = GAMEOVER;
-
-	manager_->getSystem<NetworkSystem>()->sendStateChanged(state_, score_[0],
-			score_[1]);
-
-}
+//void GameManagerSystem::onBallExit(Side side) {
+//
+//	assert(state_ == RUNNING); // this should be called only when game is runnig
+//
+//	if (side == LEFT) {
+//		score_[1]++;
+//	} else {
+//		score_[0]++;
+//	}
+//
+//	if (score_[0] < maxScore_ && score_[1] < maxScore_)
+//		state_ = PAUSED;
+//	else
+//		state_ = GAMEOVER;
+//
+//	manager_->getSystem<NetworkSystem>()->sendStateChanged(state_, score_[0],
+//			score_[1]);
+//
+//}
 
 void GameManagerSystem::update() {
 	if (state_ != RUNNING) {

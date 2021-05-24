@@ -18,16 +18,13 @@ struct RightBullet;
 	RightBullet
 
 // handlers
-struct Ball;
 struct LeftFighter;
 struct RightFighter;
 #define _HDLRS_LIST_ \
-	Ball, \
 	LeftFighter, \
 	RightFighter
 
 // systems
-class BallSystem;
 class FighterSystem;
 class RenderSystem;
 class BulletsSystem;
@@ -35,7 +32,6 @@ class CollisionSystem;
 class GameManagerSystem;
 class NetworkSystem;
 #define _SYS_LIST_ \
-		BallSystem, \
 		FighterSystem, \
 		RenderSystem, \
         BulletsSystem, \

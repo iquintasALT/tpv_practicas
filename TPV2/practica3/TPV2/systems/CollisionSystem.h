@@ -11,7 +11,7 @@ public:
 	void init() override;
 	void update() override;
 private:
-	Transform *ballTr_;
+	//Transform *ballTr_;
 	Transform *leftPaddelTr_;
 	Transform *rightPaddelTr_;
 	SoundEffect *paddleHit_;
