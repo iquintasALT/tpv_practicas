@@ -183,10 +183,10 @@ void NetworkSystem::update() {
 		}
 
 			// change paddle position of other player
-		case _PADDLE_POS: {
-			PaddlePositionMsg *m = static_cast<PaddlePositionMsg*>(m_);
+		case _FIGHTER_MOV_: {
+			FighterMovementMsg *m = static_cast<FighterMovementMsg*>(m_);
 			Vector2D pos(m->x, m->y);
-			manager_->getSystem<FighterSystem>()->setFighterPosition(m->id, pos);
+			manager_->getSystem<FighterSystem>()->setFighterPosition(m->id, pos, m->rot);
 			break;
 		}
 
@@ -225,21 +225,22 @@ void NetworkSystem::update() {
 
 }
 
-void NetworkSystem::sendPaddlePosition(Vector2D pos) {
+void NetworkSystem::sendFighterMovement(Vector2D pos, float rot) {
 
 	// if the other player is not connected do nothing
 	if (!isGameReady_)
 		return;
 
 	// we prepare a message that includes all information
-	PaddlePositionMsg *m = static_cast<PaddlePositionMsg*>(m_);
-	m->_type = _PADDLE_POS;
+	FighterMovementMsg *m = static_cast<FighterMovementMsg*>(m_);
+	m->_type = _FIGHTER_MOV_;
 	m->x = pos.getX();
 	m->y = pos.getY();
+	m->rot = rot;
 	m->id = id_;
 
 	// set the message length and the address of the other player
-	p_->len = sizeof(PaddlePositionMsg);
+	p_->len = sizeof(FighterMovementMsg);
 	p_->address = otherPlayerAddress_;
 
 	// send the message

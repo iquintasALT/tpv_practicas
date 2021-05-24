@@ -74,8 +74,7 @@ void FighterSystem::moveFighter(Entity* e) {
 		fighterToroidalMove(e);
 	}
 
-	manager_->getSystem<NetworkSystem>()->sendPaddlePosition(player_tr_->pos_);
-
+	manager_->getSystem<NetworkSystem>()->sendFighterMovement(player_tr_->pos_, player_tr_->rotation_);
 }
 
 void FighterSystem::fighterToroidalMove(Entity* e)
@@ -94,14 +93,10 @@ void FighterSystem::fighterToroidalMove(Entity* e)
 		player_tr_->pos_.setY(sdlutils().height());
 }
 
-void FighterSystem::setFighterPosition(Uint8 id, Vector2D pos) {
-	Entity* e = nullptr;
-	if (id == 0) {
-		e = leftFighter_;
-	}
-	else {
-		e = rightFighter_;
-	}
+void FighterSystem::setFighterPosition(Uint8 id, Vector2D pos, float rot) {
+	Entity* e = (id == 0) ? leftFighter_ : rightFighter_;
+
 	auto tr_ = manager_->getComponent<Transform>(e);
 	tr_->pos_ = pos;
+	tr_->rotation_ = rot;
 }

@@ -14,7 +14,7 @@ public:
 	void update() override;
 
 	// used to set the paddle position of the other layer
-	void setFighterPosition(Uint8 id, Vector2D pos);
+	void setFighterPosition(Uint8 id, Vector2D pos, float rot);
 
 private:
 	void moveFighter(Entity *e);
