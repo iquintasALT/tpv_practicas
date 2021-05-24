@@ -1,25 +1,27 @@
+#include "BulletsSystem.h"
 //#include "BulletsSystem.h"
 //
 //#include "../components/Transform.h"
 //#include "../components/Image.h"
 //
-//void BulletsSystem::shoot(Vector2D pos, Vector2D vel, double rot, double width, double height) {
-//	auto bullet = manager_->addEntity();
-//
-//	// creamos la bala con la rotacion del caza en su posicion correspondiente
-//	Vector2D bPos = (pos + Vector2D(width / 2, height / 2)) -
-//		Vector2D(0.0f, bulletH / 2.0f + 5.0f + 12.0f).rotate(rot)
-//		- Vector2D(2.0f, 10.0f);
-//
-//	// aplicamos la velocidad con la misma rotacion del caza
-//	Vector2D bVel = Vector2D(0.0f, -1.0f).rotate(rot) * (vel.magnitude() + 5.0f);
-//
-//	manager_->addComponent<Transform>(bullet, bPos, bVel, bulletW, bulletH, rot);
-//	manager_->addComponent<Image>(bullet, &sdlutils().images().at("fire"));
-//	manager_->setGroup<Bullet_grp>(bullet, true);
-//
-//	sdlutils().soundEffects().at("fire").play(); // sonido
-//}
+void BulletsSystem::shoot(Vector2D pos, Vector2D vel, double rot, double width, double height, int id_) {
+	auto bullet = manager_->addEntity();
+
+	// creamos la bala con la rotacion del caza en su posicion correspondiente
+	Vector2D bPos = (pos + Vector2D(width / 2, height / 2)) -
+		Vector2D(0.0f, bulletH / 2.0f + 5.0f + 12.0f).rotate(rot)
+		- Vector2D(2.0f, 10.0f);
+
+	// aplicamos la velocidad con la misma rotacion del caza
+	Vector2D bVel = Vector2D(0.0f, -1.0f).rotate(rot) * (vel.magnitude() + 5.0f);
+
+	manager_->addComponent<Transform>(bullet, bPos, bVel, bulletW, bulletH, rot);
+	manager_->addComponent<Image>(bullet, &sdlutils().images().at("fire"));
+	if (id_ == 0) manager_->setGroup<LeftBullet>(bullet, true);
+	else manager_->setGroup<RightBullet>(bullet, true);
+
+	sdlutils().soundEffects().at("fire").play(); // sonido
+}
 //
 //void BulletsSystem::onCollisionWithAsteroid(Entity* b, Entity* a) {
 //	manager_->setActive(b, false); // desactivamos la bala
@@ -76,3 +78,4 @@
 //		break;
 //	}
 //}
+

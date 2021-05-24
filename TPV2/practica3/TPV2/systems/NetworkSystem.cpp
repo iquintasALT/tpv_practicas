@@ -7,6 +7,7 @@
 #include "BallSystem.h"
 #include "GameManagerSystem.h"
 #include "PaddlesSystem.h"
+#include "BulletsSystem.h"
 
 NetworkSystem::NetworkSystem(const char *host, Uint16 port,
 		std::string playerName) :
@@ -210,6 +211,11 @@ void NetworkSystem::update() {
 				isMaster_ = true;
 			}
 		}
+
+		case _SHOOT_: {
+			ShootMessage* m = static_cast<ShootMessage*>(m_);
+			manager_->getSystem<BulletsSystem>()->shoot();
+		}
 		}
 	}
 
@@ -293,6 +299,25 @@ void NetworkSystem::sendBallInfo(Vector2D pos, Vector2D vel) {
 
 	// set the message length and the address of the other player
 	p_->len = sizeof(BallInfoMsg);
+	p_->address = otherPlayerAddress_;
+
+	// send the message
+	SDLNet_UDP_Send(conn_, -1, p_);
+}
+
+void NetworkSystem::sendShoot(Transform* player_tr)
+{
+	// if the other player is not connected do nothing
+	if (!isGameReady_)
+		return;
+
+	// we prepare a message that includes all information
+	ShootMessage* m = static_cast<ShootMessage*>(m_);
+	m->_type = _SHOOT_;
+	m->id = id;
+
+	// set the message length and the address of the other player
+	p_->len = sizeof(ShootMessage);
 	p_->address = otherPlayerAddress_;
 
 	// send the message

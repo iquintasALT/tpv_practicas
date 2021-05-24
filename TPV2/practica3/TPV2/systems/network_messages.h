@@ -2,6 +2,8 @@
 
 #include "network_types.h"
 
+struct Transform;
+
 #pragma pack(push,1)
 
 enum MsgType : uint8_nt {
@@ -13,7 +15,8 @@ enum MsgType : uint8_nt {
 	_STATE_CHANGED_, //
 	_BALL_INFO_, //
 	_DISCONNECTED_, //
-	_ACTIVE_
+	_ACTIVE_, //
+	_SHOOT_
 };
 
 struct NetworkMessage {
@@ -53,5 +56,8 @@ struct StateChangedMessage: NetworkMessage {
 	uint8_nt right_score_;
 };
 
-
+struct ShootMessage : NetworkMessage {
+	Transform* tr;
+	uint8_nt id;
+};
 #pragma pack(pop)

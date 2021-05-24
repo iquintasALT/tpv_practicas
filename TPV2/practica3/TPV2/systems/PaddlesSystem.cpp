@@ -85,6 +85,8 @@ void PaddlesSystem::movePaddle(Entity *e) {
 			if (ih().isKeyDown(SDLK_s) && sdlutils().currRealTime() - msToNextBullet > nextBullet) { // shoot
 
 				//???
+				NetworkMessage msg = NetworkMessage();
+				msg._type = MsgType::_SHOOT_;
 				/*Message msg = Message(MsgId::SHOOT_BULLET);
 				msg.bData.pos = player_tr_->pos_; msg.bData.vel = player_tr_->vel_;
 				msg.bData.rot = player_tr_->rotation_; msg.bData.width = player_tr_->width_;
