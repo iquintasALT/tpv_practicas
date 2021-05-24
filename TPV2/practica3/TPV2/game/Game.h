@@ -22,6 +22,7 @@ private:
 	System *collisionSys_;
 	System *gameMngrSys_;
 	System *renderSys_;
-	System *networkSys_;
+	System* networkSys_;
+	System *bulletSys_;
 };
 

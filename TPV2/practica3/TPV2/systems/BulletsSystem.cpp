@@ -19,7 +19,8 @@ void BulletsSystem::shoot(int id) {
 
 	// creamos la bala
 	manager_->addComponent<Transform>(bullet, bPos, bVel, bulletW, bulletH, pl_tr->rotation_);
-	manager_->addComponent<Image>(bullet, &sdlutils().images().at("fire"));
+	
+	manager_->addComponent<Image>(bullet, (id == 0 ? &sdlutils().images().at("bullet") : &sdlutils().images().at("bullet2")));
 
 	if (id == 0) manager_->setGroup<LeftBullet>(bullet, true);
 	else manager_->setGroup<RightBullet>(bullet, true);

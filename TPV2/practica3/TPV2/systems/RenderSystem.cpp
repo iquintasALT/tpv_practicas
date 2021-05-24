@@ -39,6 +39,7 @@ void RenderSystem::update() {
 
 	drawScore();
 	drawHand();
+	drawBullets();
 	drawMsgs();
 	drawNames();
 }
@@ -50,9 +51,9 @@ void RenderSystem::drawFighter(Transform* tr, Image* img) {
 
 void RenderSystem::drawBullets() {
 	auto state_ = manager_->getSystem<GameManagerSystem>()->getState();
-	if (state_ != GameManagerSystem::RUNNING) {
+	if (state_ == GameManagerSystem::RUNNING) {
 		for (Entity* e : manager_->getEntities()) {
-			if (manager_->hasGroup<LeftBullet>(e) || manager_->hasGroup<LeftBullet>(e)) {
+			if (manager_->hasGroup<LeftBullet>(e) || manager_->hasGroup<RightBullet>(e)) {
 				Image* image = manager_->getComponent<Image>(e);
 				Transform* tr_ = manager_->getComponent<Transform>(e);
 
