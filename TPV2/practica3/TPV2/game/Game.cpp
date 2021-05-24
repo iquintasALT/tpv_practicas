@@ -8,7 +8,6 @@
 #include "../sdlutils/SDLUtils.h"
 #include "../utils/Vector2D.h"
 
-#include "../systems/BallSystem.h"
 #include "../systems/CollisionSystem.h"
 #include "../systems/GameManagerSystem.h"
 #include "../systems/NetworkSystem.h"
@@ -19,8 +18,7 @@
 Game::Game() {
 	mngr_.reset(new Manager());
 	networkSys_ = nullptr;
-	ballSys_ = nullptr;
-	paddlesSys_ = nullptr;
+	fighterSys_ = nullptr;
 	collisionSys_ = nullptr;
 	gameMngrSys_ = nullptr;
 	renderSys_ = nullptr;
@@ -36,12 +34,11 @@ void Game::init(const char *host, Uint16 port) {
 	std::cout << "Enter you name: ";
 	std::cin >> playerName;
 
-	SDLUtils::init("Ping Pong", 800, 600,
+	SDLUtils::init("Fighterz", 800, 600,
 			"./resources/config/resources.json");
 
 	networkSys_ = mngr_->addSystem<NetworkSystem>(host, port, playerName);
-	ballSys_ = mngr_->addSystem<BallSystem>();
-	paddlesSys_ = mngr_->addSystem<FighterSystem>();
+	fighterSys_ = mngr_->addSystem<FighterSystem>();
 	collisionSys_ = mngr_->addSystem<CollisionSystem>();
 	gameMngrSys_ = mngr_->addSystem<GameManagerSystem>();
 	renderSys_ = mngr_->addSystem<RenderSystem>();
@@ -68,8 +65,7 @@ void Game::start() {
 
 		mngr_->refresh();
 
-		ballSys_->update();
-		paddlesSys_->update();
+		fighterSys_->update();
 		collisionSys_->update();
 		gameMngrSys_->update();
 		bulletSys_->update();

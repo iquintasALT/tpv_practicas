@@ -17,8 +17,7 @@ public:
 	void start();
 private:
 	std::unique_ptr<Manager> mngr_;
-	System *ballSys_;
-	System *paddlesSys_;
+	System *fighterSys_;
 	System *collisionSys_;
 	System *gameMngrSys_;
 	System *renderSys_;

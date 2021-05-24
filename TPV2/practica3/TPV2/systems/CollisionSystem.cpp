@@ -9,7 +9,6 @@
 
 #include "../components/Transform.h"
 
-#include "BallSystem.h"
 #include "GameManagerSystem.h"
 #include "NetworkSystem.h"
 
@@ -56,8 +55,8 @@ void CollisionSystem::update() {
 		// change the direction of the ball, and increment the speed
 		ballTr_->vel_.setX(-ballTr_->vel_.getX());
 		ballTr_->vel_ = ballTr_->vel_ * 1.2f;
-		manager_->getSystem<NetworkSystem>()->sendBallInfo(ballTr_->pos_,
-				ballTr_->vel_);
+		/*manager_->getSystem<NetworkSystem>()->sendBallInfo(ballTr_->pos_,
+				ballTr_->vel_);*/
 
 		// play some sound
 		paddleHit_->play();
@@ -65,11 +64,11 @@ void CollisionSystem::update() {
 	} else if (ballTr_->pos_.getX() < 0) {
 		manager_->getSystem<GameManagerSystem>()->onBallExit(
 				GameManagerSystem::LEFT);
-		manager_->getSystem<BallSystem>()->resetBall();
+		//manager_->getSystem<BallSystem>()->resetBall();
 	} else if (ballTr_->pos_.getX() + ballTr_->width_ > sdlutils().width()) {
 		manager_->getSystem<GameManagerSystem>()->onBallExit(
 				GameManagerSystem::RIGHT);
-		manager_->getSystem<BallSystem>()->resetBall();
+		//manager_->getSystem<BallSystem>()->resetBall();
 	}
 
 }

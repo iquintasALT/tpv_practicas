@@ -28,7 +28,6 @@
     <ClCompile Include="sdlutils\SoundEffect.cpp" />
     <ClCompile Include="sdlutils\Texture.cpp" />
     <ClCompile Include="systems\AsteroidsSystem.cpp" />
-    <ClCompile Include="systems\BallSystem.cpp" />
     <ClCompile Include="systems\BulletsSystem.cpp" />
     <ClCompile Include="systems\CollisionSystem.cpp" />
     <ClCompile Include="systems\CollisionsSystem.cpp" />
@@ -64,7 +63,6 @@
     <ClInclude Include="sdlutils\Texture.h" />
     <ClInclude Include="sdlutils\VirtualTimer.h" />
     <ClInclude Include="systems\AsteroidsSystem.h" />
-    <ClInclude Include="systems\BallSystem.h" />
     <ClInclude Include="systems\BulletsSystem.h" />
     <ClInclude Include="systems\CollisionSystem.h" />
     <ClInclude Include="systems\CollisionsSystem.h" />

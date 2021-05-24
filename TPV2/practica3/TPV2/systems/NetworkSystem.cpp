@@ -4,7 +4,6 @@
 
 #include "../ecs/Manager.h"
 
-#include "BallSystem.h"
 #include "GameManagerSystem.h"
 #include "FighterSystem.h"
 #include "BulletsSystem.h"
@@ -191,15 +190,6 @@ void NetworkSystem::update() {
 			break;
 		}
 
-		case _BALL_INFO_: {
-			BallInfoMsg *m = static_cast<BallInfoMsg*>(m_);
-			Vector2D pos(m->pos_x, m->pos_y);
-			Vector2D vel(m->vel_x, m->vel_y);
-			manager_->getSystem<BallSystem>()->setBallInfo(pos, vel);
-
-			break;
-		}
-
 		case _DISCONNECTED_: {
 			DissConnectMsg *m = static_cast<DissConnectMsg*>(m_);
 			isGameReady_ = false;
@@ -283,27 +273,6 @@ void NetworkSystem::sendStateChanged(Uint8 state, Uint8 left_score,
 	// send the message
 	SDLNet_UDP_Send(conn_, -1, p_);
 
-}
-
-void NetworkSystem::sendBallInfo(Vector2D pos, Vector2D vel) {
-	// if the other player is not connected do nothing
-	if (!isGameReady_)
-		return;
-
-	// we prepare a message that includes all information
-	BallInfoMsg *m = static_cast<BallInfoMsg*>(m_);
-	m->_type = _BALL_INFO_;
-	m->pos_x = pos.getX();
-	m->pos_y = pos.getY();
-	m->vel_x = vel.getX();
-	m->vel_y = vel.getY();
-
-	// set the message length and the address of the other player
-	p_->len = sizeof(BallInfoMsg);
-	p_->address = otherPlayerAddress_;
-
-	// send the message
-	SDLNet_UDP_Send(conn_, -1, p_);
 }
 
 void NetworkSystem::sendShoot()

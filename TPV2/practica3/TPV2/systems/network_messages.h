@@ -11,7 +11,6 @@ enum MsgType : uint8_nt {
 	_PADDLE_POS, //
 	_START_GAME_REQUEST_,
 	_STATE_CHANGED_, //
-	_BALL_INFO_, //
 	_DISCONNECTED_, //
 	_ACTIVE_, //
 	_SHOOT_
@@ -39,13 +38,6 @@ struct PaddlePositionMsg: NetworkMessage {
 	uint8_nt id;
 	float32_nt x;
 	float32_nt y;
-};
-
-struct BallInfoMsg: NetworkMessage {
-	float32_nt pos_x;
-	float32_nt pos_y;
-	float32_nt vel_x;
-	float32_nt vel_y;
 };
 
 struct StateChangedMessage: NetworkMessage {
