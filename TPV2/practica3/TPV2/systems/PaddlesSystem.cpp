@@ -5,11 +5,14 @@
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
 
-#include "../components/PaddleCtrlKeys.h"
 #include "../components/Transform.h"
 #include "../components/Image.h"
+#include "../components/FighterCtrlKeys.h"
 
 #include "NetworkSystem.h"
+#include "GameManagerSystem.h"
+
+#include "network_messages.h"
 
 PaddlesSystem::PaddlesSystem() :
 		leftFighter_(nullptr), //
@@ -58,31 +61,64 @@ void PaddlesSystem::update() {
 
 void PaddlesSystem::movePaddle(Entity *e) {
 
-	auto tr_ = manager_->getComponent<Transform>(e);
+	auto player_tr_ = manager_->getComponent<Transform>(e);
 	auto keys = manager_->getComponent<FighterCtrlKeys>(e);
 
-	if (ih().keyDownEvent()) {
-		if (ih().isKeyDown(SDL_SCANCODE_UP)) {
-			tr_->vel_.setY(-keys->speed_);
-		} else if (ih().isKeyDown(SDL_SCANCODE_DOWN)) {
-			tr_->vel_.setY(keys->speed_);
-		} else if (ih().isKeyDown(SDL_SCANCODE_STOP)) {
-			tr_->vel_.setY(0.0f);
+	if (manager_->getSystem<GameManagerSystem>()->getState() == GameManagerSystem::RUNNING) {
+		if (ih().keyDownEvent()) {
+			if (ih().isKeyDown(SDL_SCANCODE_UP)) { // impulso
+				auto& vel = player_tr_->vel_;
+				auto newVel = vel + (Vector2D(0, -1).rotate(player_tr_->rotation_)).normalize() * thrust;
+				// si se pasa del limite de veocidad, establecemos este como nueva velocidad
+				vel.set((newVel.magnitude() > speedLimit) ?
+					(Vector2D(0, -1).rotate(player_tr_->rotation_)).normalize() * speedLimit : newVel);
+
+				//thrust_sfx_->play(); // sonido de impulso
+			}
+			else if (ih().isKeyDown(SDL_SCANCODE_LEFT)) { // rotacion izquierda
+				player_tr_->rotation_ = player_tr_->rotation_ - 5.0f;
+			}
+			else if (ih().isKeyDown(SDL_SCANCODE_RIGHT)) { // rotacion derecha
+				player_tr_->rotation_ = player_tr_->rotation_ + 5.0f;
+			}
+
+			if (ih().isKeyDown(SDLK_s) && sdlutils().currRealTime() - msToNextBullet > nextBullet) { // shoot
+
+				//???
+				/*Message msg = Message(MsgId::SHOOT_BULLET);
+				msg.bData.pos = player_tr_->pos_; msg.bData.vel = player_tr_->vel_;
+				msg.bData.rot = player_tr_->rotation_; msg.bData.width = player_tr_->width_;
+				msg.bData.height = player_tr_->height_;
+				manager_->send(msg);*/
+
+				msToNextBullet = sdlutils().currRealTime();
+			}
 		}
+
+		player_tr_->pos_ = player_tr_->pos_ + player_tr_->vel_;
+		player_tr_->vel_ = player_tr_->vel_ * deAcceleration;
+
+		fighterToroidalMove(e);
 	}
 
-	tr_->pos_ = tr_->pos_ + tr_->vel_;
+	manager_->getSystem<NetworkSystem>()->sendPaddlePosition(player_tr_->pos_);
 
-	if (tr_->pos_.getY() < 0) {
-		tr_->pos_.setY(0);
-		tr_->vel_.setY(0);
-	} else if (tr_->pos_.getY() + tr_->height_ > sdlutils().height()) {
-		tr_->pos_.setY(sdlutils().height() - tr_->height_);
-		tr_->vel_.setY(0);
-	}
+}
 
-	manager_->getSystem<NetworkSystem>()->sendPaddlePosition(tr_->pos_);
+void PaddlesSystem::fighterToroidalMove(Entity* e)
+{
+	auto player_tr_ = manager_->getComponent<Transform>(e);
+	//toroidal en el eje X (fluido)
+	if (player_tr_->pos_.getX() > sdlutils().width())
+		player_tr_->pos_.setX(0 - player_tr_->width_);
+	else if (player_tr_->pos_.getX() + player_tr_->width_ < 0)
+		player_tr_->pos_.setX(sdlutils().width());
 
+	//toroidal en el eje Y (fluido)
+	if (player_tr_->pos_.getY() > sdlutils().height())
+		player_tr_->pos_.setY(0 - player_tr_->height_);
+	else if (player_tr_->pos_.getY() + player_tr_->height_ < 0)
+		player_tr_->pos_.setY(sdlutils().height());
 }
 
 void PaddlesSystem::setPaddlePosition(Uint8 id, Vector2D pos) {
