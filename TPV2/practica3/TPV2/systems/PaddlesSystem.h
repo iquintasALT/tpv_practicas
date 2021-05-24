@@ -17,8 +17,14 @@ public:
 	void setPaddlePosition(Uint8 id, Vector2D pos);
 private:
 	void movePaddle(Entity *e);
+	void fighterToroidalMove(Entity* e);
 
 	Entity *leftFighter_;
 	Entity *rightFighter_;
+	const float thrust = 0.2f, speedLimit = 3.0f;
+	const float deAcceleration = 0.995f;
+
+	const int nextBullet = 250; // in ms
+	int msToNextBullet;
 };
 
