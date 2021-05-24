@@ -38,6 +38,7 @@ void RenderSystem::update() {
 	drawFighter(rightFighterTr_, rightFighterImg_);
 
 	drawScore();
+	drawHand();
 	drawMsgs();
 	drawNames();
 }
@@ -69,7 +70,7 @@ void RenderSystem::drawHand() {
 
 		auto& t = sdlutils().images().at("hand");
 		t.render((myId == 0 ? leftFighterTr_->pos_.getX() : rightFighterTr_->pos_.getX()),
-			(myId == 0 ? leftFighterTr_->pos_.getY() : rightFighterTr_->pos_.getY()));
+			(myId == 0 ? leftFighterTr_->pos_.getY() - 65 : rightFighterTr_->pos_.getY() - 65));
 	}
 }
 
