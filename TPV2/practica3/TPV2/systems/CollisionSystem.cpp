@@ -35,16 +35,16 @@ void CollisionSystem::update() {
 	for (int i = 0; i < manager_->getEntities().size(); i++) {
 		auto entity = entities[i];
 		auto bullet_tr = manager_->getComponent<Transform>(entity);
-		if (manager_->hasGroup<LeftBullet>(entity)) {
+		if (manager_->hasGroup<LeftBullet>(entity)) { // si el derecho ha sido disparado
 			if (Collisions::collides(rightFighterTr_->pos_, rightFighterTr_->width_, rightFighterTr_->height_,
 				bullet_tr->pos_, bullet_tr->width_, bullet_tr->height_)) {
-				manager_->getSystem<GameManagerSystem>()->onCollision(GameManagerSystem::RIGHT_FIGHTER); // right fighter
+				manager_->getSystem<GameManagerSystem>()->onCollision(GameManagerSystem::LEFT_FIGHTER); // left fighter adds score
 			}
 		}
-		else if (manager_->hasGroup<RightBullet>(entity)) {
+		else if (manager_->hasGroup<RightBullet>(entity)) { // si el izquierdo ha sido disparado
 			if (Collisions::collides(leftFighterTr_->pos_, leftFighterTr_->width_, leftFighterTr_->height_,
 				bullet_tr->pos_, bullet_tr->width_, bullet_tr->height_)) {
-				manager_->getSystem<GameManagerSystem>()->onCollision(GameManagerSystem::LEFT_FIGHTER); // left fighter
+				manager_->getSystem<GameManagerSystem>()->onCollision(GameManagerSystem::RIGHT_FIGHTER); // right fighter adds score
 			}
 		}
 	}
