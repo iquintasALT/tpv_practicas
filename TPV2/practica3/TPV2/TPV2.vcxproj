@@ -29,8 +29,6 @@
     <ClCompile Include="sdlutils\Texture.cpp" />
     <ClCompile Include="systems\BulletsSystem.cpp" />
     <ClCompile Include="systems\CollisionSystem.cpp" />
-    <ClCompile Include="systems\CollisionsSystem.cpp" />
-    <ClCompile Include="systems\GameCtrlSystem.cpp" />
     <ClCompile Include="systems\GameManagerSystem.cpp" />
     <ClCompile Include="systems\NetworkSystem.cpp" />
     <ClCompile Include="systems\FighterSystem.cpp" />
@@ -63,8 +61,6 @@
     <ClInclude Include="sdlutils\VirtualTimer.h" />
     <ClInclude Include="systems\BulletsSystem.h" />
     <ClInclude Include="systems\CollisionSystem.h" />
-    <ClInclude Include="systems\CollisionsSystem.h" />
-    <ClInclude Include="systems\GameCtrlSystem.h" />
     <ClInclude Include="systems\GameManagerSystem.h" />
     <ClInclude Include="systems\NetworkSystem.h" />
     <ClInclude Include="systems\network_types.h" />
