@@ -14,7 +14,8 @@ public:
 	void update() override;
 
 	// used to set the paddle position of the other layer
-	void setFighterPosition(Uint8 id, Vector2D pos, float rot);
+	void setPositionFighter(Uint8 id, Vector2D pos, float rot);
+	void resetFighterPosition();
 
 private:
 	void moveFighter(Entity *e);
@@ -26,6 +27,6 @@ private:
 	const float deAcceleration = 0.995f;
 
 	const int nextBullet = 250; // in ms
-	int msToNextBullet;
+	int msToNextBullet = 0;
 };
 

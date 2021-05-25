@@ -27,11 +27,11 @@ public:
 		return isGameReady_;
 	}
 
-	void sendFighterMovement(Vector2D pos, float rot);
 	void sendStartGameRequest();
 	void sendStateChanged(Uint8 state, Uint8 left_score, Uint8 right_score);
-	//void sendBallInfo(Vector2D pos, Vector2D vel);
+	void sendFighterMovement(Vector2D pos, float rot);
 	void sendShoot();
+	void sendCollision(Uint8 state, Uint8 left_score, Uint8 right_score);
 
 	auto& getNames() {
 		return names_;

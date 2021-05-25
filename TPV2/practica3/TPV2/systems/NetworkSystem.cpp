@@ -149,8 +149,7 @@ void NetworkSystem::update() {
 			if (isMaster_ && !isGameReady_) {
 				PlayRequestMsg *m = static_cast<PlayRequestMsg*>(m_);
 				otherPlayerAddress_ = p_->address;
-				remotePlayerName_ = std::string(
-						reinterpret_cast<char*>(m->name));
+				remotePlayerName_ = std::string(reinterpret_cast<char*>(m->name));
 				names_[1 - id_] = remotePlayerName_;
 				WelcomeMsg *mr = static_cast<WelcomeMsg*>(m_);
 
@@ -186,7 +185,21 @@ void NetworkSystem::update() {
 		case _FIGHTER_MOV_: {
 			FighterMovementMsg *m = static_cast<FighterMovementMsg*>(m_);
 			Vector2D pos(m->x, m->y);
-			manager_->getSystem<FighterSystem>()->setFighterPosition(m->id, pos, m->rot);
+			manager_->getSystem<FighterSystem>()->setPositionFighter(m->id, pos, m->rot);
+			break;
+		}
+
+		case _SHOOT_: {
+			ShootMessage* m = static_cast<ShootMessage*>(m_);
+			manager_->getSystem<BulletsSystem>()->shoot(m->id);
+			break;
+		}
+
+		case _COLLIDES_: {
+			StateChangedMessage* m = static_cast<StateChangedMessage*>(m_);
+			manager_->getSystem<BulletsSystem>()->resetBullets();
+			manager_->getSystem<FighterSystem>()->resetFighterPosition();
+			manager_->getSystem<GameManagerSystem>()->changeState(m->state_, m->left_score_, m->right_score_);
 			break;
 		}
 
@@ -203,12 +216,6 @@ void NetworkSystem::update() {
 
 			break;
 		}
-
-		case _SHOOT_: {
-			ShootMessage* m = static_cast<ShootMessage*>(m_);
-			manager_->getSystem<BulletsSystem>()->shoot(m->id);
-			break;
-		}
 		}
 	}
 
@@ -222,29 +229,6 @@ void NetworkSystem::update() {
 			isMaster_ = true;
 		}
 	}
-
-}
-
-void NetworkSystem::sendFighterMovement(Vector2D pos, float rot) {
-
-	// if the other player is not connected do nothing
-	if (!isGameReady_)
-		return;
-
-	// we prepare a message that includes all information
-	FighterMovementMsg *m = static_cast<FighterMovementMsg*>(m_);
-	m->_type = _FIGHTER_MOV_;
-	m->x = pos.getX();
-	m->y = pos.getY();
-	m->rot = rot;
-	m->id = id_;
-
-	// set the message length and the address of the other player
-	p_->len = sizeof(FighterMovementMsg);
-	p_->address = otherPlayerAddress_;
-
-	// send the message
-	SDLNet_UDP_Send(conn_, -1, p_);
 }
 
 void NetworkSystem::sendStartGameRequest() {
@@ -273,7 +257,28 @@ void NetworkSystem::sendStateChanged(Uint8 state, Uint8 left_score,
 
 	// send the message
 	SDLNet_UDP_Send(conn_, -1, p_);
+}
 
+void NetworkSystem::sendFighterMovement(Vector2D pos, float rot) {
+
+	// if the other player is not connected do nothing
+	if (!isGameReady_)
+		return;
+
+	// we prepare a message that includes all information
+	FighterMovementMsg *m = static_cast<FighterMovementMsg*>(m_);
+	m->_type = _FIGHTER_MOV_;
+	m->x = pos.getX();
+	m->y = pos.getY();
+	m->rot = rot;
+	m->id = id_;
+
+	// set the message length and the address of the other player
+	p_->len = sizeof(FighterMovementMsg);
+	p_->address = otherPlayerAddress_;
+
+	// send the message
+	SDLNet_UDP_Send(conn_, -1, p_);
 }
 
 void NetworkSystem::sendShoot()
@@ -289,6 +294,27 @@ void NetworkSystem::sendShoot()
 
 	// set the message length and the address of the other player
 	p_->len = sizeof(ShootMessage);
+	p_->address = otherPlayerAddress_;
+
+	// send the message
+	SDLNet_UDP_Send(conn_, -1, p_);
+}
+
+void NetworkSystem::sendCollision(Uint8 state, Uint8 left_score, Uint8 right_score)
+{
+	// if the other player is not connected do nothing
+	if (!isGameReady_)
+		return;
+
+	// we prepare a message that includes all information
+	StateChangedMessage* m = static_cast<StateChangedMessage*>(m_);
+	m->_type = _COLLIDES_;
+	m->state_ = state;
+	m->left_score_ = left_score;
+	m->right_score_ = right_score;
+
+	// set the message length and the address of the other player
+	p_->len = sizeof(StateChangedMessage);
 	p_->address = otherPlayerAddress_;
 
 	// send the message

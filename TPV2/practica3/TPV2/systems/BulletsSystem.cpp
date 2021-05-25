@@ -28,6 +28,13 @@ void BulletsSystem::shoot(int id) {
 	sdlutils().soundEffects().at("fire").play(); // sonido
 }
 
+void BulletsSystem::resetBullets()
+{
+	for (auto bullet : manager_->getEntities())
+		if (manager_->hasGroup<LeftBullet>(bullet) || manager_->hasGroup<RightBullet>(bullet))
+			manager_->setActive(bullet, false);
+}
+
 void BulletsSystem::update() {
 	auto entities = manager_->getEntities();
 	for (int i = 0; i < entities.size(); ++i) {

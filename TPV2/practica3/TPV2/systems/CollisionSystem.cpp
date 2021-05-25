@@ -13,62 +13,39 @@
 #include "NetworkSystem.h"
 
 CollisionSystem::CollisionSystem() :
-		//ballTr_(nullptr), //
-		leftPaddelTr_(nullptr), //
-		rightPaddelTr_(nullptr), //
-		paddleHit_(nullptr) {
+	leftFighterTr_(nullptr), //
+	rightFighterTr_(nullptr) {}
 
-}
-
-CollisionSystem::~CollisionSystem() {
-}
+CollisionSystem::~CollisionSystem() {}
 
 void CollisionSystem::init() {
-	paddleHit_ = &sdlutils().soundEffects().at("paddle_hit");
-	//ballTr_ = manager_->getComponent<Transform>(manager_->getHandler<Ball>());
-	//assert(ballTr_ != nullptr);
-	leftPaddelTr_ = manager_->getComponent<Transform>(
-			manager_->getHandler<LeftFighter>());
-	assert(leftPaddelTr_ != nullptr);
-	rightPaddelTr_ = manager_->getComponent<Transform>(
-			manager_->getHandler<RightFighter>());
-	assert(rightPaddelTr_ != nullptr);
+	leftFighterTr_ = manager_->getComponent<Transform>(manager_->getHandler<LeftFighter>());
+	assert(leftFighterTr_ != nullptr);
+
+	rightFighterTr_ = manager_->getComponent<Transform>(manager_->getHandler<RightFighter>());
+	assert(rightFighterTr_ != nullptr);
 }
 
 void CollisionSystem::update() {
-
-	if (!manager_->getSystem<NetworkSystem>()->isMaster())
+	if (!manager_->getSystem<NetworkSystem>()->isMaster() ||
+		manager_->getSystem<GameManagerSystem>()->getState() != GameManagerSystem::RUNNING)
 		return;
 
-	if (manager_->getSystem<GameManagerSystem>()->getState()
-			!= GameManagerSystem::RUNNING)
-		return;
-
-	//// check if ball hits paddles
-	//if (Collisions::collides(leftPaddelTr_->pos_, leftPaddelTr_->width_,
-	//		leftPaddelTr_->height_, ballTr_->pos_, ballTr_->width_,
-	//		ballTr_->height_)
-	//		|| Collisions::collides(rightPaddelTr_->pos_,
-	//				rightPaddelTr_->width_, rightPaddelTr_->height_,
-	//				ballTr_->pos_, ballTr_->width_, ballTr_->height_)) {
-
-	//	// change the direction of the ball, and increment the speed
-	//	ballTr_->vel_.setX(-ballTr_->vel_.getX());
-	//	ballTr_->vel_ = ballTr_->vel_ * 1.2f;
-	//	/*manager_->getSystem<NetworkSystem>()->sendBallInfo(ballTr_->pos_,
-	//			ballTr_->vel_);*/
-
-	//	// play some sound
-	//	paddleHit_->play();
-
-	//} else if (ballTr_->pos_.getX() < 0) {
-	//	manager_->getSystem<GameManagerSystem>()->onBallExit(
-	//			GameManagerSystem::LEFT);
-	//	//manager_->getSystem<BallSystem>()->resetBall();
-	//} else if (ballTr_->pos_.getX() + ballTr_->width_ > sdlutils().width()) {
-	//	manager_->getSystem<GameManagerSystem>()->onBallExit(
-	//			GameManagerSystem::RIGHT);
-	//	//manager_->getSystem<BallSystem>()->resetBall();
-	//}
-
+	auto entities = manager_->getEntities();
+	for (int i = 0; i < manager_->getEntities().size(); i++) {
+		auto entity = entities[i];
+		auto bullet_tr = manager_->getComponent<Transform>(entity);
+		if (manager_->hasGroup<LeftBullet>(entity)) {
+			if (Collisions::collides(rightFighterTr_->pos_, rightFighterTr_->width_, rightFighterTr_->height_,
+				bullet_tr->pos_, bullet_tr->width_, bullet_tr->height_)) {
+				manager_->getSystem<GameManagerSystem>()->onCollision(GameManagerSystem::RIGHT_FIGHTER); // right fighter
+			}
+		}
+		else if (manager_->hasGroup<RightBullet>(entity)) {
+			if (Collisions::collides(leftFighterTr_->pos_, leftFighterTr_->width_, leftFighterTr_->height_,
+				bullet_tr->pos_, bullet_tr->width_, bullet_tr->height_)) {
+				manager_->getSystem<GameManagerSystem>()->onCollision(GameManagerSystem::LEFT_FIGHTER); // left fighter
+			}
+		}
+	}
 }

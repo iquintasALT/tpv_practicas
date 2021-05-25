@@ -17,11 +17,10 @@ public:
 	//metodo para disparar una bala
 	void shoot(int id_);
 
+	// metodo de reseteo de balas
+	void resetBullets();
+
 private:
 	const float bulletH = 20.0f, bulletW = 5.0f;
 	bool isRunning = false;
-	
-	
-	//metodo llamado cuando se produce una colision con un asteroide
-	void onCollisionWithAsteroid(Entity* b, Entity* a);
 };

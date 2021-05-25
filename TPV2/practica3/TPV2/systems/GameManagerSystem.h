@@ -6,39 +6,33 @@
 
 struct Transform;
 
-class GameManagerSystem: public System {
+class GameManagerSystem : public System {
 public:
-
-	enum GameSate : Uint8 {
-		NEWGAME = 0, // just before starting a new game
-		PAUSED, // between rounds
-		RUNNING, // playing
-		GAMEOVER // game over
+	enum GameState : Uint8 {
+		NEWGAME,   // just before starting a new game
+		PAUSED,    // between rounds
+		RUNNING,   // playing
+		GAMEOVER   // game over
 	};
 
-	enum Side {
-		LEFT = 0, //
-		RIGHT
+	enum FighterType : Uint8 {
+		LEFT_FIGHTER,
+		RIGHT_FIGHTER
 	};
-
 
 	GameManagerSystem();
 	virtual ~GameManagerSystem();
 
-	Uint8 getState() {
-		return state_;
-	}
+	Uint8 getState() { return state_; }
+	const auto& getScore() { return score_; }
 
-	const auto& getScore() {
-		return score_;
-	}
-
-	//void onBallExit(Side side);
-	void startGame();
-	void changeState(Uint8 state, Uint8 left_score, Uint8 right_score);
-	void resetGame();
 	void init() override;
 	void update() override;
+	
+	void startGame();
+	void changeState(Uint8 state, Uint8 left_score, Uint8 right_score);
+	void onCollision(Uint8 id);
+	void resetGame();
 
 private:
 	std::array<Uint8, 2> score_;
