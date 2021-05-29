@@ -28,10 +28,10 @@ NetworkSystem::~NetworkSystem() {
 
 	//
 	if (conn_) {
-		DissConnectMsg *m = static_cast<DissConnectMsg*>(m_);
+		DisconnectMsg *m = static_cast<DisconnectMsg*>(m_);
 		m->_type = _DISCONNECTED_;
 		m->id = id_;
-		p_->len = sizeof(DissConnectMsg);
+		p_->len = sizeof(DisconnectMsg);
 		p_->address = otherPlayerAddress_;
 		SDLNet_UDP_Send(conn_, -1, p_);
 	}
@@ -198,16 +198,16 @@ void NetworkSystem::update() {
 		case _COLLIDES_: {
 			StateChangedMessage* m = static_cast<StateChangedMessage*>(m_);
 			std::cout << (int)m->left_score_ << " " << (int)m->right_score_ << std::endl;
+			manager_->getSystem<GameManagerSystem>()->changeState(m->state_, m->left_score_, m->right_score_);
 			manager_->getSystem<BulletsSystem>()->resetBullets();
 			manager_->getSystem<FighterSystem>()->resetFighterPosition();
-			manager_->getSystem<GameManagerSystem>()->changeState(m->state_, m->left_score_, m->right_score_);
 			break;
 		}
 
 		case _DISCONNECTED_: {
-			DissConnectMsg *m = static_cast<DissConnectMsg*>(m_);
+			DisconnectMsg *m = static_cast<DisconnectMsg*>(m_);
 			isGameReady_ = false;
-			names_[1 - m->id] = remotePlayerName_ = "N/A";
+			names_[m->id] = remotePlayerName_ = "N/A";
 			manager_->getSystem<GameManagerSystem>()->resetGame();
 			if (!isMaster_) {
 				SDLNet_UDP_Close(conn_);

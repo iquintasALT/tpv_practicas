@@ -22,7 +22,7 @@ struct NetworkMessage {
 	uint8_nt _type;
 };
 
-struct DissConnectMsg : NetworkMessage {
+struct DisconnectMsg : NetworkMessage {
 	uint8_nt id;
 };
 
