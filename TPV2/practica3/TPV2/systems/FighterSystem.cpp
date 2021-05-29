@@ -60,21 +60,24 @@ void FighterSystem::moveFighter(Entity* e) {
 			else if (ih().isKeyDown(SDL_SCANCODE_RIGHT)) { // rotacion derecha
 				player_tr_->rotation_ = player_tr_->rotation_ + 5.0f;
 			}
-
-			if (ih().isKeyDown(SDLK_s) && sdlutils().currRealTime() - msToNextBullet > nextBullet) { // shoot
-				manager_->getSystem<BulletsSystem>()->shoot(manager_->getSystem<NetworkSystem>()->getId());
-				manager_->getSystem<NetworkSystem>()->sendShoot();
-				msToNextBullet = sdlutils().currRealTime();
-			}
 		}
 
 		player_tr_->pos_ = player_tr_->pos_ + player_tr_->vel_;
 		player_tr_->vel_ = player_tr_->vel_ * deAcceleration;
 
 		fighterToroidalMove(e);
+		manager_->getSystem<NetworkSystem>()->sendFighterMovement(player_tr_->pos_, player_tr_->rotation_);
+
+		// fighter gun
+		if (ih().keyDownEvent()) {
+			if (ih().isKeyDown(SDLK_s) && sdlutils().currRealTime() - msToNextBullet > nextBullet) { // shoot
+				manager_->getSystem<BulletsSystem>()->shoot(manager_->getSystem<NetworkSystem>()->getId());
+				manager_->getSystem<NetworkSystem>()->sendShoot();
+				msToNextBullet = sdlutils().currRealTime();
+			}
+		}
 	}
 
-	manager_->getSystem<NetworkSystem>()->sendFighterMovement(player_tr_->pos_, player_tr_->rotation_);
 }
 
 void FighterSystem::fighterToroidalMove(Entity* e)
@@ -99,6 +102,7 @@ void FighterSystem::setPositionFighter(Uint8 id, Vector2D pos, float rot) {
 	auto tr_ = manager_->getComponent<Transform>(e);
 	tr_->pos_ = pos;
 	tr_->rotation_ = rot;
+	tr_->vel_ = Vector2D();
 }
 
 void FighterSystem::resetFighterPosition() {
@@ -109,6 +113,7 @@ void FighterSystem::resetFighterPosition() {
 	tr_->pos_ = (id == 0) ? Vector2D(10.0, sdlutils().height() / 2.0f - 25.0f) :
 		Vector2D(sdlutils().width() - 50.0f - 10.0f, sdlutils().height() / 2.0f - 25.0f);
 	tr_->rotation_ = 0;
+	tr_->vel_ = Vector2D();
 
 	manager_->getSystem<NetworkSystem>()->sendFighterMovement(tr_->pos_, tr_->rotation_);
 }
