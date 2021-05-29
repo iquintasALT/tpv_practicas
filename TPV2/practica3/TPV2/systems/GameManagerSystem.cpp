@@ -65,12 +65,12 @@ void GameManagerSystem::resetGame() {
 }
 
 void GameManagerSystem::onCollision(Uint8 id) {
-	manager_->getSystem<BulletsSystem>()->resetBullets();
-	manager_->getSystem<FighterSystem>()->resetFighterPosition();
-
 	score_[id]++;
 	changeState((score_[LEFT_FIGHTER] > 2 || score_[RIGHT_FIGHTER] > 2) ? GAMEOVER : PAUSED,
 		score_[LEFT_FIGHTER], score_[RIGHT_FIGHTER]);
 
 	manager_->getSystem<NetworkSystem>()->sendCollision(state_, score_[LEFT_FIGHTER], score_[RIGHT_FIGHTER]);
+
+	manager_->getSystem<BulletsSystem>()->resetBullets();
+	manager_->getSystem<FighterSystem>()->resetFighterPosition();
 }

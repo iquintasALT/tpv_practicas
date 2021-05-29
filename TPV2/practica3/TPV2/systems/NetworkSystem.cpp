@@ -197,7 +197,9 @@ void NetworkSystem::update() {
 
 		case _COLLIDES_: {
 			StateChangedMessage* m = static_cast<StateChangedMessage*>(m_);
-			std::cout << (int)m->left_score_ << " " << (int)m->right_score_ << std::endl;
+			//Se tiene que actualizar la puntacion antes porque en caso contrario ocurre un error con las puntuaciones
+			//tras mandarse un mensaje en resetFighterPosition(). Lo que ocurre es que la puntuacion del right_fighter
+			//pasa a ser 57
 			manager_->getSystem<GameManagerSystem>()->changeState(m->state_, m->left_score_, m->right_score_);
 			manager_->getSystem<BulletsSystem>()->resetBullets();
 			manager_->getSystem<FighterSystem>()->resetFighterPosition();
