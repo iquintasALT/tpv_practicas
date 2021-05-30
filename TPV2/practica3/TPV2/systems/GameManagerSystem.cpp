@@ -73,4 +73,5 @@ void GameManagerSystem::onCollision(Uint8 id) {
 
 	manager_->getSystem<BulletsSystem>()->resetBullets();
 	manager_->getSystem<FighterSystem>()->resetFighterPosition();
+	sdlutils().soundEffects().at("explosion").play();
 }

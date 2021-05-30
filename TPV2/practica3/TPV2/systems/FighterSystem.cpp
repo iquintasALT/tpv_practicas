@@ -20,14 +20,14 @@ FighterSystem::~FighterSystem() {}
 void FighterSystem::init() {
 	leftFighter_ = manager_->addEntity();
 	manager_->addComponent<Transform>(leftFighter_, Vector2D(10.0, sdlutils().height() / 2.0f - 25.0f), Vector2D(),
-		50.0f, 50.0f, 0.0f);
+		50.0f, 50.0f, 90.0f);
 	manager_->addComponent<Image>(leftFighter_, &sdlutils().images().at("fighter1"));
 	manager_->addComponent<FighterCtrlKeys>(leftFighter_, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN, SDL_SCANCODE_SPACE, 5.0f);
 	manager_->setHandler<LeftFighter>(leftFighter_);
 
 	rightFighter_ = manager_->addEntity();
 	manager_->addComponent<Transform>(rightFighter_, Vector2D(sdlutils().width() - 50.0f - 10.0f, sdlutils().height() / 2.0f - 25.0f),
-		Vector2D(), 50.0f, 50.0f, 0.0f);
+		Vector2D(), 50.0f, 50.0f, 270.0f);
 	manager_->addComponent<Image>(rightFighter_, &sdlutils().images().at("fighter2"));
 	manager_->addComponent<FighterCtrlKeys>(rightFighter_, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN, SDL_SCANCODE_SPACE, 5.0f);
 	manager_->setHandler<RightFighter>(rightFighter_);
@@ -112,7 +112,7 @@ void FighterSystem::resetFighterPosition() {
 	auto tr_ = manager_->getComponent<Transform>(e);
 	tr_->pos_ = (id == 0) ? Vector2D(10.0, sdlutils().height() / 2.0f - 25.0f) :
 		Vector2D(sdlutils().width() - 50.0f - 10.0f, sdlutils().height() / 2.0f - 25.0f);
-	tr_->rotation_ = 0;
+	tr_->rotation_ = (id == 0) ? 90.0f : 270.0f;
 	tr_->vel_ = Vector2D();
 
 	manager_->getSystem<NetworkSystem>()->sendFighterMovement(tr_->pos_, tr_->rotation_);
