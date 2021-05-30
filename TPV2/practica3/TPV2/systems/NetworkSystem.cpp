@@ -166,7 +166,7 @@ void NetworkSystem::update() {
 			break;
 		}
 
-			// start game request
+			// comienza la partida
 		case _START_GAME_REQUEST_: {
 			if (isMaster_) {
 				manager_->getSystem<GameManagerSystem>()->startGame();
@@ -174,6 +174,7 @@ void NetworkSystem::update() {
 			break;
 		}
 
+			// se actualiza puntuaciones y estado
 		case _STATE_CHANGED_: {
 			StateChangedMessage *m = static_cast<StateChangedMessage*>(m_);
 			manager_->getSystem<GameManagerSystem>()->changeState(m->state_,
@@ -181,32 +182,32 @@ void NetworkSystem::update() {
 			break;
 		}
 
-			// change paddle position of other player
+			// se actualiza posicion del caza de la otra ventana
 		case _FIGHTER_MOV_: {
 			FighterMovementMsg *m = static_cast<FighterMovementMsg*>(m_);
 			Vector2D pos(m->x, m->y);
 			manager_->getSystem<FighterSystem>()->setPositionFighter(m->id, pos, m->rot);
 			break;
 		}
-
+			// el otro usuario dispara una bala
 		case _SHOOT_: {
 			ShootMessage* m = static_cast<ShootMessage*>(m_);
 			manager_->getSystem<BulletsSystem>()->shoot(m->id);
 			break;
 		}
-
+			// el otro usuario produce una colision
 		case _COLLIDES_: {
 			StateChangedMessage* m = static_cast<StateChangedMessage*>(m_);
-			//Se tiene que actualizar la puntacion antes porque en caso contrario ocurre un error con las puntuaciones
-			//tras mandarse un mensaje en resetFighterPosition(). Lo que ocurre es que la puntuacion del right_fighter
-			//pasa a ser 57
+			// Se tiene que actualizar la puntacion antes porque en caso contrario ocurre un error con las puntuaciones
+			// tras mandarse un mensaje en resetFighterPosition(). Lo que ocurre es que las puntuaciones deja de corresponderse
+			// con lo que viene en el mensaje
 			manager_->getSystem<GameManagerSystem>()->changeState(m->state_, m->left_score_, m->right_score_);
 			manager_->getSystem<BulletsSystem>()->resetBullets();
 			manager_->getSystem<FighterSystem>()->resetFighterPosition();
 			sdlutils().soundEffects().at("explosion").play();
 			break;
 		}
-
+			// el otro usuario se desconecta (se envia desde la destructora de NetworkSystem)
 		case _DISCONNECTED_: {
 			DisconnectMsg *m = static_cast<DisconnectMsg*>(m_);
 			isGameReady_ = false;
@@ -217,7 +218,6 @@ void NetworkSystem::update() {
 				conn_ = SDLNet_UDP_Open(port_);
 				isMaster_ = true;
 			}
-
 			break;
 		}
 		}

@@ -18,6 +18,7 @@ FighterSystem::FighterSystem() : leftFighter_(nullptr), rightFighter_(nullptr) {
 FighterSystem::~FighterSystem() {}
 
 void FighterSystem::init() {
+	//caza izquierdo
 	leftFighter_ = manager_->addEntity();
 	manager_->addComponent<Transform>(leftFighter_, Vector2D(10.0, sdlutils().height() / 2.0f - 25.0f), Vector2D(),
 		50.0f, 50.0f, 90.0f);
@@ -25,6 +26,7 @@ void FighterSystem::init() {
 	manager_->addComponent<FighterCtrlKeys>(leftFighter_, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN, SDL_SCANCODE_SPACE, 5.0f);
 	manager_->setHandler<LeftFighter>(leftFighter_);
 
+	//caza derecho
 	rightFighter_ = manager_->addEntity();
 	manager_->addComponent<Transform>(rightFighter_, Vector2D(sdlutils().width() - 50.0f - 10.0f, sdlutils().height() / 2.0f - 25.0f),
 		Vector2D(), 50.0f, 50.0f, 270.0f);
@@ -34,7 +36,7 @@ void FighterSystem::init() {
 }
 
 void FighterSystem::update() {
-	// move you paddle only
+	// elegimos el caza dependiendo del id de cada usuario
 	Uint8 myId = manager_->getSystem<NetworkSystem>()->getId();
 	moveFighter((myId == 0 ? leftFighter_ : rightFighter_));
 }
@@ -66,9 +68,12 @@ void FighterSystem::moveFighter(Entity* e) {
 		player_tr_->vel_ = player_tr_->vel_ * deAcceleration;
 
 		fighterToroidalMove(e);
+		// se manda un mensaje para actualizar la posicion del jugador en la otra pantalla
 		manager_->getSystem<NetworkSystem>()->sendFighterMovement(player_tr_->pos_, player_tr_->rotation_);
 
 		// fighter gun
+		// este mensaje se envia despues del mensaje de actualizar el caza porque como hacemos el metodo cogiendo el transform
+		// del caza utilizando su id, si en la otra pantalla no se ha actualizado aun, la bala sale en una posicion incorrecta
 		if (ih().keyDownEvent()) {
 			if (ih().isKeyDown(SDLK_s) && sdlutils().currRealTime() - msToNextBullet > nextBullet) { // shoot
 				manager_->getSystem<BulletsSystem>()->shoot(manager_->getSystem<NetworkSystem>()->getId());
@@ -96,6 +101,7 @@ void FighterSystem::fighterToroidalMove(Entity* e)
 		player_tr_->pos_.setY(sdlutils().height());
 }
 
+// se actualiza la posicion del caza cuando se mueve (llamado tras recibir un mensaje del otro usuario)
 void FighterSystem::setPositionFighter(Uint8 id, Vector2D pos, float rot) {
 	Entity* e = (id == 0) ? leftFighter_ : rightFighter_;
 
@@ -105,6 +111,7 @@ void FighterSystem::setPositionFighter(Uint8 id, Vector2D pos, float rot) {
 	tr_->vel_ = Vector2D();
 }
 
+// se resetea el caza tras colision de bala
 void FighterSystem::resetFighterPosition() {
 	Uint8 id = manager_->getSystem<NetworkSystem>()->getId();
 	Entity* e = (id == 0) ? leftFighter_ : rightFighter_;
@@ -115,5 +122,6 @@ void FighterSystem::resetFighterPosition() {
 	tr_->rotation_ = (id == 0) ? 90.0f : 270.0f;
 	tr_->vel_ = Vector2D();
 
+	// se envia un mensaje para resetear la posicion en la otra ventana
 	manager_->getSystem<NetworkSystem>()->sendFighterMovement(tr_->pos_, tr_->rotation_);
 }

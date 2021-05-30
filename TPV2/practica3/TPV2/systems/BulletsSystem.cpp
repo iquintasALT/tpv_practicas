@@ -3,7 +3,9 @@
 #include "../components/Transform.h"
 #include "../components/Image.h"
 
+//metodo para disparar una bala
 void BulletsSystem::shoot(int id) {
+	// se escoge el caza segun la id y se accede a su transform
 	Transform* pl_tr = (id == 0 ? manager_->getComponent<Transform>(manager_->getHandler<LeftFighter>()) : 
 		manager_->getComponent<Transform>(manager_->getHandler<RightFighter>()));
 
@@ -22,12 +24,14 @@ void BulletsSystem::shoot(int id) {
 	
 	manager_->addComponent<Image>(bullet, (id == 0 ? &sdlutils().images().at("bullet") : &sdlutils().images().at("bullet2")));
 
+	// se establece un grupo dependiendo del id
 	if (id == 0) manager_->setGroup<LeftBullet>(bullet, true);
 	else manager_->setGroup<RightBullet>(bullet, true);
 
 	sdlutils().soundEffects().at("fire").play(); // sonido
 }
 
+// metodo para desactivar las balas al terminar una ronda
 void BulletsSystem::resetBullets()
 {
 	for (auto bullet : manager_->getEntities())

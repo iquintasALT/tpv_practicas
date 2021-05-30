@@ -9,10 +9,10 @@ struct Transform;
 class GameManagerSystem : public System {
 public:
 	enum GameState : Uint8 {
-		NEWGAME,   // just before starting a new game
-		PAUSED,    // between rounds
-		RUNNING,   // playing
-		GAMEOVER   // game over
+		NEWGAME,   // nueva partida
+		PAUSED,    // entre rondas
+		RUNNING,   // jugando
+		GAMEOVER   // se termina la partida
 	};
 
 	enum FighterType : Uint8 {

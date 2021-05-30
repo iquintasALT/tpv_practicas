@@ -37,11 +37,11 @@ void RenderSystem::update() {
 	drawFighter(leftFighterTr_, leftFighterImg_);
 	drawFighter(rightFighterTr_, rightFighterImg_);
 
-	drawScore();
-	drawHand();
-	drawBullets();
-	drawMsgs();
-	drawNames();
+	drawScore(); // puntuacion
+	drawHand(); // icono de que caza controla el usuario
+	drawBullets(); // balas
+	drawMsgs(); // mensajes de cada estado
+	drawNames(); // nombre de cada usuario
 }
 
 void RenderSystem::drawFighter(Transform* tr, Image* img) {
@@ -78,7 +78,7 @@ void RenderSystem::drawHand() {
 void RenderSystem::drawScore() {
 	auto& score_ = manager_->getSystem<GameManagerSystem>()->getScore();
 
-	// score
+	// puntuacion
 	Texture scoreMsg(sdlutils().renderer(), std::to_string(score_[0]) + " - " + std::to_string(score_[1]),
 		sdlutils().fonts().at("ARIAL16"), build_sdlcolor(0xffffffff));
 	scoreMsg.render((sdlutils().width() - scoreMsg.width()) / 2, 10);
@@ -86,21 +86,22 @@ void RenderSystem::drawScore() {
 
 void RenderSystem::drawMsgs() {
 	auto state_ = manager_->getSystem<GameManagerSystem>()->getState();
-	// message when game is not running
+	// mensajes solo aparecen cuando no se esta jugando
 	if (state_ != GameManagerSystem::RUNNING) {
-		// game over message
+		// mensaje de fin de juego
 		if (state_ == GameManagerSystem::GAMEOVER) {
 			auto& t = sdlutils().msgs().at("gameover");
 			t.render((sdlutils().width() - t.width()) / 2,
 				(sdlutils().height() - t.height()) / 2 - 50);
 		}
 
-		// new game message
+		// mensaje de nueva partida
 		if (state_ == GameManagerSystem::NEWGAME) {
 			auto& t = sdlutils().msgs().at("start");
 			t.render((sdlutils().width() - t.width()) / 2,
 				sdlutils().height() / 2 + t.height() * 2);
 		}
+		// mensaje de continuar la partida
 		else {
 			auto& t = sdlutils().msgs().at("continue");
 			t.render((sdlutils().width() - t.width()) / 2,
@@ -109,13 +110,13 @@ void RenderSystem::drawMsgs() {
 
 		auto myId = manager_->getSystem<NetworkSystem>()->getId();
 
-		// draw player side message
+		// mensaje de en que lado esta jugando el usuario
 		Texture side(sdlutils().renderer(), (myId == 0 ? "You are playing left" : "You are playing right"),
 			sdlutils().fonts().at("ARIAL16"), build_sdlcolor(0xffffffff));
 		side.render((sdlutils().width() - side.width()) / 2,
 			sdlutils().height() - side.height() - 2 * side.height() - 10);
 
-		// draw switch side message
+		// mensaje que indica con que tecla se cambia de lado
 		auto isMaster = manager_->getSystem<NetworkSystem>()->isMaster();
 		auto isGameReady = manager_->getSystem<NetworkSystem>()->isGameReady();
 
@@ -131,15 +132,15 @@ void RenderSystem::drawMsgs() {
 void RenderSystem::drawNames() {
 	auto& names_ = manager_->getSystem<NetworkSystem>()->getNames();
 
-	// name of player 0
+	// nombre del jugador 0
 	Texture name_0(sdlutils().renderer(), names_[0], sdlutils().fonts().at("ARIAL16"), build_sdlcolor(0xffffffff));
 	name_0.render(10, 10);
 
-	// name of player 1
+	// nombre del jugador 1
 	Texture name_1(sdlutils().renderer(), names_[1], sdlutils().fonts().at("ARIAL16"), build_sdlcolor(0xffffffff));
 	name_1.render(sdlutils().width() - name_1.width() - 10, 10);
 
-	// draw a star next to the master name
+	// se dibuja una "estrella" al lado del nombre del master
 	auto isMaster = manager_->getSystem<NetworkSystem>()->isMaster();
 	auto myId = manager_->getSystem<NetworkSystem>()->getId();
 

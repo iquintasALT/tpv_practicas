@@ -13,7 +13,6 @@ public:
 	void init() override;
 	void update() override;
 
-	// used to set the paddle position of the other layer
 	void setPositionFighter(Uint8 id, Vector2D pos, float rot);
 	void resetFighterPosition();
 

@@ -14,10 +14,8 @@ class BulletsSystem : public System {
 public:
 	void update() override;
 
-	//metodo para disparar una bala
 	void shoot(int id_);
 
-	// metodo de reseteo de balas
 	void resetBullets();
 
 private:

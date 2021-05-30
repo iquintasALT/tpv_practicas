@@ -16,6 +16,7 @@ GameManagerSystem::~GameManagerSystem() {}
 
 void GameManagerSystem::init() {}
 
+// maquina de estados
 void GameManagerSystem::update() {
 	if (state_ != RUNNING) {
 		if (ih().isKeyDown(SDL_SCANCODE_SPACE)) {
@@ -34,6 +35,7 @@ void GameManagerSystem::update() {
 				break;
 			}
 		}
+		// cambio de lugar 
 		else if (ih().isKeyDown(SDL_SCANCODE_P)) {
 			manager_->getSystem<NetworkSystem>()->switchId();
 		}
@@ -64,14 +66,18 @@ void GameManagerSystem::resetGame() {
 	score_[0] = score_[1] = 0;
 }
 
+// metodo llamado por el master cuando se produce una colision
 void GameManagerSystem::onCollision(Uint8 id) {
 	score_[id]++;
+	// se actualiza la puntuacion
 	changeState((score_[LEFT_FIGHTER] > 2 || score_[RIGHT_FIGHTER] > 2) ? GAMEOVER : PAUSED,
 		score_[LEFT_FIGHTER], score_[RIGHT_FIGHTER]);
 
+	// mensaje para gestionar la colision en la otra ventana
 	manager_->getSystem<NetworkSystem>()->sendCollision(state_, score_[LEFT_FIGHTER], score_[RIGHT_FIGHTER]);
 
+	// se resetea posiciones y balas
 	manager_->getSystem<BulletsSystem>()->resetBullets();
 	manager_->getSystem<FighterSystem>()->resetFighterPosition();
-	sdlutils().soundEffects().at("explosion").play();
+	sdlutils().soundEffects().at("explosion").play(); //sonido
 }
